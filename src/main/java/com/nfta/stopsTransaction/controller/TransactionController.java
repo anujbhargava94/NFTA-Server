@@ -11,7 +11,7 @@ import com.google.gson.Gson;
 import com.nfta.stopsTransaction.model.StopTransactions;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/transaction")
 public class TransactionController {
 
 //	@RequestMapping(value = "/transaction", method = RequestMethod.GET)
