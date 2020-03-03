@@ -80,16 +80,16 @@ public class StopTransactions {
 	@Column(nullable = false)
 	private Boolean system_map;
 	
-	@OneToOne(mappedBy = "stoptransactions")
+	@OneToOne
 	@JoinColumn(name = "request_id")
 	private ServiceRequest work_request;
  
-	public ServiceRequest getWork_request() {
-		return work_request;
-	}
-	public void setWork_request(ServiceRequest work_request) {
-		this.work_request = work_request;
-	}
+//	public ServiceRequest getWork_request() {
+//		return work_request;
+//	}
+//	public void setWork_request(ServiceRequest work_request) {
+//		this.work_request = work_request;
+//	}
 	//	@OneToOne(mappedBy = "admin_user")
 //	@JoinColumn(name = "admin_id")
 //	private AdminUser admin_user;
