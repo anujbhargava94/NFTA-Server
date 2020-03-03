@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class Route {
 
 	  @Id
-	  @GeneratedValue(strategy=GenerationType.AUTO)
+	  //@GeneratedValue(strategy=GenerationType.AUTO)
 	  private Integer routeid;
 	  private String routeInfo;
 
