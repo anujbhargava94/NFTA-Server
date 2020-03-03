@@ -17,7 +17,7 @@ import com.nfta.stopsTransaction.model.SearchFilters;
 import com.nfta.stopsTransaction.model.StopTransactions;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/transaction")
 public class TransactionController {
 
 	@RequestMapping(value = "/transaction", method = RequestMethod.GET)
