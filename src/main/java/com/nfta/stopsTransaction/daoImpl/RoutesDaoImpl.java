@@ -2,9 +2,12 @@ package com.nfta.stopsTransaction.daoImpl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.nfta.stopsTransaction.dao.RoutesDao;
 import com.nfta.stopsTransaction.model.Route;
 
+@Component
 public class RoutesDaoImpl implements RoutesDao{
 
 	@Override

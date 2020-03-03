@@ -1,8 +1,12 @@
 package com.nfta.stopsTransaction.dao;
 
 import java.util.List;
+
+import org.springframework.stereotype.Component;
+
 import com.nfta.stopsTransaction.model.Route;
 
+@Component
 public interface RoutesDao {
 	public List<Route> getRoutes();
     public int save(Route t);

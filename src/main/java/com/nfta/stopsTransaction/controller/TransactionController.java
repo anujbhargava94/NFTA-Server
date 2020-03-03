@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
-import com.ir.twilytics.model.FacetsParam;
+//import com.ir.twilytics.model.FacetsParam;
 import com.nfta.stopsTransaction.model.SearchFilters;
 import com.nfta.stopsTransaction.model.StopTransactions;
 

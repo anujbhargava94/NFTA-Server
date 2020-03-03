@@ -25,7 +25,6 @@ public class RouteController {
 			List<Route> routelist = new ArrayList<>();
 		try {
 			routelist = routeService.getRoutes();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
