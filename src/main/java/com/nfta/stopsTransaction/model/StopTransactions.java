@@ -2,6 +2,7 @@ package com.nfta.stopsTransaction.model;
 
 import java.sql.Blob;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -78,10 +79,18 @@ public class StopTransactions {
 	private Boolean time_table;
 	@Column(nullable = false)
 	private Boolean system_map;
-	@OneToOne(mappedBy = "service_requests")
-	@Column(name = "request_id")
+	
+	@OneToOne(mappedBy = "stoptransactions")
+	@JoinColumn(name = "request_id")
 	private ServiceRequest work_request;
-//	@OneToOne(mappedBy = "admin_user")
+ 
+	public ServiceRequest getWork_request() {
+		return work_request;
+	}
+	public void setWork_request(ServiceRequest work_request) {
+		this.work_request = work_request;
+	}
+	//	@OneToOne(mappedBy = "admin_user")
 //	@JoinColumn(name = "admin_id")
 //	private AdminUser admin_user;
 	private Blob[] photo;
