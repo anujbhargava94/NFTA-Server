@@ -21,7 +21,6 @@ public class StopsTransactionApplication {
 		SpringApplication.run(StopsTransactionApplication.class, args);
 	}
 	
-	
 	@Bean
 	@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
 	public TransactionService getQueryBuilder()
