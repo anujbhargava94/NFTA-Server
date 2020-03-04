@@ -26,14 +26,8 @@ public class ServiceRequest {
 	  private Integer stopId;
 	  private String additional_information;
 	  private String status;
-//	  @OneToOne
-//	  private StopTransactions stoptransactions;
-//	public StopTransactions getStoptransactions() {
-//		return stoptransactions;
-//	}
-//	public void setStoptransactions(StopTransactions stoptransactions) {
-//		this.stoptransactions = stoptransactions;
-//	}
+	  private String request_type;
+
 	  
 	  
 	 
