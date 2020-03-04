@@ -2,6 +2,8 @@ package com.nfta.stopsTransaction.model;
 
 import org.springframework.stereotype.Component;
 
+import lombok.Data;
+
 @Component
 public class SearchFilters {
 	
@@ -11,40 +13,74 @@ public class SearchFilters {
 	private String county;
 	private String dateFrom;
 	private String dateTo;
+	private String requestType;
+	private String status;
+	
+	
 	public String getStopID() {
 		return stopID;
 	}
+
 	public void setStopID(String stopID) {
 		this.stopID = stopID;
 	}
+
 	public String getLocation() {
 		return location;
 	}
+
 	public void setLocation(String location) {
 		this.location = location;
 	}
+
 	public String getDirection() {
 		return direction;
 	}
+
 	public void setDirection(String direction) {
 		this.direction = direction;
 	}
-	public String getCountry() {
-		return county;
-	}
-	public void setCountry(String country) {
-		this.county = country;
-	}
+
+
 	public String getDateFrom() {
 		return dateFrom;
 	}
+
 	public void setDateFrom(String dateFrom) {
 		this.dateFrom = dateFrom;
 	}
+
 	public String getDateTo() {
 		return dateTo;
 	}
+
 	public void setDateTo(String dateTo) {
 		this.dateTo = dateTo;
 	}
+
+	public String getCounty() {
+		return county;
+	}
+
+	public void setCounty(String county) {
+		this.county = county;
+	}
+
+	public String getRequestType() {
+		return requestType;
+	}
+
+	public void setRequestType(String requestType) {
+		this.requestType = requestType;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	
 }

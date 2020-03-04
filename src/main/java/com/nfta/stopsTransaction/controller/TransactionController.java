@@ -30,21 +30,26 @@ public class TransactionController {
 	SearchFilters searchFilters;
 
 	@RequestMapping(value = "/transaction", method = RequestMethod.GET)
-	public @ResponseBody String getTransactions(@RequestParam(value ="id", required = false) String stopId,
-			@RequestParam(value ="location", required = false) String location, @RequestParam(value ="direction", required = false) String direction,
-			@RequestParam(value ="country", required = false) String country, @RequestParam(value ="dateFrom", required = false) String dateFrom,
-			@RequestParam(value ="dateTo", required = false) String dateTo) {
+	public @ResponseBody String getTransactions(@RequestParam(value = "id", required = false) String stopId,
+			@RequestParam(value = "location", required = false) String location,
+			@RequestParam(value = "direction", required = false) String direction,
+			@RequestParam(value = "country", required = false) String country,
+			@RequestParam(value = "datefrom", required = false) String dateFrom,
+			@RequestParam(value = "dateto", required = false) String dateTo,
+			@RequestParam(value = "type", required = false) String requestType,
+			@RequestParam(value = "status", required = false) String status) {
 		List<StopTransactions> list = new ArrayList<>();
 		try {
 
-			setSearchFilter(stopId, location, direction, country, dateFrom, dateTo);
+			setSearchFilter(stopId, location, direction, country, dateFrom, dateTo, requestType, status);
 			list = service.getTransactions(searchFilters);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		Gson jsonString = new Gson();
 		return jsonString.toJson(list);
-		//return new ResponseEntity<List<StopTransactions>>(list, new HttpHeaders(), HttpStatus.OK);
+		// return new ResponseEntity<List<StopTransactions>>(list, new HttpHeaders(),
+		// HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/transactions", method = RequestMethod.GET)
@@ -57,7 +62,8 @@ public class TransactionController {
 		}
 		Gson jsonString = new Gson();
 		return jsonString.toJson(list);
-		//return new ResponseEntity<List<StopTransactions>>(list, new HttpHeaders(), HttpStatus.OK);
+		// return new ResponseEntity<List<StopTransactions>>(list, new HttpHeaders(),
+		// HttpStatus.OK);
 	}
 
 	/**
@@ -80,13 +86,15 @@ public class TransactionController {
 	}
 
 	private void setSearchFilter(String stopId, String location, String direction, String country, String dateFrom,
-			String dateTo) {
-		searchFilters.setCountry(country);
+			String dateTo, String requestType, String status) {
+		searchFilters.setCounty(country);
 		searchFilters.setDateFrom(dateFrom);
 		searchFilters.setDateTo(dateTo);
 		searchFilters.setDirection(direction);
 		searchFilters.setLocation(location);
 		searchFilters.setStopID(stopId);
+		searchFilters.setStatus(status);
+		searchFilters.setRequestType(requestType);
 	}
 
 }

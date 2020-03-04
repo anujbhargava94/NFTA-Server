@@ -23,8 +23,8 @@ public class TransactionsDaoImpl implements TransactionsDao {
 
 	@PersistenceContext
 	private EntityManager em;
-	
-	//SQL injection
+
+	// SQL injection
 
 	@Override
 	public List<StopTransactions> get(SearchFilters filters) {
@@ -35,8 +35,8 @@ public class TransactionsDaoImpl implements TransactionsDao {
 		Root<StopTransactions> stop = cq.from(StopTransactions.class);
 		List<Predicate> predicates = new ArrayList<>();
 
-		if (Objects.nonNull(filters.getCountry())) {
-			predicates.add(cb.like(stop.get("country"), "%" + filters.getCountry() + "%"));
+		if (Objects.nonNull(filters.getCounty())) {
+			predicates.add(cb.like(stop.get("country"), "%" + filters.getCounty() + "%"));
 		}
 		if (Objects.nonNull(filters.getDirection())) {
 			predicates.add(cb.like(stop.get("direction"), "%" + filters.getDirection() + "%"));
@@ -45,10 +45,16 @@ public class TransactionsDaoImpl implements TransactionsDao {
 			predicates.add(cb.like(stop.get("location"), "%" + filters.getLocation() + "%"));
 		}
 		if (Objects.nonNull(filters.getStopID())) {
-			predicates.add(cb.like(stop.get("stop_id"), "%" + filters.getStopID() + "%"));
+			predicates.add(cb.equal(stop.get("stop_id"), filters.getStopID()));
 		}
 		if (Objects.nonNull(filters.getDateFrom())) {
 			predicates.add(cb.between(stop.get("date_time"), filters.getDateFrom(), filters.getDateTo()));
+		}
+		if (Objects.nonNull(filters.getStatus())) {
+			predicates.add(cb.equal(stop.get("status"), filters.getStatus()));
+		}
+		if (Objects.nonNull(filters.getRequestType())) {
+			predicates.add(cb.equal(stop.get("request_type"), filters.getRequestType()));
 		}
 		cq.where(predicates.toArray(new Predicate[0]));
 
@@ -65,7 +71,7 @@ public class TransactionsDaoImpl implements TransactionsDao {
 		CriteriaQuery<StopTransactions> all = cq.select(stop);
 		TypedQuery<StopTransactions> allQuery = em.createQuery(all);
 		return allQuery.getResultList();
-		//return em.createQuery("SELECT r FROM StopTransactions r").getResultList();
+		// return em.createQuery("SELECT r FROM StopTransactions r").getResultList();
 	}
 
 	@Override
