@@ -1,5 +1,6 @@
 package com.nfta.stopsTransaction.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,10 +13,15 @@ import com.google.gson.Gson;
 import com.nfta.stopsTransaction.model.SearchFilters;
 
 import com.nfta.stopsTransaction.model.StopTransactions;
+import com.nfta.stopsTransaction.service.TransactionService;
 
 @RestController
 public class TransactionController {
 
+	@Autowired
+	TransactionService service;
+	
+	
 //	@RequestMapping(value = "/transaction", method = RequestMethod.GET)
 //	public @ResponseBody String getTransactions(@RequestParam("name") String stopName,
 //			@RequestParam("id") String stopId, @RequestParam("location") String location,
@@ -42,24 +48,49 @@ public class TransactionController {
 //		Gson jsonString = new Gson();
 //		return jsonString.toJson();
 //	}
-//
-//	/**
-//	 * 
-//	 * It can handle add and update both need to decide further on functionalities
-//	 * 
-//	 * @param stopTransaction
-//	 * @return
-//	 */
-//	@RequestMapping(value = "/add", method = RequestMethod.POST)
-//	public @ResponseBody String addTransaction(@RequestBody StopTransactions stopTransaction) {
-//
-//		try {
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		Gson jsonString = new Gson();
-//		return jsonString.toJson();
-//	}
 
+	/**
+	 * 
+	 * It can handle add and update both need to decide further on functionalities
+	 * 
+	 * @param stopTransaction
+	 * @return
+	 */
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public @ResponseBody boolean addTransaction(@RequestBody StopTransactions stopTransaction) {
+		boolean status=true;
+		try {
+			//if(stopTransaction.)
+			status=service.addOrUpdate(stopTransaction);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return status;
+	}
+
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public @ResponseBody boolean updateTransaction(@RequestBody StopTransactions stopTransaction) {
+
+		boolean status=true;
+		try {
+			//if(stopTransaction.)
+			status=service.addOrUpdate(stopTransaction);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return status;
+	}
+	
+	@RequestMapping(value = "/updateTransaction", method = RequestMethod.POST)
+	public @ResponseBody boolean updateTransactionAdmin(@RequestBody StopTransactions stopTransaction) {
+
+		boolean status=true;
+		try {
+			//if(stopTransaction.)
+			status=service.updateAdmin(stopTransaction);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return status;
+	}
 }

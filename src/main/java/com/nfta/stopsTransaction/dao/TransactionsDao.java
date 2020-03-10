@@ -12,7 +12,7 @@ public interface TransactionsDao {
 	
 	public List<StopTransactions> get(SearchFilters filters);
     public List<StopTransactions> getAll();
-    public int save(StopTransactions t);
-    public void update(StopTransactions t);
+    public boolean addOrUpdate(StopTransactions stopTransaction);
+    public boolean updateAdmin(StopTransactions stopTransaction);
     public void delete(StopTransactions t);
 }

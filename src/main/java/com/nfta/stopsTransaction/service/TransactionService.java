@@ -6,5 +6,7 @@ import com.nfta.stopsTransaction.model.StopTransactions;
 public interface TransactionService {
 	
 	public StopTransactions getTransaction(SearchFilters searchFilters);
+	public boolean addOrUpdate(StopTransactions stopTransaction);
+	public boolean updateAdmin(StopTransactions stopTransaction);
 
 }
