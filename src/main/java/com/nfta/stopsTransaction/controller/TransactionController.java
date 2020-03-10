@@ -11,7 +11,6 @@ import com.google.gson.Gson;
 import com.nfta.stopsTransaction.model.StopTransactions;
 
 @RestController
-@RequestMapping("/transaction")
 public class TransactionController {
 
 //	@RequestMapping(value = "/transaction", method = RequestMethod.GET)
@@ -29,7 +28,7 @@ public class TransactionController {
 //		return jsonString.toJson();
 //	}
 //
-//	@RequestMapping(value = "/transactions", method = RequestMethod.GET)
+	@RequestMapping(value = "/transactions", method = RequestMethod.GET)
 //	public @ResponseBody String getTransactions() {
 //
 //		try {
