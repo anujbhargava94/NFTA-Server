@@ -9,3 +9,4 @@ target/classes/**
 *.class
 */target/*
 */target/**.class
+.factorypath
