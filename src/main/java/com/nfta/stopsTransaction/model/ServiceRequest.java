@@ -35,16 +35,6 @@ public class ServiceRequest {
 	  
 	 
 	}
-//	Date	
-//	AdminUserID
-//	RequestedUser
-//	Location	
-//	Direction	
-//	Routes	
-//	Reason	
-//	Stop ID
-//	Additional Information
-//	Status
 
 
 
