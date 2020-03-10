@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
+
+import com.nfta.stopsTransaction.model.SearchFilters;
+
 import com.nfta.stopsTransaction.model.StopTransactions;
 
 @RestController
@@ -28,7 +31,7 @@ public class TransactionController {
 //		return jsonString.toJson();
 //	}
 //
-	@RequestMapping(value = "/transactions", method = RequestMethod.GET)
+//	@RequestMapping(value = "/transactions", method = RequestMethod.GET)
 //	public @ResponseBody String getTransactions() {
 //
 //		try {
