@@ -2,21 +2,35 @@ package com.nfta.stopsTransaction.daoImpl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import com.nfta.stopsTransaction.dao.RoutesDao;
 import com.nfta.stopsTransaction.model.Route;
 
-public class RoutesDaoImpl implements RoutesDao{
 
+@Service
+@Transactional
+public class RoutesDaoImpl implements RoutesDao{
+	@PersistenceContext
+	private EntityManager em;
+	
 	@Override
 	public List<Route> getRoutes() {
 		// TODO Auto-generated method stub
-		return null;
+		return em.createQuery("SELECT r FROM Route r").getResultList();
 	}
 
 	@Override
-	public int save(Route t) {
+	public boolean save(Route t) {
 		// TODO Auto-generated method stub
-		return 0;
+		em.persist(t);
+		return true;
 	}
 
 	@Override
