@@ -8,17 +8,17 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-//@Entity
-//@Data
-//@Table(name = "route_listed")
+@Entity
+@Data
+@Table(name = "route_listed")
 public class RouteListed {
-//	@Id
-//	@OneToOne(mappedBy = "Route")
-//	@JoinColumn(name = "route_id")
-//	private Route route;
-//	@Id
-//	@OneToOne(mappedBy = "stop_transactions")
-//	@JoinColumn(name = "request_id")
-//	private StopTransactions stopTransactions;
+	@Id
+	@OneToOne(mappedBy = "Route")
+	@JoinColumn(name = "route_id")
+	private Route route;
+	@Id
+	@OneToOne(mappedBy = "stop_transactions")
+	@JoinColumn(name = "request_id")
+	private StopTransactions stopTransactions;
 
 }
