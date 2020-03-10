@@ -17,31 +17,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "stop_transactions")
-public class StopTransactions {
-//	"TransactionNo" serial NOT NULL,
-//	"RequestID" serial NOT NULL,
-//	"DeviceID" integer NOT NULL,
-//	"AdminID" integer NOT NULL,
-//	"StopId" integer NOT NULL,
-//	"Direction" VARCHAR(255) NOT NULL,
-//	"StreetOn" VARCHAR(255),
-//	"NearestCrossStreet" VARCHAR(255),
-//	"Position" VARCHAR(255),
-//	"FastenedTo" VARCHAR(255),
-//	"Latitude" VARCHAR(255),
-//	"Longitude" VARCHAR(255),
-//	"County" VARCHAR(255) NOT NULL,
-//	"DateTime" DATETIME NOT NULL,
-//	"Status" VARCHAR(255) NOT NULL,
-//	"Shelter" BOOLEAN,
-//	"Advertisement" BOOLEAN,
-//	"Bench" BOOLEAN,
-//	"BikeRack" BOOLEAN,
-//	"TrashCan" BOOLEAN,
-//	"TimeTable" BOOLEAN,
-//	"System Map" BOOLEAN,
-//	"Photo" bytea,
-	
+public class StopTransactions {	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "transaction_no")
@@ -61,10 +37,8 @@ public class StopTransactions {
 	private String longitude;
 	@Column(nullable = false)
 	private String county;
-//	@Column(nullable = false)
-//	private DateTimeFormat date_time;
 	@Column(nullable = false)
-    private String status;
+    	private String status;
 	@Column(nullable = false)
 	private Boolean shelter;
 	@Column(nullable = false)
@@ -84,10 +58,6 @@ public class StopTransactions {
 	@JoinColumn(name = "request_id")
 	private ServiceRequest work_request;
  
-
-	//	@OneToOne(mappedBy = "admin_user")
-//	@JoinColumn(name = "admin_id")
-//	private AdminUser admin_user;
 	private Blob[] photo;
 
 }
