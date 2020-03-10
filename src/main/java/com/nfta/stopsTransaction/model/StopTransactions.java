@@ -18,6 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "stop_transactions")
+
 public class StopTransactions implements Serializable{	
 	/**
 	 * 
@@ -41,6 +42,7 @@ public class StopTransactions implements Serializable{
 	private String fastened_to;
 	private String latitude;
 	private String longitude;
+	private String location;
 	@Column(nullable = false)
 	private String county;
 	@Column(nullable = false)
@@ -64,6 +66,5 @@ public class StopTransactions implements Serializable{
 	@JoinColumn(name = "request_id")
 	private ServiceRequest work_request;
  
-	private Blob[] photo;
-
+	//private Blob[] photo;
 }
