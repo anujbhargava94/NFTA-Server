@@ -10,3 +10,4 @@ target/classes/**
 */target/*
 */target/**.class
 .factorypath
+src/main/resources/application.properties
