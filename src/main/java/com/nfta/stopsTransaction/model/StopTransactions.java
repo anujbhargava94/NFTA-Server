@@ -1,5 +1,6 @@
 package com.nfta.stopsTransaction.model;
 
+import java.io.Serializable;
 import java.sql.Blob;
 
 import javax.persistence.CascadeType;
@@ -17,7 +18,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "stop_transactions")
-public class StopTransactions {	
+public class StopTransactions implements Serializable{	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8600502014954931750L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "transaction_no")

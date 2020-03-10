@@ -1,5 +1,7 @@
 package com.nfta.stopsTransaction.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -11,14 +13,20 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "route_listed")
-public class RouteListed {
+public class RouteListed implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3558177490510690235L;
+
 	@Id
-	@OneToOne(mappedBy = "Route")
+	@OneToOne
 	@JoinColumn(name = "route_id")
 	private Route route;
+	
 	@Id
-	@OneToOne(mappedBy = "stop_transactions")
-	@JoinColumn(name = "request_id")
+	@OneToOne
+	@JoinColumn(name = "transaction_no")
 	private StopTransactions stopTransactions;
 
 }

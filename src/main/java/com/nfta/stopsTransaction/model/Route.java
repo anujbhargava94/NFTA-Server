@@ -1,19 +1,27 @@
 package com.nfta.stopsTransaction.model;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity // This tells Hibernate to make a table out of this class
-public class Route {
+public class Route implements Serializable{
 
-	  @Id
-	  //@GeneratedValue(strategy=GenerationType.AUTO)
-	  private Integer routeid;
-	  private String routeInfo;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -244770141752683513L;
+	@Id
+	// @GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "route_id")
+	private Integer routeid;
+	private String routeInfo;
 
-	  public Integer getRouteid() {
+	public Integer getRouteid() {
 		return routeid;
 	}
 
