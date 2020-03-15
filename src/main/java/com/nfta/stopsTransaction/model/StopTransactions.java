@@ -1,8 +1,7 @@
 package com.nfta.stopsTransaction.model;
 
-import java.sql.Blob;
+import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,12 +11,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 
 @Entity
 @Table(name = "stop_transactions")
-public class StopTransactions {	
+
+public class StopTransactions implements Serializable{	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8600502014954931750L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "transaction_no")
@@ -34,6 +37,7 @@ public class StopTransactions {
 	private String fastened_to;
 	private String latitude;
 	private String longitude;
+	private String location;
 	@Column(nullable = false)
 	private String county;
 	@Column(nullable = false)
@@ -56,13 +60,11 @@ public class StopTransactions {
 	@OneToOne
 	@JoinColumn(name = "request_id")
 	private ServiceRequest work_request;
- 
-	private Blob[] photo;
 	
 	@Column
-	private String adminComments;
+	private String admin_comments;
 	@Column
-	private String additionalInformation;
+	private String additional_information;
 
 	public Long getTransaction_no() {
 		return transaction_no;
@@ -224,30 +226,32 @@ public class StopTransactions {
 		this.work_request = work_request;
 	}
 
-	public Blob[] getPhoto() {
-		return photo;
+	public String getLocation() {
+		return location;
 	}
 
-	public void setPhoto(Blob[] photo) {
-		this.photo = photo;
+	public void setLocation(String location) {
+		this.location = location;
 	}
+
+	public String getAdmin_comments() {
+		return admin_comments;
+	}
+
+	public void setAdmin_comments(String admin_comments) {
+		this.admin_comments = admin_comments;
+	}
+
+	public String getAdditional_information() {
+		return additional_information;
+	}
+
+	public void setAdditional_information(String additional_information) {
+		this.additional_information = additional_information;
+	}
+
 	
 	
-	public String getAdminComments() {
-		return adminComments;
-	}
+	//private Blob[] photo;
 
-	public void setAdminComments(String adminComments) {
-		this.adminComments = adminComments;
-	}
-
-	public String getAdditionalInformation() {
-		return additionalInformation;
-	}
-
-	public void setAdditionalInformation(String additionalInformation) {
-		this.additionalInformation = additionalInformation;
-	}
-
-	
 }
