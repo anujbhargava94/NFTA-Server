@@ -31,14 +31,14 @@ public class TransactionServiceImpl implements TransactionService {
 	}
 
 	@Override
-	public boolean addOrUpdate(StopTransactions stopTransaction) {
+	public String addOrUpdate(StopTransactions stopTransaction) {
 		// TODO Auto-generated method stub
 		
 		return transactionsDao.addOrUpdate(stopTransaction);
 	}
 
 	@Override
-	public boolean updateAdmin(StopTransactions stopTransaction) {
+	public String updateStopsInformation(StopTransactions stopTransaction) {
 		// TODO Auto-generated method stub
 		return transactionsDao.update(stopTransaction);
 	}

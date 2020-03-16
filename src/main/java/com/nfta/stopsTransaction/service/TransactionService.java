@@ -10,8 +10,8 @@ import com.nfta.stopsTransaction.model.StopTransactions;
 @Service
 public interface TransactionService {
 	
-	public boolean addOrUpdate(StopTransactions stopTransaction);
-	public boolean updateAdmin(StopTransactions stopTransaction);
+	public String addOrUpdate(StopTransactions stopTransaction);
+	public String updateStopsInformation(StopTransactions stopTransaction);
 	public List<StopTransactions> getTransactions(SearchFilters searchFilters);
 
 	public List<StopTransactions> getAllTransactions();

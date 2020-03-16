@@ -89,40 +89,37 @@ public class TransactionController {
 	 * @return
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public @ResponseBody boolean addTransaction(@RequestBody StopTransactions stopTransaction) {
-		boolean status=true;
+	public @ResponseBody String addTransaction(@RequestBody StopTransactions stopTransaction) {
+		String s="";
 		try {
-			//if(stopTransaction.)
-			status=service.addOrUpdate(stopTransaction);
+			s=service.addOrUpdate(stopTransaction);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return status;
+		return s;
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public @ResponseBody boolean updateTransaction(@RequestBody StopTransactions stopTransaction) {
+	public @ResponseBody String updateTransaction(@RequestBody StopTransactions stopTransaction) {
 
-		boolean status=true;
+		String s="";
 		try {
-			//if(stopTransaction.)
-			status=service.addOrUpdate(stopTransaction);
+			s=service.addOrUpdate(stopTransaction);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return status;
+		return s;
 	}
 	
 	@RequestMapping(value = "/updateTransaction", method = RequestMethod.POST)
-	public @ResponseBody boolean updateTransactionAdmin(@RequestBody StopTransactions stopTransaction) {
+	public @ResponseBody String updateInformation(@RequestBody StopTransactions stopTransaction) {
 
-		boolean status=true;
+		String s="";
 		try {
-			//if(stopTransaction.)
-			status=service.updateAdmin(stopTransaction);
+			s=service.updateStopsInformation(stopTransaction);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return status;
+		return s;
 	}
 }

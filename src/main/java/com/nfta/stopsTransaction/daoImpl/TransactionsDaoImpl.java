@@ -88,22 +88,33 @@ public class TransactionsDaoImpl implements TransactionsDao{
 	}
 
 	@Override
-	public boolean addOrUpdate(StopTransactions stopTransaction) {
+	public String addOrUpdate(StopTransactions stopTransaction) {
 		// TODO Auto-generated method stub
-		em.persist(stopTransaction);
-		return true;
+		try
+		{
+			em.persist(stopTransaction);
+		}
+		catch(IllegalArgumentException e)
+		{
+			return "Illegal Argument";
+		}
+		return "";
 	}
 	
 	@Transactional
 	@Override
-	public boolean update(StopTransactions stopTransaction) {
+	public String update(StopTransactions stopTransaction) {
 		// TODO Auto-generated method stub
 		StopTransactions t =em.find(StopTransactions.class, stopTransaction.getTransaction_no());
+		if(t==null)
+		{
+			return "No such transaction exists";
+		}
 		t.setStatus(stopTransaction.getStatus());
 		t.setStop_id(stopTransaction.getStop_id());
 		t.setAdmin_comments(stopTransaction.getAdmin_comments());
 		t.setAdditional_information(stopTransaction.getAdditional_information());
-		return true;
+		return "";
 	}
 
 }
