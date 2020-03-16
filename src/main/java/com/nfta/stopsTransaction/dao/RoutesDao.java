@@ -9,7 +9,7 @@ import com.nfta.stopsTransaction.model.Route;
 @Component
 public interface RoutesDao {
 	public List<Route> getRoutes();
-    public boolean save(Route t);
+    public String save(Route t);
     public void update(Route t);
     public void delete(Route t);
 }
