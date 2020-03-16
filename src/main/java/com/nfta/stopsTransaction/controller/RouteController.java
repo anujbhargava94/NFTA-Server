@@ -33,15 +33,15 @@ public class RouteController {
 	}
 	
 	@RequestMapping(value = "route/add", method = RequestMethod.POST)
-	public @ResponseBody boolean addRoute(@RequestBody Route route) {
-		boolean status = true;
+	public @ResponseBody String addRoute(@RequestBody Route route) {
+		String s = "";
 		try {
-			status = routeService.addRoute(route);
+			s = routeService.addRoute(route);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return status;
+		return s;
 	}
 
 }

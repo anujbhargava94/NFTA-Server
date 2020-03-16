@@ -23,10 +23,24 @@ public class TransactionServiceImpl implements TransactionService {
 		return list;
 	}
 
+	
 	@Override
 	public List<StopTransactions> getAllTransactions() {
 		List<StopTransactions> list = transactionsDao.getAll();
 		return list;
+	}
+
+	@Override
+	public String addOrUpdate(StopTransactions stopTransaction) {
+		// TODO Auto-generated method stub
+		
+		return transactionsDao.addOrUpdate(stopTransaction);
+	}
+
+	@Override
+	public String updateStopsInformation(StopTransactions stopTransaction) {
+		// TODO Auto-generated method stub
+		return transactionsDao.update(stopTransaction);
 	}
 
 }

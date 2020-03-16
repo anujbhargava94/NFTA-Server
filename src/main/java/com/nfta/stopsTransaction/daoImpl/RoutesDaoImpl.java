@@ -27,10 +27,17 @@ public class RoutesDaoImpl implements RoutesDao{
 	}
 
 	@Override
-	public boolean save(Route t) {
+	public String save(Route t) {
 		// TODO Auto-generated method stub
-		em.persist(t);
-		return true;
+		try
+		{
+			em.persist(t);
+		}
+		catch(IllegalArgumentException e)
+		{
+			return "Illegal Argument";
+		}
+		return "";
 	}
 
 	@Override

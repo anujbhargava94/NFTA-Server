@@ -1,9 +1,7 @@
 package com.nfta.stopsTransaction.model;
 
 import java.io.Serializable;
-import java.sql.Blob;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Entity
@@ -32,7 +28,6 @@ public class StopTransactions implements Serializable{
 	
 	@Column(nullable = false)
 	private String device_id;
-	@Column(nullable = false)
 	private String stop_id;
 	@Column(nullable = false)
 	private String direction;
@@ -46,7 +41,7 @@ public class StopTransactions implements Serializable{
 	@Column(nullable = false)
 	private String county;
 	@Column(nullable = false)
-    	private String status;
+    private String status;
 	@Column(nullable = false)
 	private Boolean shelter;
 	@Column(nullable = false)
@@ -61,10 +56,202 @@ public class StopTransactions implements Serializable{
 	private Boolean time_table;
 	@Column(nullable = false)
 	private Boolean system_map;
-	
+
 	@OneToOne
 	@JoinColumn(name = "request_id")
 	private ServiceRequest work_request;
- 
+	
+	@Column
+	private String admin_comments;
+	@Column
+	private String additional_information;
+
+	public Long getTransaction_no() {
+		return transaction_no;
+	}
+
+	public void setTransaction_no(Long transaction_no) {
+		this.transaction_no = transaction_no;
+	}
+
+	public String getDevice_id() {
+		return device_id;
+	}
+
+	public void setDevice_id(String device_id) {
+		this.device_id = device_id;
+	}
+
+	public String getStop_id() {
+		return stop_id;
+	}
+
+	public void setStop_id(String stop_id) {
+		this.stop_id = stop_id;
+	}
+
+	public String getDirection() {
+		return direction;
+	}
+
+	public void setDirection(String direction) {
+		this.direction = direction;
+	}
+
+	public String getStreet_on() {
+		return street_on;
+	}
+
+	public void setStreet_on(String street_on) {
+		this.street_on = street_on;
+	}
+
+	public String getNearest_cross_street() {
+		return nearest_cross_street;
+	}
+
+	public void setNearest_cross_street(String nearest_cross_street) {
+		this.nearest_cross_street = nearest_cross_street;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public String getFastened_to() {
+		return fastened_to;
+	}
+
+	public void setFastened_to(String fastened_to) {
+		this.fastened_to = fastened_to;
+	}
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getCounty() {
+		return county;
+	}
+
+	public void setCounty(String county) {
+		this.county = county;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Boolean getShelter() {
+		return shelter;
+	}
+
+	public void setShelter(Boolean shelter) {
+		this.shelter = shelter;
+	}
+
+	public Boolean getAdvertisement() {
+		return advertisement;
+	}
+
+	public void setAdvertisement(Boolean advertisement) {
+		this.advertisement = advertisement;
+	}
+
+	public Boolean getBench() {
+		return bench;
+	}
+
+	public void setBench(Boolean bench) {
+		this.bench = bench;
+	}
+
+	public Boolean getBike_rack() {
+		return bike_rack;
+	}
+
+	public void setBike_rack(Boolean bike_rack) {
+		this.bike_rack = bike_rack;
+	}
+
+	public Boolean getTrash_can() {
+		return trash_can;
+	}
+
+	public void setTrash_can(Boolean trash_can) {
+		this.trash_can = trash_can;
+	}
+
+	public Boolean getTime_table() {
+		return time_table;
+	}
+
+	public void setTime_table(Boolean time_table) {
+		this.time_table = time_table;
+	}
+
+	public Boolean getSystem_map() {
+		return system_map;
+	}
+
+	public void setSystem_map(Boolean system_map) {
+		this.system_map = system_map;
+	}
+
+	public ServiceRequest getWork_request() {
+		return work_request;
+	}
+
+	public void setWork_request(ServiceRequest work_request) {
+		this.work_request = work_request;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getAdmin_comments() {
+		return admin_comments;
+	}
+
+	public void setAdmin_comments(String admin_comments) {
+		this.admin_comments = admin_comments;
+	}
+
+	public String getAdditional_information() {
+		return additional_information;
+	}
+
+	public void setAdditional_information(String additional_information) {
+		this.additional_information = additional_information;
+	}
+
+	
+	
 	//private Blob[] photo;
+
 }

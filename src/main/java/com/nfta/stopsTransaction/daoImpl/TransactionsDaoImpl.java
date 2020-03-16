@@ -12,14 +12,21 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.nfta.stopsTransaction.dao.TransactionsDao;
 import com.nfta.stopsTransaction.model.SearchFilters;
 import com.nfta.stopsTransaction.model.StopTransactions;
 
 @Component
-public class TransactionsDaoImpl implements TransactionsDao {
+@Service
+@Transactional
+public class TransactionsDaoImpl implements TransactionsDao{
 
 	@PersistenceContext
 	private EntityManager em;
@@ -75,21 +82,39 @@ public class TransactionsDaoImpl implements TransactionsDao {
 	}
 
 	@Override
-	public int save(StopTransactions t) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void update(StopTransactions t) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void delete(StopTransactions t) {
 		// TODO Auto-generated method stub
+		
+	}
 
+	@Override
+	public String addOrUpdate(StopTransactions stopTransaction) {
+		// TODO Auto-generated method stub
+		try
+		{
+			em.persist(stopTransaction);
+		}
+		catch(IllegalArgumentException e)
+		{
+			return "Illegal Argument";
+		}
+		return "";
+	}
+	
+	@Transactional
+	@Override
+	public String update(StopTransactions stopTransaction) {
+		// TODO Auto-generated method stub
+		StopTransactions t =em.find(StopTransactions.class, stopTransaction.getTransaction_no());
+		if(t==null)
+		{
+			return "No such transaction exists";
+		}
+		t.setStatus(stopTransaction.getStatus());
+		t.setStop_id(stopTransaction.getStop_id());
+		t.setAdmin_comments(stopTransaction.getAdmin_comments());
+		t.setAdditional_information(stopTransaction.getAdditional_information());
+		return "";
 	}
 
 }

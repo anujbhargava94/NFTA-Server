@@ -2,7 +2,6 @@ package com.nfta.stopsTransaction.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,18 +68,7 @@ public class TransactionController {
 	 * @param stopTransaction
 	 * @return
 	 */
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public @ResponseBody String addTransaction(@RequestBody StopTransactions stopTransaction) {
-		String json = "";
-		try {
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		Gson jsonString = new Gson();
-		return jsonString.toJson(json);
-	}
-
+	
 	private void setSearchFilter(String stopId, String location, String direction, String country, String dateFrom,
 			String dateTo, String requestType, String status) {
 		searchFilters.setCounty(country);
@@ -93,4 +81,45 @@ public class TransactionController {
 		searchFilters.setRequestType(requestType);
 	}
 
+	/**
+	 * 
+	 * It can handle add and update both need to decide further on functionalities
+	 * 
+	 * @param stopTransaction
+	 * @return
+	 */
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public @ResponseBody String addTransaction(@RequestBody StopTransactions stopTransaction) {
+		String s="";
+		try {
+			s=service.addOrUpdate(stopTransaction);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return s;
+	}
+
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public @ResponseBody String updateTransaction(@RequestBody StopTransactions stopTransaction) {
+
+		String s="";
+		try {
+			s=service.addOrUpdate(stopTransaction);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return s;
+	}
+	
+	@RequestMapping(value = "/updateTransaction", method = RequestMethod.POST)
+	public @ResponseBody String updateInformation(@RequestBody StopTransactions stopTransaction) {
+
+		String s="";
+		try {
+			s=service.updateStopsInformation(stopTransaction);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return s;
+	}
 }
