@@ -17,9 +17,9 @@ public class RouteServiceImpl implements RouteService{
 	private static List<Route> routelist = new ArrayList<Route>();
 	
 	@Override
-	public void addRoute(Route route) {
+	public String addRoute(Route route) {
 		// TODO Auto-generated method stub
-		
+		return routesDao.save(route);
 	}
 
 	@Override

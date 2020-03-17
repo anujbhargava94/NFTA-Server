@@ -20,12 +20,11 @@ public class RouteController {
 	@Autowired
 	RouteService routeService;
 	
-	@RequestMapping(value = "/routes", method = RequestMethod.GET)
+	@RequestMapping(value = "routes", method = RequestMethod.GET)
 	public @ResponseBody String getRoutes() {
 			List<Route> routelist = new ArrayList<>();
 		try {
 			routelist = routeService.getRoutes();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -33,16 +32,16 @@ public class RouteController {
 		return jsonString.toJson(routelist);
 	}
 	
-	@RequestMapping(value = "/addroute", method = RequestMethod.POST)
+	@RequestMapping(value = "route/add", method = RequestMethod.POST)
 	public @ResponseBody String addRoute(@RequestBody Route route) {
-
+		String s = "";
 		try {
-			routeService.addRoute(route);
+			s = routeService.addRoute(route);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return s;
 	}
 
 }
