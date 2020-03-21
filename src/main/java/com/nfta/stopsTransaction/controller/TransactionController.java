@@ -3,6 +3,7 @@ package com.nfta.stopsTransaction.controller;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +25,7 @@ public class TransactionController {
 	@Autowired
 	SearchFilters searchFilters;
 
+	@CrossOrigin(origins = "http://localhost:3000")
 	@RequestMapping(value = "/transaction", method = RequestMethod.GET)
 	public @ResponseBody String getTransactions(@RequestParam(value = "id", required = false) String stopId,
 			@RequestParam(value = "location", required = false) String location,
@@ -47,6 +49,7 @@ public class TransactionController {
 		// HttpStatus.OK);
 	}
 
+	@CrossOrigin(origins = "http://localhost:3000")
 	@RequestMapping(value = "/transactions", method = RequestMethod.GET)
 	public @ResponseBody String getTransactions() {
 		List<StopTransactions> list = new ArrayList<>();
