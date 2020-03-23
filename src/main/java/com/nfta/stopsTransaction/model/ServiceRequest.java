@@ -37,6 +37,7 @@ public class ServiceRequest implements Serializable{
 	private String additional_information;
 	private String status;
 	private String request_type;
+
 	/**
 	 * This is use to set date and time in SQL database
 	 * **/
@@ -50,6 +51,9 @@ public class ServiceRequest implements Serializable{
 	public void setRequest_id(Integer request_id) {
 		this.request_id = request_id;
 	}
+
+	
+
 	public Integer getAdmin_user_id() {
 		return admin_user_id;
 	}
@@ -121,4 +125,5 @@ public class ServiceRequest implements Serializable{
 	public void setDate(Date date) {
 		this.date = date;}
 	
+
 }
