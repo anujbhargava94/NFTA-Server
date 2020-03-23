@@ -9,8 +9,10 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.nfta.stopsTransaction.service.RouteService;
+import com.nfta.stopsTransaction.service.ServiceRequestService;
 import com.nfta.stopsTransaction.service.TransactionService;
 import com.nfta.stopsTransaction.serviceImpl.RouteServiceImpl;
+import com.nfta.stopsTransaction.serviceImpl.ServiceRequestServiceImpl;
 import com.nfta.stopsTransaction.serviceImpl.TransactionServiceImpl;
 
 @ComponentScan("com.nfta.stopsTransaction")
@@ -33,6 +35,13 @@ public class StopsTransactionApplication {
 	public RouteService getRouteService()
 	{
 		return new RouteServiceImpl();
+	}
+	
+	@Bean
+	@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+	public ServiceRequestService getServiceRequestService()
+	{
+		return new ServiceRequestServiceImpl();
 	}
 
 }

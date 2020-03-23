@@ -40,6 +40,7 @@ public class ServiceRequest implements Serializable{
 	public void setRequest_id(Integer request_id) {
 		this.request_id = request_id;
 	}
+
 	public Integer getAdmin_user_id() {
 		return admin_user_id;
 	}
@@ -100,6 +101,4 @@ public class ServiceRequest implements Serializable{
 	public void setRequest_type(String request_type) {
 		this.request_type = request_type;
 	}
-	
-	
 }
