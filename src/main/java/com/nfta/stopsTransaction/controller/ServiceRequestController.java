@@ -1,13 +1,21 @@
 package com.nfta.stopsTransaction.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
+import com.nfta.stopsTransaction.model.SearchFiltersServiceRequest;
 import com.nfta.stopsTransaction.model.ServiceRequest;
+
 import com.nfta.stopsTransaction.service.ServiceRequestService;
 
 @RestController
@@ -15,6 +23,9 @@ import com.nfta.stopsTransaction.service.ServiceRequestService;
 public class ServiceRequestController {
 	@Autowired
 	ServiceRequestService serviceRequestService;
+	
+	@Autowired
+	SearchFiltersServiceRequest searchFilters;
 	
 	
 	@RequestMapping(value = "request", method = RequestMethod.POST)
@@ -27,5 +38,56 @@ public class ServiceRequestController {
 			e.printStackTrace();
 		}
 		return s;
+	}
+	
+	@CrossOrigin(origins="http://localhost:3000")
+	@RequestMapping(value = "/serviceRequests", method = RequestMethod.GET)
+	public @ResponseBody String getServiceRequests() {
+		List<ServiceRequest> list = new ArrayList<>();
+		try {
+			list = serviceRequestService.getServiceRequests();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Gson jsonString = new Gson();
+		return jsonString.toJson(list);
+		// return new ResponseEntity<List<StopTransactions>>(list, new HttpHeaders(),
+		// HttpStatus.OK);
+	}
+	
+	@CrossOrigin(origins="http://localhost:3000")
+	@RequestMapping(value = "/serviceRequest", method = RequestMethod.GET)
+	public @ResponseBody String getServiceRequest(@RequestParam(value = "id", required = false) String requestId,
+			@RequestParam(value = "stopID", required = false) String stopId,
+			@RequestParam(value = "direction", required = false) String direction,
+			@RequestParam(value = "datefrom", required = false) String dateFrom,
+			@RequestParam(value = "dateto", required = false) String dateTo,
+			@RequestParam(value = "type", required = false) String requestType,
+			@RequestParam(value = "status", required = false) String status,
+			@RequestParam(value = "adminUser", required = false) String adminUser) {
+		List<ServiceRequest> list = new ArrayList<>();
+		try {
+
+			setSearchFilter(requestId, stopId, direction, dateFrom, dateTo, requestType, status, adminUser);
+			list = serviceRequestService.getServiceRequest(searchFilters);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Gson jsonString = new Gson();
+		return jsonString.toJson(list);
+		// return new ResponseEntity<List<StopTransactions>>(list, new HttpHeaders(),
+		// HttpStatus.OK);
+	}
+	
+	private void setSearchFilter(String requestId, String stopId, String direction, String dateFrom,
+			String dateTo, String requestType, String status, String adminUser) {
+		searchFilters.setRequestID(requestId);
+		searchFilters.setDateFrom(dateFrom);
+		searchFilters.setDateTo(dateTo);
+		searchFilters.setDirection(direction);
+		searchFilters.setStopID(stopId);
+		searchFilters.setStatus(status);
+		searchFilters.setRequestType(requestType);
+		searchFilters.setAdminUser(adminUser);
 	}
 }

@@ -42,6 +42,9 @@ public class TransactionsDaoImpl implements TransactionsDao{
 		Root<StopTransactions> stop = cq.from(StopTransactions.class);
 		List<Predicate> predicates = new ArrayList<>();
 
+		if (Objects.nonNull(filters.getTransactionNo())) {
+			predicates.add(cb.equal(stop.get("transaction_no"), filters.getTransactionNo()));
+		}
 		if (Objects.nonNull(filters.getCounty())) {
 			predicates.add(cb.like(stop.get("country"), "%" + filters.getCounty() + "%"));
 		}

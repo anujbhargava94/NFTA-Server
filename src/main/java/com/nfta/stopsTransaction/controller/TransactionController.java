@@ -17,6 +17,7 @@ import com.nfta.stopsTransaction.model.StopTransactions;
 import com.nfta.stopsTransaction.service.TransactionService;
 
 @RestController
+@CrossOrigin(origins="http://localhost:3000")
 public class TransactionController {
 
 	@Autowired
@@ -28,6 +29,7 @@ public class TransactionController {
 	@CrossOrigin(origins = "http://localhost:3000")
 	@RequestMapping(value = "/transaction", method = RequestMethod.GET)
 	public @ResponseBody String getTransactions(@RequestParam(value = "id", required = false) String stopId,
+			@RequestParam(value = "transaction_no", required = false) String transactionNo,
 			@RequestParam(value = "location", required = false) String location,
 			@RequestParam(value = "direction", required = false) String direction,
 			@RequestParam(value = "country", required = false) String country,
@@ -38,7 +40,7 @@ public class TransactionController {
 		List<StopTransactions> list = new ArrayList<>();
 		try {
 
-			setSearchFilter(stopId, location, direction, country, dateFrom, dateTo, requestType, status);
+			setSearchFilter(transactionNo, stopId, location, direction, country, dateFrom, dateTo, requestType, status);
 			list = service.getTransactions(searchFilters);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -49,7 +51,6 @@ public class TransactionController {
 		// HttpStatus.OK);
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
 	@RequestMapping(value = "/transactions", method = RequestMethod.GET)
 	public @ResponseBody String getTransactions() {
 		List<StopTransactions> list = new ArrayList<>();
@@ -72,8 +73,9 @@ public class TransactionController {
 	 * @return
 	 */
 	
-	private void setSearchFilter(String stopId, String location, String direction, String country, String dateFrom,
+	private void setSearchFilter(String transactionNo, String stopId, String location, String direction, String country, String dateFrom,
 			String dateTo, String requestType, String status) {
+		searchFilters.setTransactionNo(transactionNo);
 		searchFilters.setCounty(country);
 		searchFilters.setDateFrom(dateFrom);
 		searchFilters.setDateTo(dateTo);
