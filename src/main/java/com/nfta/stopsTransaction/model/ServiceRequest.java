@@ -1,6 +1,7 @@
 package com.nfta.stopsTransaction.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import antlr.collections.List;
 import lombok.Data;
@@ -34,5 +37,88 @@ public class ServiceRequest implements Serializable{
 	private String additional_information;
 	private String status;
 	private String request_type;
-
+	/**
+	 * This is use to set date and time in SQL database
+	 * **/
+	@Temporal(value=TemporalType.TIMESTAMP)
+	Date date;
+	
+	
+	public Integer getRequest_id() {
+		return request_id;
+	}
+	public void setRequest_id(Integer request_id) {
+		this.request_id = request_id;
+	}
+	public Integer getAdmin_user_id() {
+		return admin_user_id;
+	}
+	public void setAdmin_user_id(Integer admin_user_id) {
+		this.admin_user_id = admin_user_id;
+	}
+	public String getRequested_user() {
+		return requested_user;
+	}
+	public void setRequested_user(String requested_user) {
+		this.requested_user = requested_user;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	public String getDirection() {
+		return direction;
+	}
+	public void setDirection(String direction) {
+		this.direction = direction;
+	}
+	public String getRoute() {
+		return route;
+	}
+	public void setRoute(String route) {
+		this.route = route;
+	}
+	public String getReason() {
+		return reason;
+	}
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+	public Integer getStopId() {
+		return stopId;
+	}
+	public void setStopId(Integer stopId) {
+		this.stopId = stopId;
+	}
+	public String getAdditional_information() {
+		return additional_information;
+	}
+	public void setAdditional_information(String additional_information) {
+		this.additional_information = additional_information;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getRequest_type() {
+		return request_type;
+	}
+	public void setRequest_type(String request_type) {
+		this.request_type = request_type;
+	}
+	
+	
+	
+	
+	
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;}
+	
 }
