@@ -15,8 +15,17 @@ public class SearchFilters {
 	private String dateTo;
 	private String requestType;
 	private String status;
+	private Long transaction_no;
 	
 	
+	public Long getTransaction_no() {
+		return transaction_no;
+	}
+
+	public void setTransaction_no(Long transaction_no) {
+		this.transaction_no = transaction_no;
+	}
+
 	public String getStopID() {
 		return stopID;
 	}
