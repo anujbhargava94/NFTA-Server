@@ -1,6 +1,7 @@
 package com.nfta.stopsTransaction.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import antlr.collections.List;
 import lombok.Data;
@@ -34,6 +37,12 @@ public class ServiceRequest implements Serializable{
 	private String additional_information;
 	private String status;
 	private String request_type;
+	/**
+	 * This is use to set date and time in SQL database
+	 * **/
+	@Temporal(value=TemporalType.TIMESTAMP)
+	Date date;
+	
 	public Integer getRequest_id() {
 		return request_id;
 	}
@@ -101,4 +110,12 @@ public class ServiceRequest implements Serializable{
 	public void setRequest_type(String request_type) {
 		this.request_type = request_type;
 	}
+
+	
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;}
+	
 }

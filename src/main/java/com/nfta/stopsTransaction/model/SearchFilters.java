@@ -15,7 +15,6 @@ public class SearchFilters {
 	private String dateTo;
 	private String requestType;
 	private String status;
-	private String transactionNo;
 	private String requestID;
 	private String adminUser;
 	
@@ -35,12 +34,15 @@ public class SearchFilters {
 		this.requestID = requestID;
 	}
 
-	public String getTransactionNo() {
-		return transactionNo;
+	private Long transaction_no;
+	
+	
+	public Long getTransaction_no() {
+		return transaction_no;
 	}
 
-	public void setTransactionNo(String transactionNo) {
-		this.transactionNo = transactionNo;
+	public void setTransaction_no(Long transaction_no) {
+		this.transaction_no = transaction_no;
 	}
 
 	public String getStopID() {
@@ -120,9 +122,9 @@ public class SearchFilters {
 			this.setAdminUser(adminUser);
 	}
 	
-	public void setSearchFilter(String transactionNo, String stopId, String location, String direction, String country, String dateFrom,
+	public void setSearchFilter(Long transactionNo, String stopId, String location, String direction, String country, String dateFrom,
 			String dateTo, String requestType, String requestId, String status) {
-		this.setTransactionNo(transactionNo);
+		this.setTransaction_no(transactionNo);
 		this.setCounty(country);
 		this.setDateFrom(dateFrom);
 		this.setDateTo(dateTo);

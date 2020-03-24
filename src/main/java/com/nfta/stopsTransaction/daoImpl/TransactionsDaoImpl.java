@@ -69,6 +69,9 @@ public class TransactionsDaoImpl implements TransactionsDao{
 		if (Objects.nonNull(filters.getRequestID())) {
 			predicates.add(cb.equal(stop.get("work_request").get("request_id"), filters.getRequestID()));
 		}
+		if (Objects.nonNull(filters.getTransaction_no())) {
+			predicates.add(cb.equal(stop.get("transaction_no"), filters.getTransaction_no()));
+		}
 		cq.where(predicates.toArray(new Predicate[0]));
 
 		return em.createQuery(cq).getResultList();
@@ -116,6 +119,7 @@ public class TransactionsDaoImpl implements TransactionsDao{
 		{
 			return "No such transaction exists";
 		}
+	
 		t.setStatus(stopTransaction.getStatus());
 		t.setStop_id(stopTransaction.getStop_id());
 		t.setAdmin_comments(stopTransaction.getAdmin_comments());

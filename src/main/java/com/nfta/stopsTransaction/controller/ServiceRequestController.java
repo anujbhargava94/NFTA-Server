@@ -88,14 +88,4 @@ public class ServiceRequestController {
 		// return new ResponseEntity<List<StopTransactions>>(list, new HttpHeaders(),
 		// HttpStatus.OK);
 	}
-	
-	/*
-	 * private void setSearchFilter(String requestId, String stopId, String
-	 * direction, String dateFrom, String dateTo, String requestType, String status,
-	 * String adminUser) { searchFilters.setRequestID(requestId);
-	 * searchFilters.setDateFrom(dateFrom); searchFilters.setDateTo(dateTo);
-	 * searchFilters.setDirection(direction); searchFilters.setStopID(stopId);
-	 * searchFilters.setStatus(status); searchFilters.setRequestType(requestType);
-	 * searchFilters.setAdminUser(adminUser); }
-	 */
 }
