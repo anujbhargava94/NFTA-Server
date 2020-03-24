@@ -47,5 +47,4 @@ public class StopsTransactionApplication {
 		return new ServiceRequestServiceImpl();
 	}
 
-
 }

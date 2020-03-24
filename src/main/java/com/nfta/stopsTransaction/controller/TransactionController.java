@@ -27,7 +27,7 @@ public class TransactionController {
 	@Autowired
 	SearchFilters searchFilters;
 
-	@CrossOrigin(origins="http://localhost:3000")
+
 	@RequestMapping(value = "/transaction", method = RequestMethod.GET)
 	public @ResponseBody String getTransactions(
 			@RequestParam(value = "transaction_no", required = false) Long transaction_no,
@@ -38,11 +38,12 @@ public class TransactionController {
 			@RequestParam(value = "datefrom", required = false) String dateFrom,
 			@RequestParam(value = "dateto", required = false) String dateTo,
 			@RequestParam(value = "type", required = false) String requestType,
+			@RequestParam(value = "requestID", required = false) String requestId,
 			@RequestParam(value = "status", required = false) String status) {
 		List<StopTransactions> list = new ArrayList<>();
 		try {
 
-			setSearchFilter(transaction_no,stopId, location, direction, country, dateFrom, dateTo, requestType, status);
+			searchFilters.setSearchFilter(transaction_no,stopId, location, direction, country, dateFrom, dateTo, requestType, requestId, status);
 			list = service.getTransactions(searchFilters);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -77,18 +78,6 @@ public class TransactionController {
 	 * @return
 	 */
 	
-	private void setSearchFilter(Long transaction_no, String stopId, String location, String direction, String country, String dateFrom,
-			String dateTo, String requestType, String status) {
-		searchFilters.setTransaction_no(transaction_no);
-		searchFilters.setCounty(country);
-		searchFilters.setDateFrom(dateFrom);
-		searchFilters.setDateTo(dateTo);
-		searchFilters.setDirection(direction);
-		searchFilters.setLocation(location);
-		searchFilters.setStopID(stopId);
-		searchFilters.setStatus(status);
-		searchFilters.setRequestType(requestType);
-	}
 
 	/**
 	 * 
