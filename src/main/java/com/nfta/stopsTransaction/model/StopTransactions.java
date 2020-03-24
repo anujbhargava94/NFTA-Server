@@ -63,6 +63,8 @@ public class StopTransactions implements Serializable{
 	@Column(nullable = false)
 	private Boolean system_map;
 	
+	private String transaction_type;
+	
 //	@Lob
 //	@Column(name = "image", length = 1000)
 //	private Byte[] image;
@@ -93,7 +95,13 @@ public class StopTransactions implements Serializable{
 	Date date;
 	
 	
-	
+	public String getTransaction_type() {
+		return transaction_type;
+	}
+
+	public void setTransaction_type(String transaction_type) {
+		this.transaction_type = transaction_type;
+	}
 	
 	public Date getDate() {
 		return date;
