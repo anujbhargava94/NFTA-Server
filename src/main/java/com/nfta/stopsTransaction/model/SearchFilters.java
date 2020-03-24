@@ -17,7 +17,16 @@ public class SearchFilters {
 	private String status;
 	private String requestID;
 	private String adminUser;
+	private String transactionNo;
 	
+	public String getTransactionNo() {
+		return transactionNo;
+	}
+
+	public void setTransactionNo(String transactionNo) {
+		this.transactionNo = transactionNo;
+	}
+
 	public String getAdminUser() {
 		return adminUser;
 	}
