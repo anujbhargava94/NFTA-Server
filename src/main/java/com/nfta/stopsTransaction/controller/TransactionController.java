@@ -28,7 +28,7 @@ public class TransactionController {
 	@Autowired
 	SearchFilters searchFilters;
 
-	@CrossOrigin(origins="http://localhost:3000")
+	//@CrossOrigin(origins="http://localhost:3000")
 	@RequestMapping(value = "/transaction", method = RequestMethod.GET)
 	public @ResponseBody String getTransactions(
 			@RequestParam(value = "transaction_no", required = false) Long transaction_no,
@@ -54,7 +54,7 @@ public class TransactionController {
 		// HttpStatus.OK);
 	}
     
-	@CrossOrigin(origins="http://localhost:3000")
+	//@CrossOrigin(origins="http://localhost:3000")
 	@RequestMapping(value = "/transactions", method = RequestMethod.GET)
 	public @ResponseBody String getTransactions() {
 		List<StopTransactions> list = new ArrayList<>();
