@@ -16,6 +16,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.nfta.stopsTransaction.dao.ServiceRequestDao;
+import com.nfta.stopsTransaction.model.SearchFilters;
 import com.nfta.stopsTransaction.model.SearchFiltersServiceRequest;
 import com.nfta.stopsTransaction.model.ServiceRequest;
 
@@ -52,39 +53,44 @@ public class ServiceRequestDaoImpl implements ServiceRequestDao {
 	}
 	
 	@Override
-	public List<ServiceRequest> get(SearchFiltersServiceRequest filters) {
+	public List<ServiceRequest> getServiceRequest(SearchFilters filters) {
 		// TODO Auto-generated method stub
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<ServiceRequest> cq = cb.createQuery(ServiceRequest.class);
-
-		Root<ServiceRequest> servReq = cq.from(ServiceRequest.class);
-		List<Predicate> predicates = new ArrayList<>();
-
-		if (Objects.nonNull(filters.getRequestID())) {
-			predicates.add(cb.equal(servReq.get("request_id"), filters.getRequestID()));
+		try
+		{
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+			CriteriaQuery<ServiceRequest> cq = cb.createQuery(ServiceRequest.class);
+	
+			Root<ServiceRequest> servReq = cq.from(ServiceRequest.class);
+			List<Predicate> predicates = new ArrayList<>();
+	
+			if (Objects.nonNull(filters.getRequestID())) {
+				predicates.add(cb.equal(servReq.get("request_id"), filters.getRequestID()));
+			}
+			if (Objects.nonNull(filters.getDirection())) {
+				predicates.add(cb.like(servReq.get("direction"), "%" + filters.getDirection() + "%"));
+			}
+			if (Objects.nonNull(filters.getAdminUser())) {
+				predicates.add(cb.equal(servReq.get("admin_user_id"), filters.getAdminUser()));
+			}
+			if (Objects.nonNull(filters.getStopID())) {
+				predicates.add(cb.equal(servReq.get("stopId"), filters.getStopID()));
+			}
+			if (Objects.nonNull(filters.getDateFrom())) {
+				predicates.add(cb.between(servReq.get("date_time"), filters.getDateFrom(), filters.getDateTo()));
+			}
+			if (Objects.nonNull(filters.getStatus())) {
+				predicates.add(cb.equal(servReq.get("status"), filters.getStatus()));
+			}
+			if (Objects.nonNull(filters.getRequestType())) {
+				predicates.add(cb.equal(servReq.get("request_type"), filters.getRequestType()));
+			}
+			cq.where(predicates.toArray(new Predicate[0]));
+	
+			return em.createQuery(cq).getResultList();
 		}
-		if (Objects.nonNull(filters.getDirection())) {
-			predicates.add(cb.like(servReq.get("direction"), "%" + filters.getDirection() + "%"));
+		catch(Exception e) {
+			return null;
 		}
-		if (Objects.nonNull(filters.getAdminUser())) {
-			predicates.add(cb.like(servReq.get("admin_user_id"), "%" + filters.getAdminUser() + "%"));
-		}
-		if (Objects.nonNull(filters.getStopID())) {
-			predicates.add(cb.equal(servReq.get("stop_id"), filters.getStopID()));
-		}
-		if (Objects.nonNull(filters.getDateFrom())) {
-			predicates.add(cb.between(servReq.get("date_time"), filters.getDateFrom(), filters.getDateTo()));
-		}
-		if (Objects.nonNull(filters.getStatus())) {
-			predicates.add(cb.equal(servReq.get("status"), filters.getStatus()));
-		}
-		if (Objects.nonNull(filters.getRequestType())) {
-			predicates.add(cb.equal(servReq.get("request_type"), filters.getRequestType()));
-		}
-		cq.where(predicates.toArray(new Predicate[0]));
-
-		return em.createQuery(cq).getResultList();
-
 	}
 /*	@Override
 	public void update(ServiceRequest s) {

@@ -36,11 +36,12 @@ public class TransactionController {
 			@RequestParam(value = "datefrom", required = false) String dateFrom,
 			@RequestParam(value = "dateto", required = false) String dateTo,
 			@RequestParam(value = "type", required = false) String requestType,
+			@RequestParam(value = "requestID", required = false) String requestId,
 			@RequestParam(value = "status", required = false) String status) {
 		List<StopTransactions> list = new ArrayList<>();
 		try {
 
-			setSearchFilter(transactionNo, stopId, location, direction, country, dateFrom, dateTo, requestType, status);
+			setSearchFilter(transactionNo, stopId, location, direction, country, dateFrom, dateTo, requestType, requestId, status);
 			list = service.getTransactions(searchFilters);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,7 +75,7 @@ public class TransactionController {
 	 */
 	
 	private void setSearchFilter(String transactionNo, String stopId, String location, String direction, String country, String dateFrom,
-			String dateTo, String requestType, String status) {
+			String dateTo, String requestType, String requestId, String status) {
 		searchFilters.setTransactionNo(transactionNo);
 		searchFilters.setCounty(country);
 		searchFilters.setDateFrom(dateFrom);
@@ -83,6 +84,7 @@ public class TransactionController {
 		searchFilters.setLocation(location);
 		searchFilters.setStopID(stopId);
 		searchFilters.setStatus(status);
+		searchFilters.setRequestID(requestId);
 		searchFilters.setRequestType(requestType);
 	}
 

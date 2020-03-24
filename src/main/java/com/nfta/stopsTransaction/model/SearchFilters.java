@@ -16,8 +16,25 @@ public class SearchFilters {
 	private String requestType;
 	private String status;
 	private String transactionNo;
+	private String requestID;
+	private String adminUser;
 	
-	
+	public String getAdminUser() {
+		return adminUser;
+	}
+
+	public void setAdminUser(String adminUser) {
+		this.adminUser = adminUser;
+	}
+
+	public String getRequestID() {
+		return requestID;
+	}
+
+	public void setRequestID(String requestID) {
+		this.requestID = requestID;
+	}
+
 	public String getTransactionNo() {
 		return transactionNo;
 	}
@@ -91,5 +108,29 @@ public class SearchFilters {
 		this.status = status;
 	}
 	
+	public void setSearchFilter(String requestId, String stopId, String direction, String dateFrom,
+			String dateTo, String requestType, String status, String adminUser) {
+			this.setRequestID(requestId);
+			this.setDateFrom(dateFrom);
+			this.setDateTo(dateTo);
+			this.setDirection(direction);
+			this.setStopID(stopId);
+			this.setStatus(status);
+			this.setRequestType(requestType);
+			this.setAdminUser(adminUser);
+	}
 	
+	public void setSearchFilter(String transactionNo, String stopId, String location, String direction, String country, String dateFrom,
+			String dateTo, String requestType, String requestId, String status) {
+		this.setTransactionNo(transactionNo);
+		this.setCounty(country);
+		this.setDateFrom(dateFrom);
+		this.setDateTo(dateTo);
+		this.setDirection(direction);
+		this.setLocation(location);
+		this.setStopID(stopId);
+		this.setStatus(status);
+		this.setRequestID(requestId);
+		this.setRequestType(requestType);
+	}
 }

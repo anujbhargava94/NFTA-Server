@@ -46,7 +46,7 @@ public class TransactionsDaoImpl implements TransactionsDao{
 			predicates.add(cb.equal(stop.get("transaction_no"), filters.getTransactionNo()));
 		}
 		if (Objects.nonNull(filters.getCounty())) {
-			predicates.add(cb.like(stop.get("country"), "%" + filters.getCounty() + "%"));
+			predicates.add(cb.like(stop.get("county"), "%" + filters.getCounty() + "%"));
 		}
 		if (Objects.nonNull(filters.getDirection())) {
 			predicates.add(cb.like(stop.get("direction"), "%" + filters.getDirection() + "%"));
@@ -64,7 +64,10 @@ public class TransactionsDaoImpl implements TransactionsDao{
 			predicates.add(cb.equal(stop.get("status"), filters.getStatus()));
 		}
 		if (Objects.nonNull(filters.getRequestType())) {
-			predicates.add(cb.equal(stop.get("request_type"), filters.getRequestType()));
+			predicates.add(cb.like(stop.get("request_type"), "%" + filters.getRequestType() + "%"));
+		}
+		if (Objects.nonNull(filters.getRequestID())) {
+			predicates.add(cb.equal(stop.get("work_request").get("request_id"), filters.getRequestID()));
 		}
 		cq.where(predicates.toArray(new Predicate[0]));
 

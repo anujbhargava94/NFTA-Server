@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
+import com.nfta.stopsTransaction.model.SearchFilters;
 import com.nfta.stopsTransaction.model.SearchFiltersServiceRequest;
 import com.nfta.stopsTransaction.model.ServiceRequest;
 
@@ -20,15 +21,16 @@ import com.nfta.stopsTransaction.service.ServiceRequestService;
 
 @RestController
 @RequestMapping("/")
+@CrossOrigin(origins="http://localhost:3000")
 public class ServiceRequestController {
 	@Autowired
 	ServiceRequestService serviceRequestService;
 	
 	@Autowired
-	SearchFiltersServiceRequest searchFilters;
+	SearchFilters searchFilters;
 	
 	
-	@RequestMapping(value = "request", method = RequestMethod.POST)
+	@RequestMapping(value = "/addServiceRequest", method = RequestMethod.POST)
 	public @ResponseBody String addRequest(@RequestBody ServiceRequest serviceRequest) {
 		String s = "";
 		try {
@@ -49,6 +51,10 @@ public class ServiceRequestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		if(list==null || list.size()==0)
+		{
+			return "";
+		}
 		Gson jsonString = new Gson();
 		return jsonString.toJson(list);
 		// return new ResponseEntity<List<StopTransactions>>(list, new HttpHeaders(),
@@ -67,11 +73,15 @@ public class ServiceRequestController {
 			@RequestParam(value = "adminUser", required = false) String adminUser) {
 		List<ServiceRequest> list = new ArrayList<>();
 		try {
-
-			setSearchFilter(requestId, stopId, direction, dateFrom, dateTo, requestType, status, adminUser);
+			
+			searchFilters.setSearchFilter(requestId, stopId, direction, dateFrom, dateTo, requestType, status, adminUser);
 			list = serviceRequestService.getServiceRequest(searchFilters);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		if(list==null || list.size()==0)
+		{
+			return "";
 		}
 		Gson jsonString = new Gson();
 		return jsonString.toJson(list);
@@ -79,15 +89,13 @@ public class ServiceRequestController {
 		// HttpStatus.OK);
 	}
 	
-	private void setSearchFilter(String requestId, String stopId, String direction, String dateFrom,
-			String dateTo, String requestType, String status, String adminUser) {
-		searchFilters.setRequestID(requestId);
-		searchFilters.setDateFrom(dateFrom);
-		searchFilters.setDateTo(dateTo);
-		searchFilters.setDirection(direction);
-		searchFilters.setStopID(stopId);
-		searchFilters.setStatus(status);
-		searchFilters.setRequestType(requestType);
-		searchFilters.setAdminUser(adminUser);
-	}
+	/*
+	 * private void setSearchFilter(String requestId, String stopId, String
+	 * direction, String dateFrom, String dateTo, String requestType, String status,
+	 * String adminUser) { searchFilters.setRequestID(requestId);
+	 * searchFilters.setDateFrom(dateFrom); searchFilters.setDateTo(dateTo);
+	 * searchFilters.setDirection(direction); searchFilters.setStopID(stopId);
+	 * searchFilters.setStatus(status); searchFilters.setRequestType(requestType);
+	 * searchFilters.setAdminUser(adminUser); }
+	 */
 }
