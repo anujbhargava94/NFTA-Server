@@ -14,7 +14,8 @@ import com.nfta.stopsTransaction.service.AdminService;
 
 
 @RestController
-@CrossOrigin(origins="http://localhost:3000")
+//@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins="https://nfta-web.herokuapp.com")
 public class UserController {
 	
 	@Autowired
