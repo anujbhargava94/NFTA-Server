@@ -1,5 +1,6 @@
 package com.nfta.stopsTransaction.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -9,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Data;
 
@@ -30,18 +34,12 @@ public class AdminUser {
 	/**
 	 * This is use to set date and time in SQL database
 //	 * **/
-	@Temporal(value=TemporalType.TIMESTAMP)
-	Date date;
+	@CreationTimestamp
+    private LocalDateTime createDateTime;
+ 
+    @UpdateTimestamp
+    private LocalDateTime updateDateTime;
 	
-	
-	
-	
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
 	public int getUser_id() {
 		return user_id;
 	}
@@ -71,6 +69,23 @@ public class AdminUser {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	
+	public LocalDateTime getCreateDateTime() {
+		return createDateTime;
+	}
+
+	public void setCreateDateTime(LocalDateTime createDateTime) {
+		this.createDateTime = createDateTime;
+	}
+
+	public LocalDateTime getUpdateDateTime() {
+		return updateDateTime;
+	}
+
+	public void setUpdateDateTime(LocalDateTime updateDateTime) {
+		this.updateDateTime = updateDateTime;
 	}
 	
 

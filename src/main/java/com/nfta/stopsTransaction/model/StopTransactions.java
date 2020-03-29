@@ -1,7 +1,10 @@
 package com.nfta.stopsTransaction.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,29 +12,36 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
-
 
 @Entity
 @Table(name = "stop_transactions")
 @Data
-public class StopTransactions implements Serializable{	
+public class StopTransactions implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8600502014954931750L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "transaction_no")
 	private Long transaction_no;
-	
+
 	@Column(nullable = false)
 	private String device_id;
 	private String stop_id;
@@ -47,7 +57,7 @@ public class StopTransactions implements Serializable{
 	@Column(nullable = false)
 	private String county;
 	@Column(nullable = false)
-    private String status;
+	private String status;
 	@Column(nullable = false)
 	private Boolean shelter;
 	@Column(nullable = false)
@@ -62,39 +72,44 @@ public class StopTransactions implements Serializable{
 	private Boolean time_table;
 	@Column(nullable = false)
 	private Boolean system_map;
-	
 	private String transaction_type;
-	
+
+	@OneToMany
+	@JoinTable(name = "route_transaction", joinColumns = @JoinColumn(name = "transaction_no"), inverseJoinColumns = @JoinColumn(name = "route_id"))
+	private List<Route> routes = new ArrayList<>();
+
 //	@Lob
 //	@Column(name = "image", length = 1000)
 //	private Byte[] image;
 
-
 	/**
-	 *Unidirectional Foreign keys
-	 * For ServiceRequest and adminuser
+	 * Unidirectional Foreign keys For ServiceRequest and adminuser
 	 */
 	@OneToOne
 	@JoinColumn(name = "request_id")
 	private ServiceRequest work_request;
-	
+
 	@OneToOne
 	@JoinColumn(name = "user_id")
 	private AdminUser adminuser;
-	
-	
+
 	@Column
 	private String admin_comments;
 	@Column
 	private String additional_information;
-	
+
 	/**
 	 * This is use to set date and time in SQL database
-	 * **/
-	@Temporal(value=TemporalType.TIMESTAMP)
-	Date date;
-	
-	
+	 **/
+//	@Temporal(value=TemporalType.DATE)
+//	Date date;
+
+	@CreationTimestamp
+	private LocalDateTime createDateTime;
+
+	@UpdateTimestamp
+	private LocalDateTime updateDateTime;
+
 	public String getTransaction_type() {
 		return transaction_type;
 	}
@@ -102,12 +117,21 @@ public class StopTransactions implements Serializable{
 	public void setTransaction_type(String transaction_type) {
 		this.transaction_type = transaction_type;
 	}
-	
-	public Date getDate() {
-		return date;
+
+	public String getCreateDateTime() {
+		return createDateTime.toString();
 	}
-	public void setDate(Date date) {
-		this.date = date;
+
+	public void setCreateDateTime(LocalDateTime createDateTime) {
+		this.createDateTime = createDateTime;
+	}
+
+	public LocalDateTime getUpdateDateTime() {
+		return updateDateTime;
+	}
+
+	public void setUpdateDateTime(LocalDateTime updateDateTime) {
+		this.updateDateTime = updateDateTime;
 	}
 
 	public Long getTransaction_no() {
@@ -294,8 +318,15 @@ public class StopTransactions implements Serializable{
 		this.additional_information = additional_information;
 	}
 
+	public List<Route> getRoutes() {
+		return routes;
+	}
+
+	public void setRoutes(List<Route> routes) {
+		this.routes = routes;
+	}
 	
-	
-	//private Blob[] photo;
+
+	// private Blob[] photo;
 
 }
