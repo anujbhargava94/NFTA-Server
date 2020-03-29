@@ -1,6 +1,7 @@
 package com.nfta.stopsTransaction.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,13 +9,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import lombok.Data;
 
 
 @Entity
 @Table(name = "stop_transactions")
-
+@Data
 public class StopTransactions implements Serializable{	
 	/**
 	 * 
@@ -35,8 +41,8 @@ public class StopTransactions implements Serializable{
 	private String nearest_cross_street;
 	private String position;
 	private String fastened_to;
-	private String latitude;
-	private String longitude;
+	private Double latitude;
+	private Double longitude;
 	private String location;
 	@Column(nullable = false)
 	private String county;
@@ -56,15 +62,53 @@ public class StopTransactions implements Serializable{
 	private Boolean time_table;
 	@Column(nullable = false)
 	private Boolean system_map;
+	
+	private String transaction_type;
+	
+//	@Lob
+//	@Column(name = "image", length = 1000)
+//	private Byte[] image;
 
+
+	/**
+	 *Unidirectional Foreign keys
+	 * For ServiceRequest and adminuser
+	 */
 	@OneToOne
 	@JoinColumn(name = "request_id")
 	private ServiceRequest work_request;
+	
+	@OneToOne
+	@JoinColumn(name = "user_id")
+	private AdminUser adminuser;
+	
 	
 	@Column
 	private String admin_comments;
 	@Column
 	private String additional_information;
+	
+	/**
+	 * This is use to set date and time in SQL database
+	 * **/
+	@Temporal(value=TemporalType.TIMESTAMP)
+	Date date;
+	
+	
+	public String getTransaction_type() {
+		return transaction_type;
+	}
+
+	public void setTransaction_type(String transaction_type) {
+		this.transaction_type = transaction_type;
+	}
+	
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
 	public Long getTransaction_no() {
 		return transaction_no;
@@ -130,19 +174,19 @@ public class StopTransactions implements Serializable{
 		this.fastened_to = fastened_to;
 	}
 
-	public String getLatitude() {
+	public Double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(String latitude) {
+	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
 
-	public String getLongitude() {
+	public Double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(String longitude) {
+	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
 

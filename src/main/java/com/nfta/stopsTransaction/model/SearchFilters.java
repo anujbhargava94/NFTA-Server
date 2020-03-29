@@ -15,8 +15,45 @@ public class SearchFilters {
 	private String dateTo;
 	private String requestType;
 	private String status;
+	private String requestID;
+	private String adminUser;
+	private String transactionNo;
+	
+	public String getTransactionNo() {
+		return transactionNo;
+	}
+
+	public void setTransactionNo(String transactionNo) {
+		this.transactionNo = transactionNo;
+	}
+
+	public String getAdminUser() {
+		return adminUser;
+	}
+
+	public void setAdminUser(String adminUser) {
+		this.adminUser = adminUser;
+	}
+
+	public String getRequestID() {
+		return requestID;
+	}
+
+	public void setRequestID(String requestID) {
+		this.requestID = requestID;
+	}
+
+	private Long transaction_no;
 	
 	
+	public Long getTransaction_no() {
+		return transaction_no;
+	}
+
+	public void setTransaction_no(Long transaction_no) {
+		this.transaction_no = transaction_no;
+	}
+
 	public String getStopID() {
 		return stopID;
 	}
@@ -82,5 +119,29 @@ public class SearchFilters {
 		this.status = status;
 	}
 	
+	public void setSearchFilter(String requestId, String stopId, String direction, String dateFrom,
+			String dateTo, String requestType, String status, String adminUser) {
+			this.setRequestID(requestId);
+			this.setDateFrom(dateFrom);
+			this.setDateTo(dateTo);
+			this.setDirection(direction);
+			this.setStopID(stopId);
+			this.setStatus(status);
+			this.setRequestType(requestType);
+			this.setAdminUser(adminUser);
+	}
 	
+	public void setSearchFilter(Long transactionNo, String stopId, String location, String direction, String country, String dateFrom,
+			String dateTo, String requestType, String requestId, String status) {
+		this.setTransaction_no(transactionNo);
+		this.setCounty(country);
+		this.setDateFrom(dateFrom);
+		this.setDateTo(dateTo);
+		this.setDirection(direction);
+		this.setLocation(location);
+		this.setStopID(stopId);
+		this.setStatus(status);
+		this.setRequestID(requestId);
+		this.setRequestType(requestType);
+	}
 }

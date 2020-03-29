@@ -10,3 +10,4 @@ target/classes/**
 */target/*
 */target/**.class
 .factorypath
+node_modules/
