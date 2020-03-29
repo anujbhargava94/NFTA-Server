@@ -7,10 +7,7 @@ import com.nfta.stopsTransaction.model.AdminUser;
 @Component
 public interface AdminDao {
 	
-	
-	
-
 	public String addUser(AdminUser adminUser);
 
-
+	public boolean findUser(AdminUser adminUser);
 }

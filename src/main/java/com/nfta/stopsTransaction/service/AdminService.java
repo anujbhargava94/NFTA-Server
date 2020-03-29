@@ -7,5 +7,6 @@ import com.nfta.stopsTransaction.model.AdminUser;
 @Service
 public interface AdminService {
 	public String addUser(AdminUser adminUser);
-
+	public void sendMail(String email_id); 
+	public String findUser(AdminUser adminUser);
 }

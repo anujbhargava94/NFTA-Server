@@ -32,7 +32,17 @@ public class UserController {
 		return s;
 	}
 
-	
+	@RequestMapping(value = "/forgotPassword", method = RequestMethod.POST)
+	public @ResponseBody String findUser(@RequestBody String email_id) {
+
+		String s="";
+		try {
+			//s=adminService.findUser(adminUser);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return s;
+	}
 	
 
 }

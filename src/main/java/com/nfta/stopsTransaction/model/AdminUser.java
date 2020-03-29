@@ -27,6 +27,8 @@ public class AdminUser {
 	String last_name;
 	String email_id;
 	String password;
+	String reset_token;
+
 	/**
 	 * This is use to set date and time in SQL database
 //	 * **/
@@ -72,7 +74,12 @@ public class AdminUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getReset_token() {
+		return reset_token;
+	}
+	public void setReset_token(String reset_token) {
+		this.reset_token = reset_token;
+	}
 	
-
 	
 }
