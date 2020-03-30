@@ -32,12 +32,12 @@ public class StopsTransactionApplication {
 //		return new TransactionServiceImpl();
 //	}
 	
-	@Bean
-	@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
-	public RouteService getRouteService()
-	{
-		return new RouteServiceImpl();
-	}
+//	@Bean
+//	@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+//	public RouteService getRouteService()
+//	{
+//		return new RouteServiceImpl();
+//	}
 	
 
 	@Bean

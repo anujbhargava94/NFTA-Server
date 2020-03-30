@@ -24,9 +24,25 @@ public class RouteListed implements Serializable{
 	@JoinColumn(name = "route_id")
 	private Route route;
 	
+	public Route getRoute() {
+		return route;
+	}
+
+	public void setRoute(Route route) {
+		this.route = route;
+	}
+
 	@Id
 	@OneToOne
 	@JoinColumn(name = "transaction_no")
 	private StopTransactions stopTransactions;
+
+	public StopTransactions getStopTransactions() {
+		return stopTransactions;
+	}
+
+	public void setStopTransactions(StopTransactions stopTransactions) {
+		this.stopTransactions = stopTransactions;
+	}
 
 }

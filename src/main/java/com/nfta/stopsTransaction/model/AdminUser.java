@@ -1,5 +1,6 @@
 package com.nfta.stopsTransaction.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -10,6 +11,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import lombok.Data;
 
 
@@ -19,7 +23,7 @@ import lombok.Data;
 public class AdminUser {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.TABLE)
 	int user_id;
 	
 	String first_name;
@@ -30,17 +34,18 @@ public class AdminUser {
 	/**
 	 * This is use to set date and time in SQL database
 //	 * **/
-	@Temporal(value=TemporalType.TIMESTAMP)
-	Date date;
+	@CreationTimestamp
+	LocalDateTime dateTime;
 	
 	
 	
 	
-	public Date getDate() {
-		return date;
+
+	public LocalDateTime getDateTime() {
+		return dateTime;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDateTime(LocalDateTime dateTime) {
+		this.dateTime = dateTime;
 	}
 	public int getUser_id() {
 		return user_id;
