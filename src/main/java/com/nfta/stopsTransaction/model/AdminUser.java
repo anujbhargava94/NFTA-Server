@@ -34,19 +34,13 @@ public class AdminUser {
 	/**
 	 * This is use to set date and time in SQL database
 //	 * **/
+	
 	@CreationTimestamp
-	LocalDateTime dateTime;
+    private LocalDateTime createDateTime;
+ 
+    @UpdateTimestamp
+    private LocalDateTime updateDateTime;
 	
-	
-	
-	
-
-	public LocalDateTime getDateTime() {
-		return dateTime;
-	}
-	public void setDateTime(LocalDateTime dateTime) {
-		this.dateTime = dateTime;
-	}
 	public int getUser_id() {
 		return user_id;
 	}
@@ -76,6 +70,23 @@ public class AdminUser {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	
+	public LocalDateTime getCreateDateTime() {
+		return createDateTime;
+	}
+
+	public void setCreateDateTime(LocalDateTime createDateTime) {
+		this.createDateTime = createDateTime;
+	}
+
+	public LocalDateTime getUpdateDateTime() {
+		return updateDateTime;
+	}
+
+	public void setUpdateDateTime(LocalDateTime updateDateTime) {
+		this.updateDateTime = updateDateTime;
 	}
 	
 
