@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
@@ -83,12 +84,13 @@ public class AdminDaoImpl implements AdminDao{
 		if(cb.equal(userReq.get("email_id"), adminUser.getEmail_id()) != null) {
 	        CriteriaUpdate<AdminUser> update = cb.createCriteriaUpdate(AdminUser.class);
 	        Root <AdminUser> e = update.from(AdminUser.class);
-
-	        // set update and where clause
 	        update.set("password", adminUser.getPassword());
 	        update.where(cb.equal(e.get("email_id"), adminUser.getEmail_id()));
-
-	        // perform update
+	        this.em.createQuery(update).executeUpdate();
+	        
+	    /** Delete the token from database **/
+	        update.set("reset_token", null);
+	        update.where(cb.equal(e.get("email_id"), adminUser.getEmail_id()));
 	        this.em.createQuery(update).executeUpdate();
 		}
 		else {
