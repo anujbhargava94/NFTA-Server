@@ -6,13 +6,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.nfta.stopsTransaction.service.AdminService;
+import com.nfta.stopsTransaction.service.EmailSenderService;
 import com.nfta.stopsTransaction.service.RouteService;
 import com.nfta.stopsTransaction.service.ServiceRequestService;
 import com.nfta.stopsTransaction.service.TransactionService;
 import com.nfta.stopsTransaction.serviceImpl.AdminServiceImpl;
+import com.nfta.stopsTransaction.serviceImpl.EmailSenderServiceImpl;
 import com.nfta.stopsTransaction.serviceImpl.RouteServiceImpl;
 import com.nfta.stopsTransaction.serviceImpl.ServiceRequestServiceImpl;
 import com.nfta.stopsTransaction.serviceImpl.TransactionServiceImpl;
@@ -46,5 +50,20 @@ public class StopsTransactionApplication {
 	{
 		return new ServiceRequestServiceImpl();
 	}
+	
+	@Bean
+	@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+	public EmailSenderService getEmailSenderService()
+	{
+		return new EmailSenderServiceImpl();
+	}
+	
+	@Bean
+	@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+	public JavaMailSender getJavaMailSender()
+	{
+		return new JavaMailSenderImpl();
+	}
+
 
 }

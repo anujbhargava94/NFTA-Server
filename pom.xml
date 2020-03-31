@@ -35,25 +35,19 @@
 		<dependency>
     		<groupId>org.springframework</groupId>
     		<artifactId>spring-context-support</artifactId>
-    		<version>3.1.1.RELEASE</version>
 		</dependency>
-		<dependency>
-    		<groupId>org.springframework.boot</groupId>
-    		<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+
 		<dependency>
         	<groupId>org.springframework</groupId>
         	<artifactId>spring-beans</artifactId>
-        	<version>4.3.7.RELEASE</version>
     	</dependency>
     	<dependency>
         	<groupId>org.springframework</groupId>
         	<artifactId>spring-context</artifactId>
-        	<version>4.3.7.RELEASE</version>
     	</dependency>
-    	<dependency>
-    		<groupId>javax.mail</groupId>
-    		<artifactId>javax.mail-api</artifactId>
+		<dependency>
+    		<groupId>com.sun.mail</groupId>
+    		<artifactId>javax.mail</artifactId>
     		<version>1.6.2</version>
 		</dependency>
 

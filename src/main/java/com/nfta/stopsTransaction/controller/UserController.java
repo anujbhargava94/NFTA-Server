@@ -33,16 +33,39 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/forgotPassword", method = RequestMethod.POST)
-	public @ResponseBody String findUser(@RequestBody String email_id) {
+	public @ResponseBody String findUser(@RequestBody AdminUser adminUser) {
 
 		String s="";
 		try {
-			//s=adminService.findUser(adminUser);
+			s=adminService.findUser(adminUser);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return s;
 	}
 	
+	@RequestMapping(value = "/confirm-reset", method = RequestMethod.GET)
+	public @ResponseBody String verifyToken(String token) {
+
+		String s="";
+		try {
+			s=adminService.confirmToken(token);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return s;
+	}
+	
+	@RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
+	public @ResponseBody String updatePassword(@RequestBody AdminUser adminUser, String password) {
+
+		String s="";
+		try {
+			s=adminService.updatePassword(adminUser,password);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return s;
+	}
 
 }
