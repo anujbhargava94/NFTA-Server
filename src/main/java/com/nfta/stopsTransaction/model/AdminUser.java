@@ -25,6 +25,8 @@ public class AdminUser {
 	String first_name;
 	
 	String last_name;
+	
+	
 	String email_id;
 	String password;
 	/**
