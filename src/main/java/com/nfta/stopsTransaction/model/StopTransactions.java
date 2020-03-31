@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -74,7 +75,7 @@ public class StopTransactions implements Serializable {
 	private Boolean system_map;
 	private String transaction_type;
 
-	@OneToMany
+	@ManyToMany
 	@JoinTable(name = "route_transaction", joinColumns = @JoinColumn(name = "transaction_no"), inverseJoinColumns = @JoinColumn(name = "route_id"))
 	private List<Route> routes = new ArrayList<>();
 
