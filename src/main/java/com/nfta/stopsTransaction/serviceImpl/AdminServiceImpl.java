@@ -102,4 +102,9 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.confirmToken(token);
 	}
 
+	@Override
+	public String updateUserInfo(AdminUser adminUser) {
+		return adminDao.updateUserInfo(adminUser);
+	}
+
 }

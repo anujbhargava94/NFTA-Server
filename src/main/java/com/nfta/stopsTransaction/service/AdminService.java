@@ -13,4 +13,5 @@ public interface AdminService {
 	public String confirmToken(String token);
 	public String saveConfirmationToken(String email_id, String token);
 	public String updatePassword(AdminUser adminUser);
+	public String updateUserInfo(AdminUser adminUser);
 }

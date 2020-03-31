@@ -16,4 +16,6 @@ public interface AdminDao {
 	public String confirmToken(String token);
 	
 	public String updatePassword(AdminUser adminUser);
+	
+	public String updateUserInfo(AdminUser adminUser);
 }

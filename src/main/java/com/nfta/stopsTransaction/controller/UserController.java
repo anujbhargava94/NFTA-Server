@@ -68,4 +68,15 @@ public class UserController {
 		return s;
 	}
 
+	@RequestMapping(value = "/updateUserInfo", method = RequestMethod.POST)
+	public @ResponseBody String updateUserInfo(@RequestBody AdminUser adminUser) {
+
+		String s="";
+		try {
+			s=adminService.updateUserInfo(adminUser);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return s;
+	}
 }

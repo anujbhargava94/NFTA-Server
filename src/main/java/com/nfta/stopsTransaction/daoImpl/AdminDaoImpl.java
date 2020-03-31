@@ -110,5 +110,17 @@ public class AdminDaoImpl implements AdminDao{
 		return "This is an invalid reset link";
 	}
 
+	@Override
+	public String updateUserInfo(AdminUser adminUser) {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaUpdate<AdminUser> update = cb.createCriteriaUpdate(AdminUser.class);
+        Root <AdminUser> e = update.from(AdminUser.class);
+        update.set("first_name", adminUser.getFirst_name());
+        update.set("last_name", adminUser.getLast_name());
+        update.where(cb.equal(e.get("email_id"), adminUser.getEmail_id()));
+        this.em.createQuery(update).executeUpdate();
+		return null;
+	}
+
 }
 
