@@ -57,11 +57,11 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
-	public @ResponseBody String updatePassword(@RequestBody AdminUser adminUser, String password) {
+	public @ResponseBody String updatePassword(@RequestBody AdminUser adminUser) {
 
 		String s="";
 		try {
-			s=adminService.updatePassword(adminUser,password);
+			s=adminService.updatePassword(adminUser);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

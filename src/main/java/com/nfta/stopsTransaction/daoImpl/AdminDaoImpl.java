@@ -75,7 +75,7 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public String updatePassword(AdminUser adminUser, String password) {
+	public String updatePassword(AdminUser adminUser) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AdminUser> cq = cb.createQuery(AdminUser.class);
 		/** Match the email_id and save the password **/
@@ -85,7 +85,7 @@ public class AdminDaoImpl implements AdminDao{
 	        Root <AdminUser> e = update.from(AdminUser.class);
 
 	        // set update and where clause
-	        update.set("password", password);
+	        update.set("password", adminUser.getPassword());
 	        update.where(cb.equal(e.get("email_id"), adminUser.getEmail_id()));
 
 	        // perform update

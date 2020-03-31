@@ -87,9 +87,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public String updatePassword(AdminUser adminUser, String password) {
-		adminDao.updatePassword(adminUser,password);
-		return null;
+	public String updatePassword(AdminUser adminUser) {
+		return adminDao.updatePassword(adminUser);
 	}
 
 	@Override
