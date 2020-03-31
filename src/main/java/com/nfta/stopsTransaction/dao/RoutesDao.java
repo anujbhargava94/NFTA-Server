@@ -11,7 +11,7 @@ import com.nfta.stopsTransaction.model.SearchFiltersRoutes;
 @Component
 public interface RoutesDao {
 	public List<Route> getRoutes();
-	public List<RouteListed> getRoute(SearchFiltersRoutes searchFiltersRoutes);
+//	public List<RouteListed> getRoute(SearchFiltersRoutes searchFiltersRoutes);
     public String save(Route t);
     public void update(Route t);
     public void delete(Route t);

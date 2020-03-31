@@ -46,6 +46,12 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.getUser(user_id);
 	}
 
+	@Override
+	public String updateAdminInformation(AdminUser adminUser) {
+		// TODO Auto-generated method stub
+		return adminDao.update(adminUser);
+	}
+
 
 
 }

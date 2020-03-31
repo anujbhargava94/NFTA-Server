@@ -62,4 +62,17 @@ public class AdminDaoImpl implements AdminDao{
 		return em.createQuery("SELECT r FROM AdminUser "+user_id).getResultList();
 	}
 
+	@Override
+	public String update(AdminUser adminUser) {
+		// TODO Auto-generated method stub
+		AdminUser temp=em.find(AdminUser.class, adminUser.getUser_id());
+		if(temp==null)
+		{return "No such user present";}
+		temp.setFirst_name(adminUser.getFirst_name());
+		temp.setEmail_id(adminUser.getEmail_id());
+		temp.setLast_name(adminUser.getLast_name());
+		temp.setPassword(adminUser.getPassword());
+		return "Admin successfully updated";
+	}
+
 }

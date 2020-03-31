@@ -61,29 +61,29 @@ public class RoutesDaoImpl implements RoutesDao{
 		
 	}
 
-	@Override
-	public List<RouteListed> getRoute(SearchFiltersRoutes searchFiltersRoutes) {
-		// TODO Auto-generated method stub
-		
-		try {
-			CriteriaBuilder cb = em.getCriteriaBuilder();
-			CriteriaQuery<RouteListed> cq = cb.createQuery(RouteListed.class);
-			
-			Root<RouteListed> routeList = cq.from(RouteListed.class);
-			List<Predicate> predicates = new ArrayList<>();
-	
-			if (Objects.nonNull(searchFiltersRoutes.getStopTransactions())) {
-				predicates.add(cb.equal(routeList.get("stopTransactions"), searchFiltersRoutes.getStopTransactions()));
-			}
-			cq.where(predicates.toArray(new Predicate[0]));
-			
-			return em.createQuery(cq).getResultList();
-			
-		} catch (Exception e) {
-			return null;
-			// TODO: handle exception
-		}
-		
-			}
+//	@Override
+//	public List<RouteListed> getRoute(SearchFiltersRoutes searchFiltersRoutes) {
+//		// TODO Auto-generated method stub
+//		
+//		try {
+//			CriteriaBuilder cb = em.getCriteriaBuilder();
+//			CriteriaQuery<RouteListed> cq = cb.createQuery(RouteListed.class);
+//			
+//			Root<RouteListed> routeList = cq.from(RouteListed.class);
+//			List<Predicate> predicates = new ArrayList<>();
+//	
+//			if (Objects.nonNull(searchFiltersRoutes.getStopTransactions())) {
+//				predicates.add(cb.equal(routeList.get("stopTransactions"), searchFiltersRoutes.getStopTransactions()));
+//			}
+//			cq.where(predicates.toArray(new Predicate[0]));
+//			
+//			return em.createQuery(cq).getResultList();
+//			
+//		} catch (Exception e) {
+//			return null;
+//			// TODO: handle exception
+//		}
+//		
+//			}
 
 }

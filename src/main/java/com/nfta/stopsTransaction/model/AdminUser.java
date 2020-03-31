@@ -14,6 +14,8 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 
 
@@ -36,9 +38,11 @@ public class AdminUser {
 //	 * **/
 	
 	@CreationTimestamp
+	@JsonIgnoreProperties("createDateTime")
     private LocalDateTime createDateTime;
  
     @UpdateTimestamp
+	@JsonIgnoreProperties("updateDateTime")
     private LocalDateTime updateDateTime;
 	
 	public int getUser_id() {

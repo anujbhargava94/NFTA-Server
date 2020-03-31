@@ -15,6 +15,7 @@ public interface AdminDao {
 	public String deleteUser(int user_id);
 	public List<AdminUser> getAllUsers();
 	public List<AdminUser> getUser(int user_id);
+	public String update(AdminUser adminUser);
 
 
 

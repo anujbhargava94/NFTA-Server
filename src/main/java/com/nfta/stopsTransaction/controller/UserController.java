@@ -20,8 +20,8 @@ import com.nfta.stopsTransaction.service.AdminService;
 
 
 @RestController
-//@CrossOrigin(origins="http://localhost:3000")
-@CrossOrigin(origins="https://nfta-web.herokuapp.com")
+@CrossOrigin(origins="http://localhost:3000")
+//@CrossOrigin(origins="https://nfta-web.herokuapp.com")
 public class UserController {
 	
 	@Autowired
@@ -65,11 +65,25 @@ public class UserController {
 		// HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+	public @ResponseBody String updateInformation(@RequestBody AdminUser adminUser) {
+
+		String s="";
+		try {
+			s=adminService.updateAdminInformation(adminUser);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return s;
+	}
+	
+	
+	
 	
 	
 //	Not in use
 	@RequestMapping(value = "/user/{user_id}", method = RequestMethod.GET)
-	public @ResponseBody String getUser(@PathVariable int user_id) {
+	public @ResponseBody String getUser(@RequestParam(value = "transaction_no", required = false) int user_id) {
 		List<AdminUser> list = new ArrayList<>();
 		try {
 			list = adminService.getUser(user_id);
