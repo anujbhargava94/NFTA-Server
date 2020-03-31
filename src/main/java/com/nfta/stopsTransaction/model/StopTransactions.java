@@ -25,6 +25,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
@@ -106,9 +107,11 @@ public class StopTransactions implements Serializable {
 //	Date date;
 
 	@CreationTimestamp
+	@JsonIgnoreProperties("createDateTime")
 	private LocalDateTime createDateTime;
 
 	@UpdateTimestamp
+	@JsonIgnoreProperties("createDateTime")
 	private LocalDateTime updateDateTime;
 
 	public String getTransaction_type() {
