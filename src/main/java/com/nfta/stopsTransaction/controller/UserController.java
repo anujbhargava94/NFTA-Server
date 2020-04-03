@@ -23,8 +23,8 @@ import com.nfta.stopsTransaction.service.UserService;
 import com.nfta.stopsTransaction.utils.UserValidator;
 
 @RestController
-//@CrossOrigin(origins="http://localhost:3000")
-@CrossOrigin(origins = "https://nfta-web.herokuapp.com")
+@CrossOrigin(origins="http://localhost:3000")
+//@CrossOrigin(origins = "https://nfta-web.herokuapp.com")
 public class UserController {
 
 	@Autowired
