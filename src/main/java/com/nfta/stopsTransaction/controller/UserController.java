@@ -24,7 +24,7 @@ import com.nfta.stopsTransaction.utils.UserValidator;
 
 @RestController
 //@CrossOrigin(origins="http://localhost:3000")
-@CrossOrigin(origins = "https://nfta-web.herokuapp.com")
+//@CrossOrigin(origins = "https://nfta-web.herokuapp.com")
 public class UserController {
 
 	@Autowired
@@ -190,7 +190,7 @@ public class UserController {
 			// model.addObject("error", getErrorMessage(request,
 			// "SPRING_SECURITY_LAST_EXCEPTION"));
 			response.setStatus(false);
-			response.setMessage("Error in processing");
+			response.setMessage(error);
 		}
 
 		if (logout != null) {
