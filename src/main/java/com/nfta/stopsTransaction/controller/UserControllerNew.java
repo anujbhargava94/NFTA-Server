@@ -20,7 +20,7 @@ import com.nfta.stopsTransaction.model.JwtResponse;
 import com.nfta.stopsTransaction.model.UserDTO;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins="http://localhost:3000")
 public class UserControllerNew {
 
 	@Autowired
