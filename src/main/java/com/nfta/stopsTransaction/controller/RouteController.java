@@ -3,6 +3,7 @@ package com.nfta.stopsTransaction.controller;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,7 @@ import com.nfta.stopsTransaction.model.Route;
 
 @RestController
 @RequestMapping("/")
+@CrossOrigin(origins="http://localhost:3000")
 public class RouteController {
 	@Autowired
 	RouteService routeService;
@@ -40,6 +42,7 @@ public class RouteController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			s="Some error occurred";
 		}
 		return s;
 	}

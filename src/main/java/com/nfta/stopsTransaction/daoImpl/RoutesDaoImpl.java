@@ -37,6 +37,10 @@ public class RoutesDaoImpl implements RoutesDao{
 		{
 			return "Illegal Argument";
 		}
+		catch(Exception e)
+		{
+			return "Exception occurred";
+		}
 		return "";
 	}
 

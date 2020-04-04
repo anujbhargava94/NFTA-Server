@@ -16,7 +16,6 @@ public class Route implements Serializable{
 	 */
 	private static final long serialVersionUID = -244770141752683513L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "route_id")
 	private Integer routeid;
 	private String routeInfo;
