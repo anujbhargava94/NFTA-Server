@@ -14,6 +14,7 @@ import com.nfta.stopsTransaction.service.AdminService;
 @Service
 @Component
 @Transactional
+@Deprecated
 public class AdminServiceImpl implements AdminService {
 	
 	@Autowired

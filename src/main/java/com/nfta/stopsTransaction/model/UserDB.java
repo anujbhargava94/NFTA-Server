@@ -1,13 +1,50 @@
 package com.nfta.stopsTransaction.model;
 
-public class UserDTO {
-	private String firstName;
-	private String lastName;
-	private String email;
-	private String contactInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "user")
+public class UserDB {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long user_id;
+	@Column
 	private String username;
+	@Column
+	@JsonIgnore
 	private String password;
+	@Column
+	@JsonIgnore
+	private String firstName;
+	@Column
+	@JsonIgnore
+	private String lastName;
+	@Column
+	@JsonIgnore
+	private String contactInfo;
+	@Column
+	@JsonIgnore
+	private String email;
 	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public long getId() {
+		return user_id;
+	}
+
+	public void setId(long id) {
+		this.user_id = id;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -22,14 +59,6 @@ public class UserDTO {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getContactInfo() {
@@ -55,4 +84,5 @@ public class UserDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 }

@@ -13,6 +13,7 @@ import com.nfta.stopsTransaction.model.AdminUser;
 @Component
 @Service
 @Transactional
+@Deprecated
 public class AdminDaoImpl implements AdminDao{
 	
 	@PersistenceContext

@@ -20,6 +20,7 @@ import lombok.Data;
 @Entity
 @Table(name = "admin_user")
 @Data
+@Deprecated
 public class AdminUser {
 
 	@Id

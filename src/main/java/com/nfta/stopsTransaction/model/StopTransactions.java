@@ -3,7 +3,6 @@ package com.nfta.stopsTransaction.model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,19 +12,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
 
@@ -43,7 +35,7 @@ public class StopTransactions implements Serializable {
 	@Column(name = "transaction_no")
 	private Long transaction_no;
 
-	@Column(nullable = false)
+	@Column
 	private String device_id;
 	private String stop_id;
 	@Column(nullable = false)
@@ -89,10 +81,10 @@ public class StopTransactions implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "request_id")
 	private ServiceRequest work_request;
-
+	
 	@OneToOne
 	@JoinColumn(name = "user_id")
-	private AdminUser adminuser;
+	private UserDB user;
 
 	@Column
 	private String admin_comments;
@@ -327,7 +319,18 @@ public class StopTransactions implements Serializable {
 		this.routes = routes;
 	}
 	
+	public UserDB getUser() {
+		return user;
+	}
+
+	public void setUser(UserDB user) {
+		this.user = user;
+	}
+	
+	
+	
 
 	// private Blob[] photo;
 
 }
+//TODO user_id, photo, service_request

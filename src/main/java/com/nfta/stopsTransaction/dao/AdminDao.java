@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import com.nfta.stopsTransaction.model.AdminUser;
 
 @Component
+@Deprecated
 public interface AdminDao {
 	
 	
