@@ -46,7 +46,7 @@ public class UserController {
 	@Autowired
 	AdminService adminService;
 	
-	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/add", method = RequestMethod.POST)
 	public @ResponseBody String addUser(@RequestBody AdminUser adminUser) {
 
 		String s="";
@@ -58,7 +58,7 @@ public class UserController {
 		return s;
 	}
 	
-	@RequestMapping(value = "/deleteUser/{user_id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/user/delete/{user_id}", method = RequestMethod.DELETE)
 	public @ResponseBody String deleteUser(@PathVariable int user_id) {
 
 		String s="";
@@ -101,7 +101,7 @@ public class UserController {
 	
 	
 
-	@RequestMapping(value = "/forgotPassword", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/get", method = RequestMethod.POST)
 	public @ResponseBody String findUser(@RequestBody AdminUser adminUser) {
 
 		String s="";
@@ -113,7 +113,7 @@ public class UserController {
 		return s;
 	}
 	
-	@RequestMapping(value = "/confirm-reset", method = RequestMethod.GET)
+	@RequestMapping(value = "/confirmreset", method = RequestMethod.GET)
 	public @ResponseBody String verifyToken(String token) {
 
 		String s="";
@@ -125,7 +125,7 @@ public class UserController {
 		return s;
 	}
 	
-	@RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/update/password", method = RequestMethod.POST)
 	public @ResponseBody String updatePassword(@RequestBody AdminUser adminUser) {
 
 		String s="";
@@ -137,12 +137,12 @@ public class UserController {
 		return s;
 	}
 
-	@RequestMapping(value = "/updateUserInfo", method = RequestMethod.POST)
-	public @ResponseBody String updateUserInfo(@RequestBody AdminUser adminUser) {
+	@RequestMapping(value = "/user/update/details", method = RequestMethod.POST)
+	public @ResponseBody String updateUser(@RequestBody AdminUser adminUser) {
 
 		String s="";
 		try {
-			s=adminService.updateUserInfo(adminUser);
+			s=adminService.update(adminUser);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

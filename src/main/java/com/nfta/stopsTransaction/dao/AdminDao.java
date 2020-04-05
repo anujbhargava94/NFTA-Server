@@ -16,7 +16,7 @@ public interface AdminDao {
 
 	public List<AdminUser> getUser(int user_id);
 
-	public String update(AdminUser adminUser);
+	//public String update(AdminUser adminUser);
 
 	public boolean findUser(AdminUser adminUser);
 
@@ -26,5 +26,5 @@ public interface AdminDao {
 
 	public String updatePassword(AdminUser adminUser);
 
-	public String updateUserInfo(AdminUser adminUser);
+	public String update(AdminUser adminUser);
 }

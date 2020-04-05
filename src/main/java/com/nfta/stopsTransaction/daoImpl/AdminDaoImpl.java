@@ -107,7 +107,7 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public String updateUserInfo(AdminUser adminUser) {
+	public String update(AdminUser adminUser) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaUpdate<AdminUser> update = cb.createCriteriaUpdate(AdminUser.class);
 		Root<AdminUser> e = update.from(AdminUser.class);
@@ -143,18 +143,18 @@ public class AdminDaoImpl implements AdminDao {
 		return em.createQuery("SELECT r FROM AdminUser " + user_id).getResultList();
 	}
 
-	@Override
-	@Deprecated
-	public String update(AdminUser adminUser) {
-		// TODO Auto-generated method stub
-		AdminUser temp = em.find(AdminUser.class, adminUser.getUser_id());
-		if (temp == null) {
-			return "No such user present";
-		}
-		temp.setFirst_name(adminUser.getFirst_name());
-		temp.setLast_name(adminUser.getLast_name());
-		temp.setPassword(adminUser.getPassword());
-		return "Admin successfully updated";
-	}
+//	@Override
+//	@Deprecated
+//	public String update(AdminUser adminUser) {
+//		// TODO Auto-generated method stub
+//		AdminUser temp = em.find(AdminUser.class, adminUser.getUser_id());
+//		if (temp == null) {
+//			return "No such user present";
+//		}
+//		temp.setFirst_name(adminUser.getFirst_name());
+//		temp.setLast_name(adminUser.getLast_name());
+//		temp.setPassword(adminUser.getPassword());
+//		return "Admin successfully updated";
+//	}
 
 }
