@@ -13,7 +13,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "user")
@@ -41,43 +41,53 @@ public class AdminUser {
 	private String reset_token;
 
 	/**
-	 * This is use to set date and time in SQL database
-//	 * **/
+	 * This is use to set date and time in SQL database // *
+	 **/
+
 	@CreationTimestamp
-    private LocalDateTime createDateTime;
- 
-    @UpdateTimestamp
-    private LocalDateTime updateDateTime;
-    
-    
-	
+	@JsonIgnoreProperties("createDateTime")
+	private LocalDateTime createDateTime;
+
+	@UpdateTimestamp
+	@JsonIgnoreProperties("updateDateTime")
+	private LocalDateTime updateDateTime;
+
 	public long getUser_id() {
 		return user_id;
 	}
+
 	public void setUser_id(long user_id) {
 		this.user_id = user_id;
 	}
+
 	public String getUsername() {
 		return username;
 	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
 	public String getContact_info() {
 		return contact_info;
 	}
+
 	public void setContact_info(String contact_info) {
 		this.contact_info = contact_info;
 	}
+
 	public String getFirst_name() {
 		return first_name;
 	}
+
 	public void setFirst_name(String first_name) {
 		this.first_name = first_name;
 	}
+
 	public String getLast_name() {
 		return last_name;
 	}
+
 	public void setLast_name(String last_name) {
 		this.last_name = last_name;
 	}
@@ -85,16 +95,19 @@ public class AdminUser {
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	public String getReset_token() {
 		return reset_token;
 	}
+
 	public void setReset_token(String reset_token) {
 		this.reset_token = reset_token;
 	}
-	
+
 	public LocalDateTime getCreateDateTime() {
 		return createDateTime;
 	}
@@ -110,5 +123,5 @@ public class AdminUser {
 	public void setUpdateDateTime(LocalDateTime updateDateTime) {
 		this.updateDateTime = updateDateTime;
 	}
-	
+
 }

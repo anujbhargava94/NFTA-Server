@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 
 @Entity
@@ -31,7 +33,7 @@ public class StopTransactions implements Serializable {
 	private static final long serialVersionUID = -8600502014954931750L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "transaction_no")
 	private Long transaction_no;
 
@@ -97,9 +99,11 @@ public class StopTransactions implements Serializable {
 //	Date date;
 
 	@CreationTimestamp
+	@JsonIgnoreProperties("createDateTime")
 	private LocalDateTime createDateTime;
 
 	@UpdateTimestamp
+	@JsonIgnoreProperties("createDateTime")
 	private LocalDateTime updateDateTime;
 
 	public String getTransaction_type() {

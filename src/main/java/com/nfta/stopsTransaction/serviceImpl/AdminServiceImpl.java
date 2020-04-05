@@ -17,6 +17,8 @@ import java.util.UUID;
 import javax.mail.*;
 
 
+import java.util.List;
+
 
 @Service
 @Component
@@ -105,6 +107,25 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public String updateUserInfo(AdminUser adminUser) {
 		return adminDao.updateUserInfo(adminUser);
+	}
+	
+	@Override
+	public String deleteUser(int user_id) {
+		// TODO Auto-generated method stub
+		return adminDao.deleteUser(user_id);
+
+	}
+
+	@Override
+	public List<AdminUser> getAllUsers() {
+		// TODO Auto-generated method stub
+		return adminDao.getAllUsers();
+	}
+
+	@Override
+	public List<AdminUser>  getUser(int user_id) {
+		// TODO Auto-generated method stub
+		return adminDao.getUser(user_id);
 	}
 
 }

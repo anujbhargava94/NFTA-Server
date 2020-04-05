@@ -1,5 +1,7 @@
 package com.nfta.stopsTransaction.daoImpl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -19,25 +21,19 @@ import com.nfta.stopsTransaction.model.AdminUser;
 @Component
 @Service
 @Transactional
-public class AdminDaoImpl implements AdminDao{
-	
-	
+public class AdminDaoImpl implements AdminDao {
+
 	@PersistenceContext
 	private EntityManager em;
-	
+
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
-	
-
 
 	@Override
 	public String addUser(AdminUser adminUser) {
-		try
-		{
+		try {
 			em.persist(adminUser);
-		}
-		catch(IllegalArgumentException e)
-		{
+		} catch (IllegalArgumentException e) {
 			return "Illegal Argument";
 		}
 		return "";
@@ -48,7 +44,7 @@ public class AdminDaoImpl implements AdminDao{
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AdminUser> cq = cb.createQuery(AdminUser.class);
 		Root<AdminUser> userReq = cq.from(AdminUser.class);
-		if(cb.equal(userReq.get("username"), adminUser.getUsername()) != null)
+		if (cb.equal(userReq.get("username"), adminUser.getUsername()) != null)
 			return true;
 		return false;
 	}
@@ -59,18 +55,17 @@ public class AdminDaoImpl implements AdminDao{
 		CriteriaQuery<AdminUser> cq = cb.createQuery(AdminUser.class);
 		/** Save token in database when email id matches **/
 		Root<AdminUser> userReq = cq.from(AdminUser.class);
-		if(cb.equal(userReq.get("username"), username) != null) {
-	        CriteriaUpdate<AdminUser> update = cb.createCriteriaUpdate(AdminUser.class);
-	        Root <AdminUser> e = update.from(AdminUser.class);
+		if (cb.equal(userReq.get("username"), username) != null) {
+			CriteriaUpdate<AdminUser> update = cb.createCriteriaUpdate(AdminUser.class);
+			Root<AdminUser> e = update.from(AdminUser.class);
 
-	        // set update and where clause
-	        update.set("reset_token", token);
-	        update.where(cb.equal(e.get("username"), username));
+			// set update and where clause
+			update.set("reset_token", token);
+			update.where(cb.equal(e.get("username"), username));
 
-	        // perform update
-	        this.em.createQuery(update).executeUpdate();
-		}
-		else {
+			// perform update
+			this.em.createQuery(update).executeUpdate();
+		} else {
 			return "User does not exist";
 		}
 
@@ -83,19 +78,18 @@ public class AdminDaoImpl implements AdminDao{
 		CriteriaQuery<AdminUser> cq = cb.createQuery(AdminUser.class);
 		/** Match the email_id and save the password **/
 		Root<AdminUser> userReq = cq.from(AdminUser.class);
-		if(cb.equal(userReq.get("username"), adminUser.getUsername()) != null) {
-	        CriteriaUpdate<AdminUser> update = cb.createCriteriaUpdate(AdminUser.class);
-	        Root <AdminUser> e = update.from(AdminUser.class);
-	        update.set("password", bcryptEncoder.encode(adminUser.getPassword()));
-	        update.where(cb.equal(e.get("username"), adminUser.getUsername()));
-	        this.em.createQuery(update).executeUpdate();
-	        
-	    /** Delete the token from database **/
-	        update.set("reset_token", null);
-	        update.where(cb.equal(e.get("username"), adminUser.getUsername()));
-	        this.em.createQuery(update).executeUpdate();
-		}
-		else {
+		if (cb.equal(userReq.get("username"), adminUser.getUsername()) != null) {
+			CriteriaUpdate<AdminUser> update = cb.createCriteriaUpdate(AdminUser.class);
+			Root<AdminUser> e = update.from(AdminUser.class);
+			update.set("password", bcryptEncoder.encode(adminUser.getPassword()));
+			update.where(cb.equal(e.get("username"), adminUser.getUsername()));
+			this.em.createQuery(update).executeUpdate();
+
+			/** Delete the token from database **/
+			update.set("reset_token", null);
+			update.where(cb.equal(e.get("username"), adminUser.getUsername()));
+			this.em.createQuery(update).executeUpdate();
+		} else {
 			return "User does not exist";
 		}
 		return null;
@@ -106,7 +100,7 @@ public class AdminDaoImpl implements AdminDao{
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AdminUser> cq = cb.createQuery(AdminUser.class);
 		Root<AdminUser> userReq = cq.from(AdminUser.class);
-		if(cb.equal(userReq.get("reset_token"), token) != null) {
+		if (cb.equal(userReq.get("reset_token"), token) != null) {
 			return "valid token";
 		}
 		return "This is an invalid reset link";
@@ -115,14 +109,52 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public String updateUserInfo(AdminUser adminUser) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaUpdate<AdminUser> update = cb.createCriteriaUpdate(AdminUser.class);
-        Root <AdminUser> e = update.from(AdminUser.class);
-        update.set("first_name", adminUser.getFirst_name());
-        update.set("last_name", adminUser.getLast_name());
-        update.where(cb.equal(e.get("username"), adminUser.getUsername()));
-        this.em.createQuery(update).executeUpdate();
+		CriteriaUpdate<AdminUser> update = cb.createCriteriaUpdate(AdminUser.class);
+		Root<AdminUser> e = update.from(AdminUser.class);
+		update.set("first_name", adminUser.getFirst_name());
+		update.set("last_name", adminUser.getLast_name());
+		update.where(cb.equal(e.get("username"), adminUser.getUsername()));
+		this.em.createQuery(update).executeUpdate();
 		return null;
 	}
 
-}
+	public String deleteUser(int user_id) {
+		// TODO Auto-generated method stub
+		AdminUser adminUser = em.find(AdminUser.class, user_id);
+		if (adminUser != null) {
+			em.remove(adminUser);
+			em.flush();
+			em.clear();
+			return "User Successfuly deleted";
+		} else {
+			return "No user present with this ID";
+		}
+	}
 
+	@Override
+	public List<AdminUser> getAllUsers() {
+		// TODO Auto-generated method stub
+		return em.createQuery("SELECT r FROM AdminUser r").getResultList();
+	}
+
+	@Override
+	public List<AdminUser> getUser(int user_id) {
+		// TODO Auto-generated method stub
+		return em.createQuery("SELECT r FROM AdminUser " + user_id).getResultList();
+	}
+
+	@Override
+	@Deprecated
+	public String update(AdminUser adminUser) {
+		// TODO Auto-generated method stub
+		AdminUser temp = em.find(AdminUser.class, adminUser.getUser_id());
+		if (temp == null) {
+			return "No such user present";
+		}
+		temp.setFirst_name(adminUser.getFirst_name());
+		temp.setLast_name(adminUser.getLast_name());
+		temp.setPassword(adminUser.getPassword());
+		return "Admin successfully updated";
+	}
+
+}

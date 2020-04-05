@@ -23,21 +23,6 @@ public class StopsTransactionApplication {
 		SpringApplication.run(StopsTransactionApplication.class, args);
 	}
 	
-//	@Bean
-//	@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
-//	public TransactionService getTransactionService()
-//	{
-//		return new TransactionServiceImpl();
-//	}
-	
-	@Bean
-	@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
-	public RouteService getRouteService()
-	{
-		return new RouteServiceImpl();
-	}
-	
-
 	@Bean
 	@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
 	public ServiceRequestService getServiceRequestService()
