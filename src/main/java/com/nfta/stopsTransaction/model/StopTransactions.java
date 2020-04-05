@@ -82,9 +82,8 @@ public class StopTransactions implements Serializable {
 	@JoinColumn(name = "request_id")
 	private ServiceRequest work_request;
 	
-	@OneToOne
-	@JoinColumn(name = "user_id")
-	private UserDB user;
+	@Column
+	private String username;
 
 	@Column
 	private String admin_comments;
@@ -319,12 +318,12 @@ public class StopTransactions implements Serializable {
 		this.routes = routes;
 	}
 	
-	public UserDB getUser() {
-		return user;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUser(UserDB user) {
-		this.user = user;
+	public void setUser(String user) {
+		this.username = user;
 	}
 	
 	

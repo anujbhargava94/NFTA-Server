@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.nfta.stopsTransaction.dao.UserDao;
-import com.nfta.stopsTransaction.model.UserDB;
+import com.nfta.stopsTransaction.model.AdminUser;
 import com.nfta.stopsTransaction.model.UserDTO;
 
 @Service
@@ -24,7 +24,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserDB user = userDao.findByUsername(username);
+		AdminUser user = userDao.findByUsername(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("User not found with username: " + username);
 		}
@@ -32,21 +32,18 @@ public class JwtUserDetailsService implements UserDetailsService {
 				new ArrayList<>());
 	}
 
-	public UserDB save(UserDTO user) {
-		UserDB newUser = new UserDB();
+	public AdminUser save(UserDTO user) {
+		AdminUser newUser = new AdminUser();
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 		if(user.getContactInfo()!=null) {
-			newUser.setContactInfo(user.getContactInfo());
-		}
-		if(user.getEmail()!=null) {
-			newUser.setEmail(user.getEmail());
+			newUser.setContact_info(user.getContactInfo());
 		}
 		if(user.getFirstName()!=null) {
-			newUser.setFirstName((user.getFirstName()));
+			newUser.setFirst_name(((user.getFirstName())));
 		}
 		if(user.getLastName()!=null) {
-			newUser.setLastName(user.getLastName());
+			newUser.setLast_name((user.getLastName()));
 		}
 		return userDao.save(newUser);
 	}

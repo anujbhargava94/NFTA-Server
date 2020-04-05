@@ -3,7 +3,6 @@ package com.nfta.stopsTransaction.model;
 public class UserDTO {
 	private String firstName;
 	private String lastName;
-	private String email;
 	private String contactInfo;
 	private String username;
 	private String password;
@@ -22,14 +21,6 @@ public class UserDTO {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getContactInfo() {

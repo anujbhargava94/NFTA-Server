@@ -1,37 +1,45 @@
 package com.nfta.stopsTransaction.model;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-@Table(name = "admin_user")
-@Data
-@Deprecated
+@Table(name = "user")
 public class AdminUser {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	int user_id;
-	
-	String first_name;
-	
-	String last_name;
-	String email_id;
-	String password;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long user_id;
+	@Column(unique = true)
+	private String username;
+	@Column
+	@JsonIgnore
+	private String password;
+	@Column
+	@JsonIgnore
+	private String first_name;
+	@Column
+	@JsonIgnore
+	private String last_name;
+	@Column
+	@JsonIgnore
+	private String contact_info;
+	@Column
+	@JsonIgnore
+	private String reset_token;
+
 	/**
 	 * This is use to set date and time in SQL database
 //	 * **/
@@ -40,12 +48,26 @@ public class AdminUser {
  
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
+    
+    
 	
-	public int getUser_id() {
+	public long getUser_id() {
 		return user_id;
 	}
-	public void setUser_id(int user_id) {
+	public void setUser_id(long user_id) {
 		this.user_id = user_id;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getContact_info() {
+		return contact_info;
+	}
+	public void setContact_info(String contact_info) {
+		this.contact_info = contact_info;
 	}
 	public String getFirst_name() {
 		return first_name;
@@ -59,19 +81,19 @@ public class AdminUser {
 	public void setLast_name(String last_name) {
 		this.last_name = last_name;
 	}
-	public String getEmail_id() {
-		return email_id;
-	}
-	public void setEmail_id(String email_id) {
-		this.email_id = email_id;
-	}
+
 	public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+	public String getReset_token() {
+		return reset_token;
+	}
+	public void setReset_token(String reset_token) {
+		this.reset_token = reset_token;
+	}
 	
 	public LocalDateTime getCreateDateTime() {
 		return createDateTime;
@@ -88,7 +110,5 @@ public class AdminUser {
 	public void setUpdateDateTime(LocalDateTime updateDateTime) {
 		this.updateDateTime = updateDateTime;
 	}
-	
-
 	
 }
