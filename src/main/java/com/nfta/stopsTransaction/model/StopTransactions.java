@@ -40,7 +40,6 @@ public class StopTransactions implements Serializable {
 	@Column
 	private String device_id;
 	private String stop_id;
-	@Column(nullable = false)
 	private String direction;
 	private String street_on;
 	private String nearest_cross_street;
@@ -49,23 +48,14 @@ public class StopTransactions implements Serializable {
 	private Double latitude;
 	private Double longitude;
 	private String location;
-	@Column(nullable = false)
 	private String county;
-	@Column(nullable = false)
 	private String status;
-	@Column(nullable = false)
 	private Boolean shelter;
-	@Column(nullable = false)
 	private Boolean advertisement;
-	@Column(nullable = false)
 	private Boolean bench;
-	@Column(nullable = false)
 	private Boolean bike_rack;
-	@Column(nullable = false)
 	private Boolean trash_can;
-	@Column(nullable = false)
 	private Boolean time_table;
-	@Column(nullable = false)
 	private Boolean system_map;
 	private String transaction_type;
 

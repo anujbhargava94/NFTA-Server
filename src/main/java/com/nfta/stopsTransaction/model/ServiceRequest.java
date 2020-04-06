@@ -29,7 +29,7 @@ public class ServiceRequest implements Serializable{
 	 */
 	private static final long serialVersionUID = -5135881928483223568L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Integer request_id;
 	private Integer admin_user_id;
 	private String requested_user;

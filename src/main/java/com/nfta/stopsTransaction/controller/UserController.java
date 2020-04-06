@@ -101,7 +101,7 @@ public class UserController {
 	
 	
 
-	@RequestMapping(value = "/user/get", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/forgotPassword", method = RequestMethod.POST)
 	public @ResponseBody String findUser(@RequestBody AdminUser adminUser) {
 
 		String s="";

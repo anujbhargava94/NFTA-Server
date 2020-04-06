@@ -25,19 +25,14 @@ public class AdminUser {
 	@Column(unique = true)
 	private String username;
 	@Column
-	@JsonIgnore
 	private String password;
 	@Column
-	@JsonIgnore
 	private String first_name;
 	@Column
-	@JsonIgnore
 	private String last_name;
 	@Column
-	@JsonIgnore
 	private String contact_info;
 	@Column
-	@JsonIgnore
 	private String reset_token;
 
 	/**
