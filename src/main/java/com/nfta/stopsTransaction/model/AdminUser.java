@@ -39,13 +39,13 @@ public class AdminUser {
 	 * This is use to set date and time in SQL database // *
 	 **/
 
-	@CreationTimestamp
-	@JsonIgnoreProperties("createDateTime")
-	private LocalDateTime createDateTime;
+// 	@CreationTimestamp
+// 	@JsonIgnoreProperties("createDateTime")
+// 	private LocalDateTime createDateTime;
 
-	@UpdateTimestamp
-	@JsonIgnoreProperties("updateDateTime")
-	private LocalDateTime updateDateTime;
+// 	@UpdateTimestamp
+// 	@JsonIgnoreProperties("updateDateTime")
+// 	private LocalDateTime updateDateTime;
 
 	public long getUser_id() {
 		return user_id;
@@ -103,20 +103,20 @@ public class AdminUser {
 		this.reset_token = reset_token;
 	}
 
-	public LocalDateTime getCreateDateTime() {
-		return createDateTime;
-	}
+// 	public LocalDateTime getCreateDateTime() {
+// 		return createDateTime;
+// 	}
 
-	public void setCreateDateTime(LocalDateTime createDateTime) {
-		this.createDateTime = createDateTime;
-	}
+// 	public void setCreateDateTime(LocalDateTime createDateTime) {
+// 		this.createDateTime = createDateTime;
+// 	}
 
-	public LocalDateTime getUpdateDateTime() {
-		return updateDateTime;
-	}
+// 	public LocalDateTime getUpdateDateTime() {
+// 		return updateDateTime;
+// 	}
 
-	public void setUpdateDateTime(LocalDateTime updateDateTime) {
-		this.updateDateTime = updateDateTime;
-	}
+// 	public void setUpdateDateTime(LocalDateTime updateDateTime) {
+// 		this.updateDateTime = updateDateTime;
+// 	}
 
 }
