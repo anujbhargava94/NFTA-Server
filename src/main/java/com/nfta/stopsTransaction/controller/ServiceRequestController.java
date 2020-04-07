@@ -21,7 +21,7 @@ import com.nfta.stopsTransaction.service.ServiceRequestService;
 
 @RestController
 @RequestMapping("/")
-@CrossOrigin(origins="https://web-nfta.herokuapp.com/")
+@CrossOrigin(origins= {"https://web-nfta.herokuapp.com", "http://localhost:3000"})
 public class ServiceRequestController {
 	@Autowired
 	ServiceRequestService serviceRequestService;
