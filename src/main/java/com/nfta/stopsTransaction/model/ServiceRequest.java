@@ -41,11 +41,11 @@ public class ServiceRequest implements Serializable{
 	private String additional_information;
 	private String status;
 	private String request_type;
-	@CreationTimestamp
-    private LocalDateTime createDateTime;
+// 	@CreationTimestamp
+//     private LocalDateTime createDateTime;
  
-    @UpdateTimestamp
-    private LocalDateTime updateDateTime;
+//     @UpdateTimestamp
+//     private LocalDateTime updateDateTime;
 	
 	public Integer getRequest_id() {
 		return request_id;
@@ -115,20 +115,20 @@ public class ServiceRequest implements Serializable{
 		this.request_type = request_type;
 	}
 	
-	public LocalDateTime getCreateDateTime() {
-		return createDateTime;
-	}
+// 	public LocalDateTime getCreateDateTime() {
+// 		return createDateTime;
+// 	}
 
-	public void setCreateDateTime(LocalDateTime createDateTime) {
-		this.createDateTime = createDateTime;
-	}
+// 	public void setCreateDateTime(LocalDateTime createDateTime) {
+// 		this.createDateTime = createDateTime;
+// 	}
 
-	public LocalDateTime getUpdateDateTime() {
-		return updateDateTime;
-	}
+// 	public LocalDateTime getUpdateDateTime() {
+// 		return updateDateTime;
+// 	}
 
-	public void setUpdateDateTime(LocalDateTime updateDateTime) {
-		this.updateDateTime = updateDateTime;
-	}
+// 	public void setUpdateDateTime(LocalDateTime updateDateTime) {
+// 		this.updateDateTime = updateDateTime;
+// 	}
 	
 }
