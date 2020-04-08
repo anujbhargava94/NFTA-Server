@@ -18,7 +18,7 @@ import com.nfta.stopsTransaction.model.StopTransactions;
 import com.nfta.stopsTransaction.service.TransactionService;
 
 @RestController
-@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins= {"https://web-nfta.herokuapp.com", "http://localhost:3000"})
 public class TransactionController {
 
 	@Autowired
@@ -26,7 +26,6 @@ public class TransactionController {
 
 	@Autowired
 	SearchFilters searchFilters;
-
 
 	@RequestMapping(value = "/transaction", method = RequestMethod.GET)
 	public @ResponseBody String getTransactions(
@@ -54,7 +53,7 @@ public class TransactionController {
 		// HttpStatus.OK);
 	}
     
-	@CrossOrigin(origins="http://localhost:3000")
+	//@CrossOrigin(origins="http://localhost:3000")
 	@RequestMapping(value = "/transactions", method = RequestMethod.GET)
 	public @ResponseBody String getTransactions() {
 		List<StopTransactions> list = new ArrayList<>();

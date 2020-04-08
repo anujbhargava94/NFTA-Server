@@ -1,12 +1,16 @@
 package com.nfta.stopsTransaction.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Route implements Serializable{
@@ -19,6 +23,12 @@ public class Route implements Serializable{
 	@Column(name = "route_id")
 	private Integer routeid;
 	private String routeInfo;
+	
+	@CreationTimestamp
+    private LocalDateTime createDateTime;
+ 
+    @UpdateTimestamp
+    private LocalDateTime updateDateTime;
 
 	public Integer getRouteid() {
 		return routeid;
@@ -35,4 +45,22 @@ public class Route implements Serializable{
 	public void setRouteInfo(String routeInfo) {
 		this.routeInfo = routeInfo;
 	}
+
+	public LocalDateTime getCreateDateTime() {
+		return createDateTime;
+	}
+
+	public void setCreateDateTime(LocalDateTime createDateTime) {
+		this.createDateTime = createDateTime;
+	}
+
+	public LocalDateTime getUpdateDateTime() {
+		return updateDateTime;
+	}
+
+	public void setUpdateDateTime(LocalDateTime updateDateTime) {
+		this.updateDateTime = updateDateTime;
+	}
+	
+	
 }

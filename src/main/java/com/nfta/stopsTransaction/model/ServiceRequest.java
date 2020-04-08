@@ -1,6 +1,7 @@
 package com.nfta.stopsTransaction.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -14,6 +15,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import antlr.collections.List;
 import lombok.Data;
 
@@ -26,7 +30,7 @@ public class ServiceRequest implements Serializable{
 	 */
 	private static final long serialVersionUID = -5135881928483223568L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Integer request_id;
 	
 	@OneToOne
@@ -41,11 +45,11 @@ public class ServiceRequest implements Serializable{
 	private String additional_information;
 	private String status;
 	private String request_type;
-	/**
-	 * This is use to set date and time in SQL database
-	 * **/
-	@Temporal(value=TemporalType.TIMESTAMP)
-	Date date;
+// 	@CreationTimestamp
+//     private LocalDateTime createDateTime;
+ 
+//     @UpdateTimestamp
+//     private LocalDateTime updateDateTime;
 	
 	public Integer getRequest_id() {
 		return request_id;
@@ -114,12 +118,21 @@ public class ServiceRequest implements Serializable{
 	public void setRequest_type(String request_type) {
 		this.request_type = request_type;
 	}
-
 	
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;}
+// 	public LocalDateTime getCreateDateTime() {
+// 		return createDateTime;
+// 	}
+
+// 	public void setCreateDateTime(LocalDateTime createDateTime) {
+// 		this.createDateTime = createDateTime;
+// 	}
+
+// 	public LocalDateTime getUpdateDateTime() {
+// 		return updateDateTime;
+// 	}
+
+// 	public void setUpdateDateTime(LocalDateTime updateDateTime) {
+// 		this.updateDateTime = updateDateTime;
+// 	}
 	
 }
