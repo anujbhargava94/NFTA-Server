@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nfta.stopsTransaction.dao.ServiceRequestDao;
 import com.nfta.stopsTransaction.model.SearchFilters;
-import com.nfta.stopsTransaction.model.SearchFiltersServiceRequest;
 import com.nfta.stopsTransaction.model.ServiceRequest;
 import com.nfta.stopsTransaction.service.ServiceRequestService;
 
