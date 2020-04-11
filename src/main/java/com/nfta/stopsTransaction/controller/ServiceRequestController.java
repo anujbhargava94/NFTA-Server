@@ -14,14 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.nfta.stopsTransaction.model.SearchFilters;
-import com.nfta.stopsTransaction.model.SearchFiltersServiceRequest;
 import com.nfta.stopsTransaction.model.ServiceRequest;
 
 import com.nfta.stopsTransaction.service.ServiceRequestService;
 
 @RestController
 @RequestMapping("/")
-@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins= {"https://web-nfta.herokuapp.com", "http://localhost:3000"})
 public class ServiceRequestController {
 	@Autowired
 	ServiceRequestService serviceRequestService;
@@ -35,14 +34,15 @@ public class ServiceRequestController {
 		String s = "";
 		try {
 			s = serviceRequestService.addServiceRequest(serviceRequest);
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "{\"error\": \"Some error occurred\"";
 		}
-		return s;
+		return "{\"serviceRequestID\":" + s + "}";
 	}
 	
-	@CrossOrigin(origins="http://localhost:3000")
+	
 	@RequestMapping(value = "/serviceRequests", method = RequestMethod.GET)
 	public @ResponseBody String getServiceRequests() {
 		List<ServiceRequest> list = new ArrayList<>();
@@ -61,7 +61,7 @@ public class ServiceRequestController {
 		// HttpStatus.OK);
 	}
 	
-	@CrossOrigin(origins="http://localhost:3000")
+	
 	@RequestMapping(value = "/serviceRequest", method = RequestMethod.GET)
 	public @ResponseBody String getServiceRequest(@RequestParam(value = "id", required = false) String requestId,
 			@RequestParam(value = "stopID", required = false) String stopId,
@@ -70,11 +70,11 @@ public class ServiceRequestController {
 			@RequestParam(value = "dateto", required = false) String dateTo,
 			@RequestParam(value = "type", required = false) String requestType,
 			@RequestParam(value = "status", required = false) String status,
-			@RequestParam(value = "adminUser", required = false) String adminUser) {
+			@RequestParam(value = "requestedUser", required = false) String requestedUser) {
 		List<ServiceRequest> list = new ArrayList<>();
 		try {
 			
-			searchFilters.setSearchFilter(requestId, stopId, direction, dateFrom, dateTo, requestType, status, adminUser);
+			searchFilters.setSearchFilter(requestId, stopId, direction, dateFrom, dateTo, requestType, status, requestedUser);
 			list = serviceRequestService.getServiceRequest(searchFilters);
 		} catch (Exception e) {
 			e.printStackTrace();

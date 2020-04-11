@@ -3,7 +3,6 @@ package com.nfta.stopsTransaction.service;
 import java.util.List;
 
 import com.nfta.stopsTransaction.model.SearchFilters;
-import com.nfta.stopsTransaction.model.SearchFiltersServiceRequest;
 import com.nfta.stopsTransaction.model.ServiceRequest;
 
 

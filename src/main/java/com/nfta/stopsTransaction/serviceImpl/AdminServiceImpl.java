@@ -17,6 +17,8 @@ import java.util.UUID;
 import javax.mail.*;
 
 
+import java.util.List;
+
 
 @Service
 @Component
@@ -60,7 +62,7 @@ public class AdminServiceImpl implements AdminService {
             message.setSubject("Complete Password Reset!");
             String token = getConfirmationToken();
             message.setText("To complete the password reset process, please click here: "
-                    + "http://localhost:8080/confirm-reset?token="+token);
+                    + "http://localhost:8080/confirmreset?token="+token);
             saveConfirmationToken(email_id, token);
             Transport.send(message);
         } catch (MessagingException e) {
@@ -72,7 +74,7 @@ public class AdminServiceImpl implements AdminService {
 	public String findUser(AdminUser adminUser) {
 		if (adminDao.findUser(adminUser))
 		{
-			sendMail(adminUser.getEmail_id());
+			sendMail(adminUser.getUsername());
 		}
 		else
 			return "no such user exists";
@@ -92,8 +94,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public String saveConfirmationToken(String email_id, String token) {
-		adminDao.saveConfirmationToken(email_id,token);
+	public String saveConfirmationToken(String username, String token) {
+		adminDao.saveConfirmationToken(username,token);
 		return null;
 	}
 
@@ -103,8 +105,27 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public String updateUserInfo(AdminUser adminUser) {
-		return adminDao.updateUserInfo(adminUser);
+	public String update(AdminUser adminUser) {
+		return adminDao.update(adminUser);
+	}
+	
+	@Override
+	public String deleteUser(int user_id) {
+		// TODO Auto-generated method stub
+		return adminDao.deleteUser(user_id);
+
+	}
+
+	@Override
+	public List<AdminUser> getAllUsers() {
+		// TODO Auto-generated method stub
+		return adminDao.getAllUsers();
+	}
+
+	@Override
+	public List<AdminUser>  getUser(int user_id) {
+		// TODO Auto-generated method stub
+		return adminDao.getUser(user_id);
 	}
 
 }
