@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -31,7 +32,10 @@ public class ServiceRequest implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Integer request_id;
-	private Integer admin_user_id;
+	
+	@OneToOne
+	@JoinColumn(name = "user_id")
+	private AdminUser admin_user_id;
 	private String requested_user;
 	private String location;
 	private String direction;
@@ -54,10 +58,10 @@ public class ServiceRequest implements Serializable{
 		this.request_id = request_id;
 	}
 
-	public Integer getAdmin_user_id() {
+	public AdminUser getAdmin_user_id() {
 		return admin_user_id;
 	}
-	public void setAdmin_user_id(Integer admin_user_id) {
+	public void setAdmin_user_id(AdminUser admin_user_id) {
 		this.admin_user_id = admin_user_id;
 	}
 	public String getRequested_user() {
