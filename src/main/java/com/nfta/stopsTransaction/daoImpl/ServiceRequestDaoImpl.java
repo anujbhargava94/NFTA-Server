@@ -32,12 +32,13 @@ public class ServiceRequestDaoImpl implements ServiceRequestDao {
 		try
 		{
 			em.persist(s);
+			em.flush();
+			return s.getRequest_id().toString();
 		}
 		catch(IllegalArgumentException e)
 		{
 			return "Illegal Argument";
 		}
-		return null;
 	}
 
 	@Override

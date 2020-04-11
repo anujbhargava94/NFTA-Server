@@ -134,7 +134,7 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public List<AdminUser> getAllUsers() {
 		// TODO Auto-generated method stub
-		return em.createQuery("SELECT r FROM AdminUser r").getResultList();
+		return em.createQuery("SELECT r FROM AdminUser r order by user_id").getResultList();
 	}
 
 	@Override

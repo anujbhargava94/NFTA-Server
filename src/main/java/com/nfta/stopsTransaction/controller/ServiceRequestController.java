@@ -35,11 +35,12 @@ public class ServiceRequestController {
 		String s = "";
 		try {
 			s = serviceRequestService.addServiceRequest(serviceRequest);
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "{\"error\": \"Some error occurred\"";
 		}
-		return s;
+		return "{\"serviceRequestID\":" + s + "}";
 	}
 	
 	

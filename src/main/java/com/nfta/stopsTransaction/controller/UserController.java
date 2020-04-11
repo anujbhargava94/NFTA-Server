@@ -47,18 +47,6 @@ public class UserController {
 	@Autowired
 	AdminService adminService;
 	
-	@RequestMapping(value = "/user/add", method = RequestMethod.POST)
-	public @ResponseBody String addUser(@RequestBody AdminUser adminUser) {
-
-		String s="";
-		try {
-			s=adminService.addUser(adminUser);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return s;
-	}
-	
 	@RequestMapping(value = "/user/delete/{user_id}", method = RequestMethod.DELETE)
 	public @ResponseBody String deleteUser(@PathVariable int user_id) {
 
