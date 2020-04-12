@@ -2,13 +2,17 @@ package com.nfta.stopsTransaction.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
+
 
 @Entity
 @Table(name = "dropdowns")
@@ -24,7 +28,16 @@ public class Dropdowns implements Serializable {
 	private String dropdown_type;
 	private Integer dropdown_value;
 	private String display_name;
+	@Column(columnDefinition = "boolean default true")
+	@JsonIgnore
+	private boolean active;
 	
+	public boolean isActive() {
+		return active;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 	public Integer getDropdown_id() {
 		return dropdown_id;
 	}

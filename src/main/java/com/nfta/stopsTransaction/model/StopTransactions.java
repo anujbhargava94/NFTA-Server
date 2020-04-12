@@ -59,13 +59,26 @@ public class StopTransactions implements Serializable {
 	private Boolean system_map;
 	private String transaction_type;
 
+	//@ManyToMany
+	//@JoinTable(name = "route_transaction", joinColumns = @JoinColumn(name = "transaction_no"), inverseJoinColumns = @JoinColumn(name = "route_id"))
+	
 	@ManyToMany
-	@JoinTable(name = "route_transaction", joinColumns = @JoinColumn(name = "transaction_no"), inverseJoinColumns = @JoinColumn(name = "route_id"))
-	private List<Route> routes = new ArrayList<>();
+	@JoinTable(name = "dropdown_transaction", joinColumns = @JoinColumn(name = "transaction_no"), inverseJoinColumns = @JoinColumn(name = "dropdown_id"))
+	
+	private List<Dropdowns> dropdowns = new ArrayList<>();
+	//private List<Route> routes = new ArrayList<>();
 
 //	@Lob
 //	@Column(name = "image", length = 1000)
 //	private Byte[] image;
+
+	public List<Dropdowns> getDropdowns() {
+		return dropdowns;
+	}
+
+	public void setDropdowns(List<Dropdowns> dropdowns) {
+		this.dropdowns = dropdowns;
+	}
 
 	/**
 	 * Unidirectional Foreign keys For ServiceRequest and adminuser
@@ -304,13 +317,13 @@ public class StopTransactions implements Serializable {
 		this.additional_information = additional_information;
 	}
 
-	public List<Route> getRoutes() {
-		return routes;
-	}
-
-	public void setRoutes(List<Route> routes) {
-		this.routes = routes;
-	}
+//	public List<Route> getRoutes() {
+//		return routes;
+//	}
+//
+//	public void setRoutes(List<Route> routes) {
+//		this.routes = routes;
+//	}
 	
 	public String getUsername() {
 		return username;
