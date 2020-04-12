@@ -14,7 +14,11 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nfta.stopsTransaction.dao.AdminDao;
 import com.nfta.stopsTransaction.dao.TransactionsDao;
+import com.nfta.stopsTransaction.model.AdminUser;
 import com.nfta.stopsTransaction.model.SearchFilters;
 import com.nfta.stopsTransaction.model.StopTransactions;
 import com.nfta.stopsTransaction.service.TransactionService;
@@ -24,6 +28,9 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Autowired
 	TransactionsDao transactionsDao;
+	
+	@Autowired
+	AdminDao adminDao;
 
 	@Override
 	public List<StopTransactions> getTransactions(SearchFilters searchFilters) {
@@ -42,11 +49,15 @@ public class TransactionServiceImpl implements TransactionService {
 	@Override
 	public String addOrUpdate(StopTransactions stopTransaction) {
 		// TODO Auto-generated method stub
-		return transactionsDao.addOrUpdate(stopTransaction);
-		//String status = transactionsDao.addOrUpdate(stopTransaction);
-		//if (status == ""){
-		//		sendMail()
-		//}
+		//return transactionsDao.addOrUpdate(stopTransaction);
+		String status = transactionsDao.addOrUpdate(stopTransaction);
+		if (status == ""){
+			List<AdminUser> adminUsers = adminDao.getAllUsers();
+			for (AdminUser adminUser:adminUsers) {
+				sendMail(adminUser.getUsername(),stopTransaction);
+			}
+		}
+		return status;
 	}
 
 	@Override
@@ -81,11 +92,15 @@ public class TransactionServiceImpl implements TransactionService {
                     Message.RecipientType.TO,
                     InternetAddress.parse(email_id)
             );
-            message.setSubject("New Transaction Added");
-
-            //message.setText("To complete the password reset process, please click here: "
-            //        + "http://localhost:8080/confirmreset?token=");
-            message.setText("New transaction Details: " + stopTransaction);
+            message.setSubject("New Transaction Added " + stopTransaction.getTransaction_no());
+            
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+				String jsonStopTransaction = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(stopTransaction);
+				message.setText("New transaction Details: " + jsonStopTransaction);
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+			}
             Transport.send(message);
         } catch (MessagingException e) {
             e.printStackTrace();

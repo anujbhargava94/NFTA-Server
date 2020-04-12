@@ -45,12 +45,19 @@ public class AdminDaoImpl implements AdminDao {
 
 	@Override
 	public boolean findUser(AdminUser adminUser) {
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<AdminUser> cq = cb.createQuery(AdminUser.class);
-		Root<AdminUser> userReq = cq.from(AdminUser.class);
-		if (cb.equal(userReq.get("username"), adminUser.getUsername()) != null)
+		CriteriaBuilder cb = em.getCriteriaBuilder();		
+		CriteriaQuery<AdminUser> q = cb.createQuery(AdminUser.class);
+		Root<AdminUser> c = q.from(AdminUser.class);
+		List<Predicate> predicates = new ArrayList<>();
+		predicates.add(cb.equal(c.get("username"), adminUser.getUsername()));
+		q.where(predicates.toArray(new Predicate[0]));
+		
+		List<AdminUser>user = em.createQuery(q).getResultList();
+		
+		if (user.size() != 0)
 			return true;
-		return false;
+		else
+			return false;
 	}
 
 	@Override
@@ -82,7 +89,11 @@ public class AdminDaoImpl implements AdminDao {
 		CriteriaQuery<AdminUser> cq = cb.createQuery(AdminUser.class);
 		/** Match the email_id and save the password **/
 		Root<AdminUser> userReq = cq.from(AdminUser.class);
-		if (cb.equal(userReq.get("username"), adminUser.getUsername()) != null) {
+		List<Predicate> predicates = new ArrayList<>();
+		predicates.add(cb.equal(userReq.get("username"), adminUser.getUsername()));
+		cq.where(predicates.toArray(new Predicate[0]));
+		List<AdminUser>user = em.createQuery(cq).getResultList();
+		if (user.size() != 0) {
 			CriteriaUpdate<AdminUser> update = cb.createCriteriaUpdate(AdminUser.class);
 			Root<AdminUser> e = update.from(AdminUser.class);
 			update.set("password", bcryptEncoder.encode(adminUser.getPassword()));
@@ -104,18 +115,21 @@ public class AdminDaoImpl implements AdminDao {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AdminUser> cq = cb.createQuery(AdminUser.class);
 		Root<AdminUser> userReq = cq.from(AdminUser.class);
-		if (cb.equal(userReq.get("reset_token"), token) != null) {
-			 CriteriaQuery<AdminUser> q = cb.createQuery(AdminUser.class);
-			 Root<AdminUser> c = q.from(AdminUser.class);
-			List<Predicate> predicates = new ArrayList<>();
-			predicates.add(cb.equal(c.get("reset_token"), token));
-			q.where(predicates.toArray(new Predicate[0]));
-			
+		
+		List<Predicate> predicates = new ArrayList<>();
+		predicates.add(cb.equal(userReq.get("reset_token"), token));
+		cq.where(predicates.toArray(new Predicate[0]));
+		List<AdminUser>user = em.createQuery(cq).getResultList();
+		if (user.size() != 0) {
+			CriteriaQuery<AdminUser> q = cb.createQuery(AdminUser.class);
+			Root<AdminUser> c = q.from(AdminUser.class);
+			List<Predicate> predicates1 = new ArrayList<>();
+			predicates1.add(cb.equal(c.get("reset_token"), token));
+			q.where(predicates1.toArray(new Predicate[0]));
+
 			List<AdminUser> adminusers =  em.createQuery(q).getResultList();
 			return adminusers.get(0);
-			//return "valid token";
 		}
-		//return "This is an invalid reset link";
 		return null;
 	}
 
