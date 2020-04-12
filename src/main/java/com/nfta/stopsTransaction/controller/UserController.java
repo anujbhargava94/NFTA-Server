@@ -25,16 +25,16 @@ import com.nfta.stopsTransaction.config.JwtUserDetailsService;
 import com.nfta.stopsTransaction.model.AdminUser;
 import com.nfta.stopsTransaction.model.JwtRequest;
 import com.nfta.stopsTransaction.model.JwtResponse;
+import com.nfta.stopsTransaction.model.PingModel;
 import com.nfta.stopsTransaction.model.UserDTO;
 import com.nfta.stopsTransaction.service.AdminService;
 
-
 @RestController
 //@CrossOrigin(origins="http://localhost:3000")
-@CrossOrigin(origins= {"https://web-nfta.herokuapp.com", "http://localhost:3000"})
+@CrossOrigin(origins = { "https://web-nfta.herokuapp.com", "http://localhost:3000" })
 //@CrossOrigin(origins="https://nfta-web.herokuapp.com")
 public class UserController {
-	
+
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
@@ -43,34 +43,34 @@ public class UserController {
 
 	@Autowired
 	private JwtUserDetailsService userDetailsService;
-	
+
 	@Autowired
 	AdminService adminService;
-	
+
 	@RequestMapping(value = "/user/add", method = RequestMethod.POST)
 	public @ResponseBody String addUser(@RequestBody AdminUser adminUser) {
 
-		String s="";
+		String s = "";
 		try {
-			s=adminService.addUser(adminUser);
+			s = adminService.addUser(adminUser);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return s;
 	}
-	
+
 	@RequestMapping(value = "/user/delete/{user_id}", method = RequestMethod.DELETE)
 	public @ResponseBody String deleteUser(@PathVariable int user_id) {
 
-		String s="";
+		String s = "";
 		try {
-			s=adminService.deleteUser(user_id);
+			s = adminService.deleteUser(user_id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return s;
 	}
-	
+
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public @ResponseBody String getUsers() {
 		List<AdminUser> list = new ArrayList<>();
@@ -84,8 +84,7 @@ public class UserController {
 		// return new ResponseEntity<List<StopTransactions>>(list, new HttpHeaders(),
 		// HttpStatus.OK);
 	}
-	
-	
+
 	@RequestMapping(value = "/user/{user_id}", method = RequestMethod.GET)
 	public @ResponseBody String getUser(@RequestParam(value = "transaction_no", required = false) int user_id) {
 		List<AdminUser> list = new ArrayList<>();
@@ -99,39 +98,37 @@ public class UserController {
 		// return new ResponseEntity<List<StopTransactions>>(list, new HttpHeaders(),
 		// HttpStatus.OK);
 	}
-	
-	
 
 	@RequestMapping(value = "/user/forgotPassword", method = RequestMethod.POST)
 	public @ResponseBody String findUser(@RequestBody AdminUser adminUser) {
 
-		String s="";
+		String s = "";
 		try {
-			s=adminService.findUser(adminUser);
+			s = adminService.findUser(adminUser);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return s;
 	}
-	
+
 	@RequestMapping(value = "/confirmreset", method = RequestMethod.GET)
 	public @ResponseBody String verifyToken(String token) {
 
-		String s="";
+		String s = "";
 		try {
-			s=adminService.confirmToken(token);
+			s = adminService.confirmToken(token);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return s;
 	}
-	
+
 	@RequestMapping(value = "/user/update/password", method = RequestMethod.POST)
 	public @ResponseBody String updatePassword(@RequestBody AdminUser adminUser) {
 
-		String s="";
+		String s = "";
 		try {
-			s=adminService.updatePassword(adminUser);
+			s = adminService.updatePassword(adminUser);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -141,15 +138,15 @@ public class UserController {
 	@RequestMapping(value = "/user/update/details", method = RequestMethod.POST)
 	public @ResponseBody String updateUser(@RequestBody AdminUser adminUser) {
 
-		String s="";
+		String s = "";
 		try {
-			s=adminService.update(adminUser);
+			s = adminService.update(adminUser);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return s;
 	}
-	
+
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
@@ -175,5 +172,19 @@ public class UserController {
 		} catch (BadCredentialsException e) {
 			throw new Exception("INVALID_CREDENTIALS", e);
 		}
+	}
+
+	@RequestMapping(value = "/ping", method = RequestMethod.GET)
+	public @ResponseBody String getAuthStatus() {
+		PingModel ping = new PingModel();
+		try {
+			ping.setResult("success");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Gson jsonString = new Gson();
+		return jsonString.toJson(ping);
+		// return new ResponseEntity<List<StopTransactions>>(list, new HttpHeaders(),
+		// HttpStatus.OK);
 	}
 }

@@ -41,6 +41,34 @@ public class ServiceRequest implements Serializable{
 	private String additional_information;
 	private String status;
 	private String request_type;
+	
+	private String image0;
+	private String image1;
+	private String image2;
+
+	public String getImage0() {
+		return image0;
+	}
+
+	public void setImage0(String image0) {
+		this.image0 = image0;
+	}
+
+	public String getImage1() {
+		return image1;
+	}
+
+	public void setImage1(String image1) {
+		this.image1 = image1;
+	}
+
+	public String getImage2() {
+		return image2;
+	}
+
+	public void setImage2(String image2) {
+		this.image2 = image2;
+	}
 // 	@CreationTimestamp
 //     private LocalDateTime createDateTime;
  
@@ -114,6 +142,8 @@ public class ServiceRequest implements Serializable{
 	public void setRequest_type(String request_type) {
 		this.request_type = request_type;
 	}
+	
+	
 	
 // 	public LocalDateTime getCreateDateTime() {
 // 		return createDateTime;
