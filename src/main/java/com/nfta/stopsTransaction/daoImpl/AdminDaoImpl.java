@@ -1,5 +1,6 @@
 package com.nfta.stopsTransaction.daoImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -7,6 +8,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import com.nfta.stopsTransaction.dao.AdminDao;
 import com.nfta.stopsTransaction.model.AdminUser;
+import com.nfta.stopsTransaction.model.Dropdowns;
 
 @Component
 @Service
@@ -96,14 +100,23 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public String confirmToken(String token) {
+	public AdminUser confirmToken(String token) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AdminUser> cq = cb.createQuery(AdminUser.class);
 		Root<AdminUser> userReq = cq.from(AdminUser.class);
 		if (cb.equal(userReq.get("reset_token"), token) != null) {
-			return "valid token";
+			 CriteriaQuery<AdminUser> q = cb.createQuery(AdminUser.class);
+			 Root<AdminUser> c = q.from(AdminUser.class);
+			List<Predicate> predicates = new ArrayList<>();
+			predicates.add(cb.equal(c.get("reset_token"), token));
+			q.where(predicates.toArray(new Predicate[0]));
+			
+			List<AdminUser> adminusers =  em.createQuery(q).getResultList();
+			return adminusers.get(0);
+			//return "valid token";
 		}
-		return "This is an invalid reset link";
+		//return "This is an invalid reset link";
+		return null;
 	}
 
 	@Override

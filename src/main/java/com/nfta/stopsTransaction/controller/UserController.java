@@ -103,15 +103,14 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/confirmreset", method = RequestMethod.GET)
-	public @ResponseBody String verifyToken(String token) {
+	public @ResponseBody AdminUser verifyToken(String token) {
 
-		String s="";
 		try {
-			s=adminService.confirmToken(token);
+			return adminService.confirmToken(token);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return s;
+		return null;
 	}
 	
 	@RequestMapping(value = "/user/update/password", method = RequestMethod.POST)
