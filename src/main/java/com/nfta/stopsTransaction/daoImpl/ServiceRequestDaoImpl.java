@@ -73,16 +73,16 @@ public class ServiceRequestDaoImpl implements ServiceRequestDao {
 				predicates.add(cb.like(servReq.get("requested_user"), "%" + filters.getRequestedUser() + "%"));
 			}
 			if (Objects.nonNull(filters.getStopID())) {
-				predicates.add(cb.equal(servReq.get("stopId"), filters.getStopID()));
+				predicates.add(cb.like(servReq.get("stop_id"), "%" + filters.getStopID() + "%"));
 			}
 			if (Objects.nonNull(filters.getDateFrom())) {
 				predicates.add(cb.between(servReq.get("date_time"), filters.getDateFrom(), filters.getDateTo()));
 			}
 			if (Objects.nonNull(filters.getStatus())) {
-				predicates.add(cb.equal(servReq.get("status"), filters.getStatus()));
+				predicates.add(cb.like(servReq.get("status"), "%" + filters.getStatus() + "%"));
 			}
 			if (Objects.nonNull(filters.getRequestType())) {
-				predicates.add(cb.equal(servReq.get("request_type"), filters.getRequestType()));
+				predicates.add(cb.like(servReq.get("request_type"), "%" + filters.getRequestType() + "%"));
 			}
 			cq.where(predicates.toArray(new Predicate[0]));
 	

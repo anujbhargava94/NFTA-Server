@@ -41,7 +41,7 @@ public class ServiceRequest implements Serializable{
 	private String direction;
 	private String route;
 	private String reason;
-	private Integer stopId;
+	private String stop_id;
 	private String additional_information;
 	private String status;
 	private String request_type;
@@ -94,11 +94,12 @@ public class ServiceRequest implements Serializable{
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
-	public Integer getStopId() {
-		return stopId;
+	
+	public String getStop_id() {
+		return stop_id;
 	}
-	public void setStopId(Integer stopId) {
-		this.stopId = stopId;
+	public void setStop_id(String stop_id) {
+		this.stop_id = stop_id;
 	}
 	public String getAdditional_information() {
 		return additional_information;

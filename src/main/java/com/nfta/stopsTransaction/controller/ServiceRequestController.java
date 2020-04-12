@@ -79,13 +79,8 @@ public class ServiceRequestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(list==null || list.size()==0)
-		{
-			return "";
-		}
+		
 		Gson jsonString = new Gson();
 		return jsonString.toJson(list);
-		// return new ResponseEntity<List<StopTransactions>>(list, new HttpHeaders(),
-		// HttpStatus.OK);
 	}
 }
