@@ -1,5 +1,7 @@
 package com.nfta.stopsTransaction.serviceImpl;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
 
@@ -23,6 +25,7 @@ import com.nfta.stopsTransaction.model.SearchFilters;
 import com.nfta.stopsTransaction.model.StopTransactions;
 import com.nfta.stopsTransaction.service.TransactionService;
 
+
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
@@ -43,6 +46,7 @@ public class TransactionServiceImpl implements TransactionService {
 	@Override
 	public List<StopTransactions> getAllTransactions() {
 		List<StopTransactions> list = transactionsDao.getAll();
+		Collections.sort(list, comparator);
 		return list;
 	}
 
@@ -65,6 +69,15 @@ public class TransactionServiceImpl implements TransactionService {
 		// TODO Auto-generated method stub
 		return transactionsDao.update(stopTransaction);
 	}
+	
+	Comparator<StopTransactions> comparator = new Comparator<StopTransactions>() {
+	    @Override
+	    public int compare(StopTransactions left, StopTransactions right) {
+	        //return left.getTransaction_no().intValue() - right.getTransaction_no().intValue();
+	    	return right.getTransaction_no().intValue() - left.getTransaction_no().intValue();
+	    }
+	};
+
 	
 	@Override
 	public void sendMail(String email_id, StopTransactions stopTransaction) {
