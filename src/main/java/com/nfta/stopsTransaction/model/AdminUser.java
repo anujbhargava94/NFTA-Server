@@ -39,14 +39,14 @@ public class AdminUser {
 	 * This is use to set date and time in SQL database // *
 	 **/
 
- 	@CreationTimestamp
+ 	/*@CreationTimestamp
  	@JsonIgnoreProperties("createDateTime")
  	private LocalDateTime createDateTime;
 
  	@UpdateTimestamp
  	@JsonIgnoreProperties("updateDateTime")
  	private LocalDateTime updateDateTime;
-
+*/
 	public long getUser_id() {
 		return user_id;
 	}
@@ -103,7 +103,7 @@ public class AdminUser {
 		this.reset_token = reset_token;
 	}
 
- 	public LocalDateTime getCreateDateTime() {
+ 	/*public LocalDateTime getCreateDateTime() {
  		return createDateTime;
  	}
 
@@ -117,6 +117,6 @@ public class AdminUser {
 
  	public void setUpdateDateTime(LocalDateTime updateDateTime) {
  		this.updateDateTime = updateDateTime;
- 	}
+ 	}*/
 
 }

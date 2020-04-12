@@ -31,9 +31,6 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
 	public List<ServiceRequest> getServiceRequest(SearchFilters searchFilters) {
 
 		List<ServiceRequest> list = serviceRequestDao.getServiceRequest(searchFilters);
-		if(list==null || list.size()==0) {
-			return null;
-		}
 		return list;
 	}
 }
