@@ -111,7 +111,7 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public AdminUser confirmToken(String token) {
+	public List<AdminUser> confirmToken(String token) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AdminUser> cq = cb.createQuery(AdminUser.class);
 		Root<AdminUser> userReq = cq.from(AdminUser.class);
@@ -120,7 +120,7 @@ public class AdminDaoImpl implements AdminDao {
 		predicates.add(cb.equal(userReq.get("reset_token"), token));
 		cq.where(predicates.toArray(new Predicate[0]));
 		List<AdminUser>user = em.createQuery(cq).getResultList();
-		if (user.size() != 0) {
+		/*if (user.size() != 0) {
 			CriteriaQuery<AdminUser> q = cb.createQuery(AdminUser.class);
 			Root<AdminUser> c = q.from(AdminUser.class);
 			List<Predicate> predicates1 = new ArrayList<>();
@@ -129,8 +129,8 @@ public class AdminDaoImpl implements AdminDao {
 
 			List<AdminUser> adminusers =  em.createQuery(q).getResultList();
 			return adminusers.get(0);
-		}
-		return null;
+		}*/
+		return user;
 	}
 
 	@Override

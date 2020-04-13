@@ -22,7 +22,7 @@ public interface AdminDao {
 
 	public String saveConfirmationToken(String username, String token);
 
-	public AdminUser confirmToken(String token);
+	public List<AdminUser> confirmToken(String token);
 
 	public String updatePassword(AdminUser adminUser);
 

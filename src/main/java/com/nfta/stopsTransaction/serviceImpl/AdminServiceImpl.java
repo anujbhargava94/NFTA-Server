@@ -100,7 +100,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public AdminUser confirmToken(String token) {
+	public List<AdminUser> confirmToken(String token) {
 		return adminDao.confirmToken(token);
 	}
 

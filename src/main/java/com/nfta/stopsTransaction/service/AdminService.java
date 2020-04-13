@@ -12,7 +12,7 @@ public interface AdminService {
 	public void sendMail(String email_id); 
 	public String findUser(AdminUser adminUser);
 	public String getConfirmationToken();
-	public AdminUser confirmToken(String token);
+	public List<AdminUser> confirmToken(String token);
 	public String saveConfirmationToken(String username, String token);
 	public String updatePassword(AdminUser adminUser);
 	public String update(AdminUser adminUser);
