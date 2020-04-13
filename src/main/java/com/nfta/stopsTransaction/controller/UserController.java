@@ -102,15 +102,16 @@ public class UserController {
 		return s;
 	}
 	
-	@RequestMapping(value = "/confirmreset", method = RequestMethod.GET)
-	public @ResponseBody AdminUser verifyToken(String token) {
-
+	@RequestMapping(value = "/confirmreset", method = RequestMethod.POST)
+	public @ResponseBody String verifyToken(@RequestBody AdminUser adminUser) {
+		List<AdminUser> list = new ArrayList<>();
 		try {
-			return adminService.confirmToken(token);
+			list= adminService.confirmToken(adminUser.getReset_token());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		Gson jsonString = new Gson();
+		return jsonString.toJson(list);
 	}
 	
 	@RequestMapping(value = "/user/update/password", method = RequestMethod.POST)
