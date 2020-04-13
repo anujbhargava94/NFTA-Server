@@ -18,6 +18,7 @@ import com.nfta.stopsTransaction.service.RouteService;
 
 @RestController
 @RequestMapping("/")
+
 @CrossOrigin(origins= {"https://web-nfta.herokuapp.com", "http://localhost:3000"})
 public class RouteController {
 	@Autowired
@@ -43,6 +44,7 @@ public class RouteController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			s="Some error occurred";
 		}
 		return s;
 	}

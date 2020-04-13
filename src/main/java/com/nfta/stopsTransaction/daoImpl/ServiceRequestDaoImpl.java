@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import com.nfta.stopsTransaction.dao.ServiceRequestDao;
 import com.nfta.stopsTransaction.model.SearchFilters;
-import com.nfta.stopsTransaction.model.SearchFiltersServiceRequest;
 import com.nfta.stopsTransaction.model.ServiceRequest;
 
 @Service
@@ -32,12 +31,13 @@ public class ServiceRequestDaoImpl implements ServiceRequestDao {
 		try
 		{
 			em.persist(s);
+			em.flush();
+			return s.getRequest_id().toString();
 		}
 		catch(IllegalArgumentException e)
 		{
 			return "Illegal Argument";
 		}
-		return null;
 	}
 
 	@Override
@@ -69,20 +69,20 @@ public class ServiceRequestDaoImpl implements ServiceRequestDao {
 			if (Objects.nonNull(filters.getDirection())) {
 				predicates.add(cb.like(servReq.get("direction"), "%" + filters.getDirection() + "%"));
 			}
-			if (Objects.nonNull(filters.getAdminUser())) {
-				predicates.add(cb.equal(servReq.get("admin_user_id"), filters.getAdminUser()));
+			if (Objects.nonNull(filters.getRequestedUser())) {
+				predicates.add(cb.like(servReq.get("requested_user"), "%" + filters.getRequestedUser() + "%"));
 			}
 			if (Objects.nonNull(filters.getStopID())) {
-				predicates.add(cb.equal(servReq.get("stopId"), filters.getStopID()));
+				predicates.add(cb.like(servReq.get("stop_id"), "%" + filters.getStopID() + "%"));
 			}
 			if (Objects.nonNull(filters.getDateFrom())) {
 				predicates.add(cb.between(servReq.get("date_time"), filters.getDateFrom(), filters.getDateTo()));
 			}
 			if (Objects.nonNull(filters.getStatus())) {
-				predicates.add(cb.equal(servReq.get("status"), filters.getStatus()));
+				predicates.add(cb.like(servReq.get("status"), "%" + filters.getStatus() + "%"));
 			}
 			if (Objects.nonNull(filters.getRequestType())) {
-				predicates.add(cb.equal(servReq.get("request_type"), filters.getRequestType()));
+				predicates.add(cb.like(servReq.get("request_type"), "%" + filters.getRequestType() + "%"));
 			}
 			cq.where(predicates.toArray(new Predicate[0]));
 	

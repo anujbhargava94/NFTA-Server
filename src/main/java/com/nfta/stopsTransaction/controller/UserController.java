@@ -46,19 +46,7 @@ public class UserController {
 
 	@Autowired
 	AdminService adminService;
-
-	@RequestMapping(value = "/user/add", method = RequestMethod.POST)
-	public @ResponseBody String addUser(@RequestBody AdminUser adminUser) {
-
-		String s = "";
-		try {
-			s = adminService.addUser(adminUser);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return s;
-	}
-
+	
 	@RequestMapping(value = "/user/delete/{user_id}", method = RequestMethod.DELETE)
 	public @ResponseBody String deleteUser(@PathVariable int user_id) {
 
@@ -112,15 +100,14 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/confirmreset", method = RequestMethod.GET)
-	public @ResponseBody String verifyToken(String token) {
+	public @ResponseBody AdminUser verifyToken(String token) {
 
-		String s = "";
 		try {
-			s = adminService.confirmToken(token);
+			return adminService.confirmToken(token);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return s;
+		return null;
 	}
 
 	@RequestMapping(value = "/user/update/password", method = RequestMethod.POST)

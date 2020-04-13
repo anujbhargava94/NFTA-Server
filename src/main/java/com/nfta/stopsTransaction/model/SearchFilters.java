@@ -18,7 +18,18 @@ public class SearchFilters {
 	private String requestID;
 	private String adminUser;
 	private String transactionNo;
+	private String requestedUser;
 	
+	
+
+	public String getRequestedUser() {
+		return requestedUser;
+	}
+
+	public void setRequestedUser(String requestedUser) {
+		this.requestedUser = requestedUser;
+	}
+
 	public String getTransactionNo() {
 		return transactionNo;
 	}
@@ -120,7 +131,7 @@ public class SearchFilters {
 	}
 	
 	public void setSearchFilter(String requestId, String stopId, String direction, String dateFrom,
-			String dateTo, String requestType, String status, String adminUser) {
+			String dateTo, String requestType, String status, String requestedUser) {
 			this.setRequestID(requestId);
 			this.setDateFrom(dateFrom);
 			this.setDateTo(dateTo);
@@ -128,7 +139,7 @@ public class SearchFilters {
 			this.setStopID(stopId);
 			this.setStatus(status);
 			this.setRequestType(requestType);
-			this.setAdminUser(adminUser);
+			this.setRequestedUser(requestedUser);
 	}
 	
 	public void setSearchFilter(Long transactionNo, String stopId, String location, String direction, String country, String dateFrom,

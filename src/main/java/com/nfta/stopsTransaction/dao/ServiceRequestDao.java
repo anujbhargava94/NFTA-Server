@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.nfta.stopsTransaction.model.SearchFilters;
-import com.nfta.stopsTransaction.model.SearchFiltersServiceRequest;
 import com.nfta.stopsTransaction.model.ServiceRequest;
 
 @Component
