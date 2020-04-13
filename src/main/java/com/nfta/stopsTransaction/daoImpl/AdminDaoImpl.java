@@ -135,11 +135,13 @@ public class AdminDaoImpl implements AdminDao {
 
 	@Override
 	public String update(AdminUser adminUser) {
+	
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaUpdate<AdminUser> update = cb.createCriteriaUpdate(AdminUser.class);
 		Root<AdminUser> e = update.from(AdminUser.class);
 		update.set("first_name", adminUser.getFirst_name());
 		update.set("last_name", adminUser.getLast_name());
+		update.set("contact_info", adminUser.getContact_info());
 		update.where(cb.equal(e.get("username"), adminUser.getUsername()));
 		this.em.createQuery(update).executeUpdate();
 		return null;
