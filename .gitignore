@@ -11,4 +11,3 @@ target/classes/**
 */target/**.class
 .factorypath
 node_modules/
-src/main/resources/application.properties

@@ -6,8 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.nfta.stopsTransaction.dao.RoutesDao;
@@ -36,6 +34,10 @@ public class RoutesDaoImpl implements RoutesDao{
 		catch(IllegalArgumentException e)
 		{
 			return "Illegal Argument";
+		}
+		catch(Exception e)
+		{
+			return "Exception occurred";
 		}
 		return "";
 	}

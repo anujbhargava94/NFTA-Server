@@ -3,9 +3,9 @@ package com.nfta.stopsTransaction.model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,18 +13,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
@@ -39,49 +36,63 @@ public class StopTransactions implements Serializable {
 	private static final long serialVersionUID = -8600502014954931750L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "transaction_no")
 	private Long transaction_no;
 
-	@Column(nullable = false)
+	@Column
 	private String device_id;
 	private String stop_id;
-	@Column(nullable = false)
-	private String direction;
+
+	@JsonInclude()
+	@Transient
+	private Dropdowns direction;
 	private String street_on;
 	private String nearest_cross_street;
-	private String position;
-	private String fastened_to;
+	@JsonInclude()
+	@Transient
+	private Dropdowns position;
+	@JsonInclude()
+	@Transient
+	private Dropdowns fastened_to;
 	private Double latitude;
 	private Double longitude;
 	private String location;
-	@Column(nullable = false)
-	private String county;
-	@Column(nullable = false)
+	@JsonInclude()
+	@Transient
+	private Dropdowns county;
 	private String status;
-	@Column(nullable = false)
 	private Boolean shelter;
-	@Column(nullable = false)
 	private Boolean advertisement;
-	@Column(nullable = false)
 	private Boolean bench;
-	@Column(nullable = false)
 	private Boolean bike_rack;
-	@Column(nullable = false)
 	private Boolean trash_can;
-	@Column(nullable = false)
 	private Boolean time_table;
-	@Column(nullable = false)
 	private Boolean system_map;
 	private String transaction_type;
+	@JsonInclude()
+	@Transient
+	private List<Dropdowns> routes;
 
+	//@ManyToMany
+	//@JoinTable(name = "route_transaction", joinColumns = @JoinColumn(name = "transaction_no"), inverseJoinColumns = @JoinColumn(name = "route_id"))
+	
 	@ManyToMany
-	@JoinTable(name = "route_transaction", joinColumns = @JoinColumn(name = "transaction_no"), inverseJoinColumns = @JoinColumn(name = "route_id"))
-	private List<Route> routes = new ArrayList<>();
+	@JoinTable(name = "dropdown_transaction", joinColumns = @JoinColumn(name = "transaction_no"), inverseJoinColumns = @JoinColumn(name = "dropdown_id"))
+	private List<Dropdowns> dropdowns = new ArrayList<>();
+	//private List<Route> routes = new ArrayList<>();
 
 //	@Lob
 //	@Column(name = "image", length = 1000)
 //	private Byte[] image;
+
+	public List<Dropdowns> getDropdowns() {
+		return dropdowns;
+	}
+
+	public void setDropdowns(List<Dropdowns> dropdowns) {
+		this.dropdowns = dropdowns;
+	}
 
 	/**
 	 * Unidirectional Foreign keys For ServiceRequest and adminuser
@@ -89,15 +100,42 @@ public class StopTransactions implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "request_id")
 	private ServiceRequest work_request;
-
-	@OneToOne
-	@JoinColumn(name = "user_id")
-	private AdminUser adminuser;
+	
+	@Column
+	private String username;
 
 	@Column
 	private String admin_comments;
 	@Column
 	private String additional_information;
+	
+	private String image0;
+	private String image1;
+	private String image2;
+
+	public String getImage0() {
+		return image0;
+	}
+
+	public void setImage0(String image0) {
+		this.image0 = image0;
+	}
+
+	public String getImage1() {
+		return image1;
+	}
+
+	public void setImage1(String image1) {
+		this.image1 = image1;
+	}
+
+	public String getImage2() {
+		return image2;
+	}
+
+	public void setImage2(String image2) {
+		this.image2 = image2;
+	}
 
 	/**
 	 * This is use to set date and time in SQL database
@@ -105,11 +143,13 @@ public class StopTransactions implements Serializable {
 //	@Temporal(value=TemporalType.DATE)
 //	Date date;
 
-	@CreationTimestamp
-	private LocalDateTime createDateTime;
+// 	@CreationTimestamp
+// 	@JsonIgnoreProperties("createDateTime")
+// 	private LocalDateTime createDateTime;
 
-	@UpdateTimestamp
-	private LocalDateTime updateDateTime;
+// 	@UpdateTimestamp
+// 	@JsonIgnoreProperties("createDateTime")
+// 	private LocalDateTime updateDateTime;
 
 	public String getTransaction_type() {
 		return transaction_type;
@@ -119,21 +159,21 @@ public class StopTransactions implements Serializable {
 		this.transaction_type = transaction_type;
 	}
 
-	public String getCreateDateTime() {
-		return createDateTime.toString();
-	}
+// 	public String getCreateDateTime() {
+// 		return createDateTime.toString();
+// 	}
 
-	public void setCreateDateTime(LocalDateTime createDateTime) {
-		this.createDateTime = createDateTime;
-	}
+// 	public void setCreateDateTime(LocalDateTime createDateTime) {
+// 		this.createDateTime = createDateTime;
+// 	}
 
-	public LocalDateTime getUpdateDateTime() {
-		return updateDateTime;
-	}
+// 	public LocalDateTime getUpdateDateTime() {
+// 		return updateDateTime;
+// 	}
 
-	public void setUpdateDateTime(LocalDateTime updateDateTime) {
-		this.updateDateTime = updateDateTime;
-	}
+// 	public void setUpdateDateTime(LocalDateTime updateDateTime) {
+// 		this.updateDateTime = updateDateTime;
+// 	}
 
 	public Long getTransaction_no() {
 		return transaction_no;
@@ -159,11 +199,11 @@ public class StopTransactions implements Serializable {
 		this.stop_id = stop_id;
 	}
 
-	public String getDirection() {
+	public Dropdowns getDirection() {
 		return direction;
 	}
 
-	public void setDirection(String direction) {
+	public void setDirection(Dropdowns direction) {
 		this.direction = direction;
 	}
 
@@ -183,19 +223,19 @@ public class StopTransactions implements Serializable {
 		this.nearest_cross_street = nearest_cross_street;
 	}
 
-	public String getPosition() {
+	public Dropdowns getPosition() {
 		return position;
 	}
 
-	public void setPosition(String position) {
+	public void setPosition(Dropdowns position) {
 		this.position = position;
 	}
 
-	public String getFastened_to() {
+	public Dropdowns getFastened_to() {
 		return fastened_to;
 	}
 
-	public void setFastened_to(String fastened_to) {
+	public void setFastened_to(Dropdowns fastened_to) {
 		this.fastened_to = fastened_to;
 	}
 
@@ -215,11 +255,11 @@ public class StopTransactions implements Serializable {
 		this.longitude = longitude;
 	}
 
-	public String getCounty() {
+	public Dropdowns getCounty() {
 		return county;
 	}
 
-	public void setCounty(String county) {
+	public void setCounty(Dropdowns county) {
 		this.county = county;
 	}
 
@@ -319,15 +359,26 @@ public class StopTransactions implements Serializable {
 		this.additional_information = additional_information;
 	}
 
-	public List<Route> getRoutes() {
+	public List<Dropdowns> getRoutes() {
 		return routes;
 	}
 
-	public void setRoutes(List<Route> routes) {
+	public void setRoutes(List<Dropdowns> routes) {
 		this.routes = routes;
 	}
+	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUser(String user) {
+		this.username = user;
+	}
+	
+	
 	
 
 	// private Blob[] photo;
 
 }
+//TODO user_id, photo, service_request

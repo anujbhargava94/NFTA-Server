@@ -1,24 +1,19 @@
 package com.nfta.stopsTransaction;
 
-import javax.persistence.EntityManagerFactory;
-
-import org.hibernate.SessionFactory;
-import org.hibernate.jpa.HibernateEntityManagerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.nfta.stopsTransaction.service.RouteService;
 import com.nfta.stopsTransaction.service.ServiceRequestService;
 import com.nfta.stopsTransaction.serviceImpl.RouteServiceImpl;
 import com.nfta.stopsTransaction.serviceImpl.ServiceRequestServiceImpl;
-import com.nfta.stopsTransaction.serviceImpl.UserDetailsServiceImpl;
 
 @ComponentScan("com.nfta.stopsTransaction")
 @SpringBootApplication
@@ -28,21 +23,6 @@ public class StopsTransactionApplication {
 		SpringApplication.run(StopsTransactionApplication.class, args);
 	}
 	
-//	@Bean
-//	@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
-//	public TransactionService getTransactionService()
-//	{
-//		return new TransactionServiceImpl();
-//	}
-	
-	@Bean
-	@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
-	public RouteService getRouteService()
-	{
-		return new RouteServiceImpl();
-	}
-	
-
 	@Bean
 	@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
 	public ServiceRequestService getServiceRequestService()
@@ -50,4 +30,11 @@ public class StopsTransactionApplication {
 		return new ServiceRequestServiceImpl();
 	}
 	
+	@Bean
+	@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+	public JavaMailSender getJavaMailSender()
+	{
+		return new JavaMailSenderImpl();
+	}
+
 }

@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -29,23 +30,54 @@ public class ServiceRequest implements Serializable{
 	 */
 	private static final long serialVersionUID = -5135881928483223568L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Integer request_id;
-	private Integer admin_user_id;
+	
+	@OneToOne
+	@JoinColumn(name = "user_id")
+	private AdminUser admin_user_id;
 	private String requested_user;
 	private String location;
 	private String direction;
 	private String route;
 	private String reason;
-	private Integer stopId;
+	private String stop_id;
 	private String additional_information;
 	private String status;
 	private String request_type;
-	@CreationTimestamp
-    private LocalDateTime createDateTime;
+	
+	private String image0;
+	private String image1;
+	private String image2;
+
+	public String getImage0() {
+		return image0;
+	}
+
+	public void setImage0(String image0) {
+		this.image0 = image0;
+	}
+
+	public String getImage1() {
+		return image1;
+	}
+
+	public void setImage1(String image1) {
+		this.image1 = image1;
+	}
+
+	public String getImage2() {
+		return image2;
+	}
+
+	public void setImage2(String image2) {
+		this.image2 = image2;
+	}
+// 	@CreationTimestamp
+//     private LocalDateTime createDateTime;
  
-    @UpdateTimestamp
-    private LocalDateTime updateDateTime;
+//     @UpdateTimestamp
+//     private LocalDateTime updateDateTime;
 	
 	public Integer getRequest_id() {
 		return request_id;
@@ -54,10 +86,10 @@ public class ServiceRequest implements Serializable{
 		this.request_id = request_id;
 	}
 
-	public Integer getAdmin_user_id() {
+	public AdminUser getAdmin_user_id() {
 		return admin_user_id;
 	}
-	public void setAdmin_user_id(Integer admin_user_id) {
+	public void setAdmin_user_id(AdminUser admin_user_id) {
 		this.admin_user_id = admin_user_id;
 	}
 	public String getRequested_user() {
@@ -90,11 +122,12 @@ public class ServiceRequest implements Serializable{
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
-	public Integer getStopId() {
-		return stopId;
+	
+	public String getStop_id() {
+		return stop_id;
 	}
-	public void setStopId(Integer stopId) {
-		this.stopId = stopId;
+	public void setStop_id(String stop_id) {
+		this.stop_id = stop_id;
 	}
 	public String getAdditional_information() {
 		return additional_information;
@@ -115,20 +148,22 @@ public class ServiceRequest implements Serializable{
 		this.request_type = request_type;
 	}
 	
-	public LocalDateTime getCreateDateTime() {
-		return createDateTime;
-	}
+	
+	
+// 	public LocalDateTime getCreateDateTime() {
+// 		return createDateTime;
+// 	}
 
-	public void setCreateDateTime(LocalDateTime createDateTime) {
-		this.createDateTime = createDateTime;
-	}
+// 	public void setCreateDateTime(LocalDateTime createDateTime) {
+// 		this.createDateTime = createDateTime;
+// 	}
 
-	public LocalDateTime getUpdateDateTime() {
-		return updateDateTime;
-	}
+// 	public LocalDateTime getUpdateDateTime() {
+// 		return updateDateTime;
+// 	}
 
-	public void setUpdateDateTime(LocalDateTime updateDateTime) {
-		this.updateDateTime = updateDateTime;
-	}
+// 	public void setUpdateDateTime(LocalDateTime updateDateTime) {
+// 		this.updateDateTime = updateDateTime;
+// 	}
 	
 }

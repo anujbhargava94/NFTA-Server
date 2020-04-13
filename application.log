@@ -954,3 +954,11 @@ org.springframework.security.access.AccessDeniedException: Access is denied
 2020-04-02 20:44:39.712 DEBUG 20976 --- [http-nio-8080-exec-8] w.c.HttpSessionSecurityContextRepository : SecurityContext is empty or contents are anonymous - context will not be stored in HttpSession.
 2020-04-02 20:44:39.727 DEBUG 20976 --- [http-nio-8080-exec-8] o.s.s.w.a.ExceptionTranslationFilter     : Chain processed normally
 2020-04-02 20:44:39.727 DEBUG 20976 --- [http-nio-8080-exec-8] s.s.w.c.SecurityContextPersistenceFilter : SecurityContextHolder now cleared, as request processing completed
+<<<<<<< HEAD
+=======
+2020-04-02 20:49:39.921  INFO 20976 --- [RMI TCP Connection(5)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2020-04-02 20:49:40.258  INFO 20976 --- [RMI TCP Connection(5)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-04-02 20:49:40.320  INFO 20976 --- [RMI TCP Connection(5)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-04-02 20:49:40.582  INFO 20976 --- [RMI TCP Connection(5)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-04-02 20:49:40.751  INFO 20976 --- [RMI TCP Connection(5)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+>>>>>>> b2ce71635bd4b7a5329ecc26fb33b072c8ade254

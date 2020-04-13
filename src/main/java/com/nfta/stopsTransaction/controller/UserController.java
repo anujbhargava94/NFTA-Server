@@ -1,208 +1,176 @@
 package com.nfta.stopsTransaction.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.nfta.stopsTransaction.config.JwtTokenUtil;
+import com.nfta.stopsTransaction.config.JwtUserDetailsService;
 import com.nfta.stopsTransaction.model.AdminUser;
-import com.nfta.stopsTransaction.model.LoginResponse;
-import com.nfta.stopsTransaction.model.User;
+import com.nfta.stopsTransaction.model.JwtRequest;
+import com.nfta.stopsTransaction.model.JwtResponse;
+import com.nfta.stopsTransaction.model.PingModel;
+import com.nfta.stopsTransaction.model.UserDTO;
 import com.nfta.stopsTransaction.service.AdminService;
-import com.nfta.stopsTransaction.service.SecurityService;
-import com.nfta.stopsTransaction.service.UserService;
-import com.nfta.stopsTransaction.utils.UserValidator;
 
 @RestController
-@CrossOrigin(origins="http://localhost:3000")
-//@CrossOrigin(origins = "https://nfta-web.herokuapp.com")
+@CrossOrigin(origins = { "https://web-nfta.herokuapp.com", "http://localhost:3000" })
+
 public class UserController {
 
 	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	private JwtTokenUtil jwtTokenUtil;
+
+	@Autowired
+	private JwtUserDetailsService userDetailsService;
+
+	@Autowired
 	AdminService adminService;
-
-	@Autowired
-	private UserService userService;
-
-	@Autowired
-	private SecurityService securityService;
-
-	@Autowired
-	private UserValidator userValidator;
-
-	@Autowired
-	private LoginResponse response;
-
-	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	public @ResponseBody String addUser(@RequestBody AdminUser adminUser) {
+	
+	@RequestMapping(value = "/user/delete/{user_id}", method = RequestMethod.DELETE)
+	public @ResponseBody String deleteUser(@PathVariable int user_id) {
 
 		String s = "";
 		try {
-			s = adminService.addUser(adminUser);
+			s = adminService.deleteUser(user_id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return s;
 	}
 
-	@RequestMapping(value = "/registration", method = RequestMethod.GET)
-	public @ResponseBody String registration(Model model) {
-		model.addAttribute("userForm", new User());
-
-		return "registration";
-	}
-
-	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public @ResponseBody String registration(@RequestBody User userForm, BindingResult bindingResult) {
-		userValidator.validate(userForm, bindingResult);
-		Gson jsonString = new Gson();
-		if (bindingResult.hasErrors()) {
-			response.setStatus(false);
-			response.setMessage("Error in registration");
-			return jsonString.toJson(response);
+	@RequestMapping(value = "/users", method = RequestMethod.GET)
+	public @ResponseBody String getUsers() {
+		List<AdminUser> list = new ArrayList<>();
+		try {
+			list = adminService.getAllUsers();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		userService.save(userForm);
-
-		securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
-		response.setStatus(true);
-		response.setMessage("Successfully Registered and loggedIn");
-		return jsonString.toJson(response);
-	}
-
-//	@RequestMapping(value = "/login", method = RequestMethod.GET)
-//	public String login(Model model, String error, String logout) {
-//		if (error != null)
-//			model.addAttribute("error", "Your username and password is invalid.");
-//
-//		if (logout != null)
-//			model.addAttribute("message", "You have been logged out successfully.");
-//
-//		return "login";
-//	}
-
-//	@RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
-//	public String welcome(Model model) {
-//		return "welcome";
-//	}
-
-	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
-	public String defaultPage() {
 		Gson jsonString = new Gson();
-		response.setStatus(true);
-		response.setMessage("Successfully loggedIn");
-		return jsonString.toJson(response);
-
+		return jsonString.toJson(list);
+		// return new ResponseEntity<List<StopTransactions>>(list, new HttpHeaders(),
+		// HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/admin**", method = RequestMethod.GET)
-	public ModelAndView adminPage() {
-
-		ModelAndView model = new ModelAndView();
-		model.addObject("title", "Spring Security + Hibernate Example");
-		model.addObject("message", "This page is for ROLE_ADMIN only!");
-		model.setViewName("admin");
-
-		return model;
-
-	}
-
-//	@RequestMapping(value = "/login", method = RequestMethod.GET)
-//	public String login(@RequestParam(value = "error", required = false) String error,
-//			@RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) {
-//
-//		if (error != null) {
-//			// model.addObject("error", getErrorMessage(request,
-//			// "SPRING_SECURITY_LAST_EXCEPTION"));
-//			response.setStatus(false);
-//			response.setMessage("Error in processing");
-//		}
-//
-//		if (logout != null) {
-//			// model.addObject("msg", "You've been logged out successfully.");
-//			response.setStatus(true);
-//			response.setMessage("You've been logged out successfully.");
-//		}
-//		// model.setViewName("login");
-//
-//		Gson jsonString = new Gson();
-//		return jsonString.toJson(response);
-//
-//	}
-//
-//	// customize the error message
-//	private String getErrorMessage(HttpServletRequest request, String key) {
-//
-//		Exception exception = (Exception) request.getSession().getAttribute(key);
-//
-//		String error = "";
-//		if (exception instanceof BadCredentialsException) {
-//			error = "Invalid username and password!";
-//		} else if (exception instanceof LockedException) {
-//			error = exception.getMessage();
-//		} else {
-//			error = "Invalid username and password!";
-//		}
-//
-//		return error;
-//	}
-//
-//	// for 403 access denied page
-//	@RequestMapping(value = "/403", method = RequestMethod.GET)
-//	public String accesssDenied() {
-//
-//		ModelAndView model = new ModelAndView();
-//
-//		// check if user is login
-//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//		if (!(auth instanceof AnonymousAuthenticationToken)) {
-//			UserDetails userDetail = (UserDetails) auth.getPrincipal();
-//			System.out.println(userDetail);
-//
-//			model.addObject("username", userDetail.getUsername());
-//			response.setMessage(userDetail.getUsername() + " access denied");
-//
-//		}else {
-//			response.setMessage("access denied");
-//		}
-//		response.setStatus(false);
-//		model.setViewName("403");
-//
-//		Gson jsonString = new Gson();
-//		return jsonString.toJson(response);
-//
-//	}
-
-	@GetMapping("/login")
-	public String login(String error, String logout) {
-		response.setStatus(false);
-		response.setMessage("login");
-		if (error != null) {
-			// model.addObject("error", getErrorMessage(request,
-			// "SPRING_SECURITY_LAST_EXCEPTION"));
-			response.setStatus(false);
-			response.setMessage("Error in processing");
+	@RequestMapping(value = "/user/{user_id}", method = RequestMethod.GET)
+	public @ResponseBody String getUser(@RequestParam(value = "transaction_no", required = false) int user_id) {
+		List<AdminUser> list = new ArrayList<>();
+		try {
+			list = adminService.getUser(user_id);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		if (logout != null) {
-			// model.addObject("msg", "You've been logged out successfully.");
-			response.setStatus(true);
-			response.setMessage("You've been logged out successfully.");
-		}
-		// model.setViewName("login");
-
 		Gson jsonString = new Gson();
-		return jsonString.toJson(response);
-		//return "login";
+		return jsonString.toJson(list);
+		// return new ResponseEntity<List<StopTransactions>>(list, new HttpHeaders(),
+		// HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/user/forgotPassword", method = RequestMethod.POST)
+	public @ResponseBody String findUser(@RequestBody AdminUser adminUser) {
+
+		String s = "";
+		try {
+			s = adminService.findUser(adminUser);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return s;
+	}
+
+	@RequestMapping(value = "/confirmreset", method = RequestMethod.GET)
+	public @ResponseBody AdminUser verifyToken(String token) {
+
+		try {
+			return adminService.confirmToken(token);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@RequestMapping(value = "/user/update/password", method = RequestMethod.POST)
+	public @ResponseBody String updatePassword(@RequestBody AdminUser adminUser) {
+
+		String s = "";
+		try {
+			s = adminService.updatePassword(adminUser);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return s;
+	}
+
+	@RequestMapping(value = "/user/update/details", method = RequestMethod.POST)
+	public @ResponseBody String updateUser(@RequestBody AdminUser adminUser) {
+
+		String s = "";
+		try {
+			s = adminService.update(adminUser);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return s;
+	}
+
+	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+
+		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+
+		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+
+		final String token = jwtTokenUtil.generateToken(userDetails);
+
+		return ResponseEntity.ok(new JwtResponse(token));
+	}
+
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
+		return ResponseEntity.ok(userDetailsService.save(user));
+	}
+
+	private void authenticate(String username, String password) throws Exception {
+		try {
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+		} catch (DisabledException e) {
+			throw new Exception("USER_DISABLED", e);
+		} catch (BadCredentialsException e) {
+			throw new Exception("INVALID_CREDENTIALS", e);
+		}
+	}
+
+	@RequestMapping(value = "/ping", method = RequestMethod.GET)
+	public @ResponseBody String getAuthStatus() {
+		PingModel ping = new PingModel();
+		try {
+			ping.setResult("success");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Gson jsonString = new Gson();
+		return jsonString.toJson(ping);
+		// return new ResponseEntity<List<StopTransactions>>(list, new HttpHeaders(),
+		// HttpStatus.OK);
+	}
 }
