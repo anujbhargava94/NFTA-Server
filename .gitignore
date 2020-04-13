@@ -11,3 +11,4 @@ target/classes/**
 */target/**.class
 .factorypath
 node_modules/
+application.log
