@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import com.nfta.stopsTransaction.dao.ServiceRequestDao;
 import com.nfta.stopsTransaction.model.SearchFilters;
 import com.nfta.stopsTransaction.model.ServiceRequest;
+import com.nfta.stopsTransaction.model.StopTransactions;
 
 @Service
 @Transactional
@@ -92,12 +93,21 @@ public class ServiceRequestDaoImpl implements ServiceRequestDao {
 			return null;
 		}
 	}
-/*	@Override
-	public void update(ServiceRequest s) {
+	@Transactional
+	@Override
+	public String update(ServiceRequest serviceRequest) {
 		// TODO Auto-generated method stub
-		
+		ServiceRequest t =em.find(ServiceRequest.class, serviceRequest.getRequest_id());
+		if(t==null)
+		{
+			return "No such request exists";
+		}
+	
+		t.setStatus(serviceRequest.getStatus());
+		return "";
 	}
 
+	/*
 	@Override
 	public void delete(ServiceRequest s) {
 		// TODO Auto-generated method stub

@@ -24,7 +24,9 @@ import com.nfta.stopsTransaction.dao.TransactionsDao;
 import com.nfta.stopsTransaction.model.AdminUser;
 import com.nfta.stopsTransaction.model.Dropdowns;
 import com.nfta.stopsTransaction.model.SearchFilters;
+import com.nfta.stopsTransaction.model.ServiceRequest;
 import com.nfta.stopsTransaction.model.StopTransactions;
+import com.nfta.stopsTransaction.service.ServiceRequestService;
 import com.nfta.stopsTransaction.service.TransactionService;
 
 @Service
@@ -35,6 +37,9 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Autowired
 	AdminDao adminDao;
+
+	@Autowired
+	ServiceRequestService serviceRequestService;
 
 	@Override
 	public List<StopTransactions> getTransactions(SearchFilters searchFilters) {
@@ -64,9 +69,16 @@ public class TransactionServiceImpl implements TransactionService {
 	public String addOrUpdate(StopTransactions stopTransaction) {
 		// TODO Auto-generated method stub
 		// return transactionsDao.addOrUpdate(stopTransaction);
+
 		consolidateDropDowns(stopTransaction);
+
 		String status = transactionsDao.addOrUpdate(stopTransaction);
 		if (status == "") {
+			if (stopTransaction != null && stopTransaction.getWork_request() != null) {
+				ServiceRequest serviceRequest = stopTransaction.getWork_request();
+				serviceRequest.setStatus("Closed");
+				updateServiceRequestStatus(stopTransaction.getWork_request());
+			}
 			List<AdminUser> adminUsers = adminDao.getAllUsers();
 			for (AdminUser adminUser : adminUsers) {
 				sendMail(adminUser.getUsername(), stopTransaction);
@@ -75,20 +87,31 @@ public class TransactionServiceImpl implements TransactionService {
 		return status;
 	}
 
+	private void updateServiceRequestStatus(ServiceRequest work_request) {
+		// TODO Auto-generated method stub
+		serviceRequestService.updateServiceRequest(work_request);
+
+	}
+
 	private void consolidateDropDowns(StopTransactions transaction) {
 		// TODO Auto-generated method stub
-		if (transaction != null 
-				&& (transaction.getDropdowns() == null || transaction.getDropdowns().isEmpty())) {
+		if (transaction != null && (transaction.getDropdowns() == null || transaction.getDropdowns().isEmpty())) {
 			List<Dropdowns> dropDowns = new ArrayList<>();
-			if (transaction.getRoutes() != null) {
+			if (transaction.getRoutes() != null && !transaction.getRoutes().isEmpty()
+					&& transaction.getRoutes().get(0) != null
+					&& transaction.getRoutes().get(0).getDropdown_id() != null) {
 				dropDowns.addAll(transaction.getRoutes());
-			} if (transaction.getCounty() != null) {
+			}
+			if (transaction.getCounty() != null && transaction.getCounty().getDropdown_id() != null) {
 				dropDowns.add(transaction.getCounty());
-			} if (transaction.getFastened_to() != null) {
+			}
+			if (transaction.getFastened_to() != null && transaction.getFastened_to().getDropdown_id() != null) {
 				dropDowns.add(transaction.getFastened_to());
-			}  if (transaction.getDirection() != null) {
+			}
+			if (transaction.getDirection() != null && transaction.getDirection().getDropdown_id() != null) {
 				dropDowns.add(transaction.getDirection());
-			}  if (transaction.getPosition() != null) {
+			}
+			if (transaction.getPosition() != null && transaction.getPosition().getDropdown_id() != null) {
 				dropDowns.add(transaction.getPosition());
 			}
 			transaction.setDropdowns(dropDowns);
@@ -134,7 +157,7 @@ public class TransactionServiceImpl implements TransactionService {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("no-reply@nfta.com"));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email_id));
-			message.setSubject("New Transaction Added " + stopTransaction.getTransaction_no());
+			message.setSubject("New Transaction Added with Id: " + stopTransaction.getTransaction_no());
 
 			ObjectMapper mapper = new ObjectMapper();
 			try {
@@ -157,13 +180,17 @@ public class TransactionServiceImpl implements TransactionService {
 			for (Dropdowns element : dropDowns) {
 				if (element.getDropdown_type().equals("route")) {
 					routes.add(element);
-				}  if (element.getDropdown_type().equals("county")) {
+				}
+				if (element.getDropdown_type().equals("county")) {
 					transaction.setCounty(element);
-				}  if (element.getDropdown_type().equals("fastenedTo")) {
+				}
+				if (element.getDropdown_type().equals("fastenedTo")) {
 					transaction.setFastened_to(element);
-				}  if (element.getDropdown_type().equals("direction")) {
+				}
+				if (element.getDropdown_type().equals("direction")) {
 					transaction.setDirection(element);
-				}  if (element.getDropdown_type().equals("position")) {
+				}
+				if (element.getDropdown_type().equals("position")) {
 					transaction.setPosition(element);
 				}
 

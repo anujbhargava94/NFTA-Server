@@ -14,4 +14,5 @@ public interface ServiceRequestDao {
     public List<ServiceRequest> getServiceRequest(SearchFilters filters);
     //public void update(ServiceRequest s);
     //public void delete(ServiceRequest s);
+	public String update(ServiceRequest serviceRequest);
 }

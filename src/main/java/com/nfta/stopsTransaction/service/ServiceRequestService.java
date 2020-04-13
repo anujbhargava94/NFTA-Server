@@ -10,4 +10,5 @@ public interface ServiceRequestService {
 	public String addServiceRequest(ServiceRequest serviceRequest);
 	public List<ServiceRequest> getServiceRequests();
 	public List<ServiceRequest> getServiceRequest(SearchFilters searchFilters);
+	public String updateServiceRequest(ServiceRequest serviceRequest);
 }
