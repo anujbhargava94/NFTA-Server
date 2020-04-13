@@ -77,9 +77,10 @@ public class TransactionServiceImpl implements TransactionService {
 
 	private void consolidateDropDowns(StopTransactions transaction) {
 		// TODO Auto-generated method stub
-		if (transaction != null) {
-			List<Dropdowns> dropDowns = transaction.getDropdowns();
-			if (transaction.getRoutes().equals("route")) {
+		if (transaction != null 
+				&& (transaction.getDropdowns() == null || transaction.getDropdowns().isEmpty())) {
+			List<Dropdowns> dropDowns = new ArrayList<>();
+			if (transaction.getRoutes() != null) {
 				dropDowns.addAll(transaction.getRoutes());
 			} else if (transaction.getCounty() != null) {
 				dropDowns.add(transaction.getCounty());
