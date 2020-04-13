@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -123,15 +124,19 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/user/update/details", method = RequestMethod.POST)
-	public @ResponseBody String updateUser(@RequestBody AdminUser adminUser) {
+	public @ResponseBody void updateUser(@RequestBody AdminUser adminUser)throws Exception {
 
 		String s = "";
 		try {
 			s = adminService.update(adminUser);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} 
+		catch(DataIntegrityViolationException e) {
+			throw new Exception("UserName should be unique", e);
+		} 
+		catch (Exception e) {
+			throw new Exception("Error occured", e);
 		}
-		return s;
+
 	}
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)

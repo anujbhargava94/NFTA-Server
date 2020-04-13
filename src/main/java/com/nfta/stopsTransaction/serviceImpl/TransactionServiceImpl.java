@@ -168,6 +168,7 @@ public class TransactionServiceImpl implements TransactionService {
 				}
 
 			}
+			transaction.setRoutes(routes);
 
 		}
 
