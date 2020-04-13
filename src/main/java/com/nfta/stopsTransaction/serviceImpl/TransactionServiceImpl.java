@@ -82,19 +82,14 @@ public class TransactionServiceImpl implements TransactionService {
 			List<Dropdowns> dropDowns = new ArrayList<>();
 			if (transaction.getRoutes() != null) {
 				dropDowns.addAll(transaction.getRoutes());
-				transaction.setRoutes(null);
 			} if (transaction.getCounty() != null) {
 				dropDowns.add(transaction.getCounty());
-				transaction.setCounty(null);
 			} if (transaction.getFastened_to() != null) {
 				dropDowns.add(transaction.getFastened_to());
-				transaction.setFastened_to(null);
 			}  if (transaction.getDirection() != null) {
 				dropDowns.add(transaction.getDirection());
-				transaction.setDirection(null);
 			}  if (transaction.getPosition() != null) {
 				dropDowns.add(transaction.getPosition());
-				transaction.setPosition(null);
 			}
 			transaction.setDropdowns(dropDowns);
 		}
@@ -162,17 +157,18 @@ public class TransactionServiceImpl implements TransactionService {
 			for (Dropdowns element : dropDowns) {
 				if (element.getDropdown_type().equals("route")) {
 					routes.add(element);
-				} else if (element.getDropdown_type().equals("county")) {
+				}  if (element.getDropdown_type().equals("county")) {
 					transaction.setCounty(element);
-				} else if (element.getDropdown_type().equals("fastenedTo")) {
+				}  if (element.getDropdown_type().equals("fastenedTo")) {
 					transaction.setFastened_to(element);
-				} else if (element.getDropdown_type().equals("direction")) {
+				}  if (element.getDropdown_type().equals("direction")) {
 					transaction.setDirection(element);
-				} else if (element.getDropdown_type().equals("position")) {
+				}  if (element.getDropdown_type().equals("position")) {
 					transaction.setPosition(element);
 				}
 
 			}
+			transaction.setRoutes(routes);
 
 		}
 
