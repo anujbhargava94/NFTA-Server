@@ -82,14 +82,19 @@ public class TransactionServiceImpl implements TransactionService {
 			List<Dropdowns> dropDowns = new ArrayList<>();
 			if (transaction.getRoutes() != null) {
 				dropDowns.addAll(transaction.getRoutes());
-			} else if (transaction.getCounty() != null) {
+				transaction.setRoutes(null);
+			} if (transaction.getCounty() != null) {
 				dropDowns.add(transaction.getCounty());
-			} else if (transaction.getFastened_to() != null) {
-				dropDowns.add(transaction.getCounty());
-			} else if (transaction.getDirection() != null) {
-				dropDowns.add(transaction.getCounty());
-			} else if (transaction.getPosition() != null) {
-				dropDowns.add(transaction.getCounty());
+				transaction.setCounty(null);
+			} if (transaction.getFastened_to() != null) {
+				dropDowns.add(transaction.getFastened_to());
+				transaction.setFastened_to(null);
+			}  if (transaction.getDirection() != null) {
+				dropDowns.add(transaction.getDirection());
+				transaction.setDirection(null);
+			}  if (transaction.getPosition() != null) {
+				dropDowns.add(transaction.getPosition());
+				transaction.setPosition(null);
 			}
 			transaction.setDropdowns(dropDowns);
 		}
