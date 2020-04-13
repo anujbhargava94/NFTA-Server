@@ -23,5 +23,5 @@ public class LoginResponse {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-
+	
 }

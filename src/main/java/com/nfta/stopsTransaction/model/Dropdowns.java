@@ -17,8 +17,8 @@ import lombok.Data;
 
 @Entity
 @Table(name = "dropdowns", uniqueConstraints={
-		   @UniqueConstraint(columnNames={"dropdown_type", "dropdown_value"}),
-		   @UniqueConstraint(columnNames={"dropdown_type", "display_name"})
+		   @UniqueConstraint(columnNames={"dropdown_type", "dropdown_value","active"}),
+		   @UniqueConstraint(columnNames={"dropdown_type", "display_name","active"})
 		})
 @Data
 public class Dropdowns implements Serializable {	
@@ -34,7 +34,7 @@ public class Dropdowns implements Serializable {
 	private String display_name;
 	@Column(columnDefinition = "boolean default true")
 	@JsonIgnore
-	private boolean active=true;
+	private boolean active = true;
 	
 	public boolean isActive() {
 		return active;
