@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,14 +39,18 @@ public class DropdownController {
 	}
 	
 	@RequestMapping(value = "/addDropdown", method = RequestMethod.POST)
-	public @ResponseBody String addDropdown(@RequestBody Dropdowns dropdown) {
+	public @ResponseBody void addDropdown(@RequestBody Dropdowns dropdown) throws Exception {
 		String s="";
 		try {
 			s=dropdownService.addDropdown(dropdown);
-		} catch (Exception e) {
+		}catch(DataIntegrityViolationException e) {
+			throw new Exception("Id and Info should be unique", e);
+		} 
+		catch (Exception e) {
 			e.printStackTrace();
+			throw new Exception("Some error occured", e);
 		}
-		return s;
+
 	}
 	
 	@RequestMapping(value = "/deleteDropdown", method = RequestMethod.POST)
