@@ -15,11 +15,13 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
 
@@ -40,15 +42,24 @@ public class StopTransactions implements Serializable {
 	@Column
 	private String device_id;
 	private String stop_id;
-	private String direction;
+
+	@JsonInclude()
+	@Transient
+	private Dropdowns direction;
 	private String street_on;
 	private String nearest_cross_street;
-	private String position;
-	private String fastened_to;
+	@JsonInclude()
+	@Transient
+	private Dropdowns position;
+	@JsonInclude()
+	@Transient
+	private Dropdowns fastened_to;
 	private Double latitude;
 	private Double longitude;
 	private String location;
-	private String county;
+	@JsonInclude()
+	@Transient
+	private Dropdowns county;
 	private String status;
 	private Boolean shelter;
 	private Boolean advertisement;
@@ -58,13 +69,15 @@ public class StopTransactions implements Serializable {
 	private Boolean time_table;
 	private Boolean system_map;
 	private String transaction_type;
+	@JsonInclude()
+	@Transient
+	private List<Dropdowns> routes;
 
 	//@ManyToMany
 	//@JoinTable(name = "route_transaction", joinColumns = @JoinColumn(name = "transaction_no"), inverseJoinColumns = @JoinColumn(name = "route_id"))
 	
 	@ManyToMany
 	@JoinTable(name = "dropdown_transaction", joinColumns = @JoinColumn(name = "transaction_no"), inverseJoinColumns = @JoinColumn(name = "dropdown_id"))
-	
 	private List<Dropdowns> dropdowns = new ArrayList<>();
 	//private List<Route> routes = new ArrayList<>();
 
@@ -185,11 +198,11 @@ public class StopTransactions implements Serializable {
 		this.stop_id = stop_id;
 	}
 
-	public String getDirection() {
+	public Dropdowns getDirection() {
 		return direction;
 	}
 
-	public void setDirection(String direction) {
+	public void setDirection(Dropdowns direction) {
 		this.direction = direction;
 	}
 
@@ -209,19 +222,19 @@ public class StopTransactions implements Serializable {
 		this.nearest_cross_street = nearest_cross_street;
 	}
 
-	public String getPosition() {
+	public Dropdowns getPosition() {
 		return position;
 	}
 
-	public void setPosition(String position) {
+	public void setPosition(Dropdowns position) {
 		this.position = position;
 	}
 
-	public String getFastened_to() {
+	public Dropdowns getFastened_to() {
 		return fastened_to;
 	}
 
-	public void setFastened_to(String fastened_to) {
+	public void setFastened_to(Dropdowns fastened_to) {
 		this.fastened_to = fastened_to;
 	}
 
@@ -241,11 +254,11 @@ public class StopTransactions implements Serializable {
 		this.longitude = longitude;
 	}
 
-	public String getCounty() {
+	public Dropdowns getCounty() {
 		return county;
 	}
 
-	public void setCounty(String county) {
+	public void setCounty(Dropdowns county) {
 		this.county = county;
 	}
 
@@ -345,13 +358,13 @@ public class StopTransactions implements Serializable {
 		this.additional_information = additional_information;
 	}
 
-//	public List<Route> getRoutes() {
-//		return routes;
-//	}
-//
-//	public void setRoutes(List<Route> routes) {
-//		this.routes = routes;
-//	}
+	public List<Dropdowns> getRoutes() {
+		return routes;
+	}
+
+	public void setRoutes(List<Dropdowns> routes) {
+		this.routes = routes;
+	}
 	
 	public String getUsername() {
 		return username;
