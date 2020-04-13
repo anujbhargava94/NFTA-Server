@@ -162,13 +162,13 @@ public class TransactionServiceImpl implements TransactionService {
 			for (Dropdowns element : dropDowns) {
 				if (element.getDropdown_type().equals("route")) {
 					routes.add(element);
-				} else if (element.getDropdown_type().equals("county")) {
+				}  if (element.getDropdown_type().equals("county")) {
 					transaction.setCounty(element);
-				} else if (element.getDropdown_type().equals("fastenedTo")) {
+				}  if (element.getDropdown_type().equals("fastenedTo")) {
 					transaction.setFastened_to(element);
-				} else if (element.getDropdown_type().equals("direction")) {
+				}  if (element.getDropdown_type().equals("direction")) {
 					transaction.setDirection(element);
-				} else if (element.getDropdown_type().equals("position")) {
+				}  if (element.getDropdown_type().equals("position")) {
 					transaction.setPosition(element);
 				}
 
