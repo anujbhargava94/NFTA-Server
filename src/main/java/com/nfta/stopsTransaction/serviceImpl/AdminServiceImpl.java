@@ -62,7 +62,7 @@ public class AdminServiceImpl implements AdminService {
             message.setSubject("Complete Password Reset!");
             String token = getConfirmationToken();
             message.setText("To complete the password reset process, please click here: "
-                    + "https://nftainventory.herokuapp.com/confirmreset?token="+token);
+                    + "https://web-nfta.herokuapp.com/confirmreset?token="+token);
             saveConfirmationToken(email_id, token);
             Transport.send(message);
         } catch (MessagingException e) {
