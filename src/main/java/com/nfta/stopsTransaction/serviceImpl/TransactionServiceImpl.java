@@ -79,10 +79,12 @@ public class TransactionServiceImpl implements TransactionService {
 				serviceRequest.setStatus("Closed");
 				updateServiceRequestStatus(stopTransaction.getWork_request());
 			}
+			List<String> mailids = new ArrayList<>();
 			List<AdminUser> adminUsers = adminDao.getAllUsers();
 			for (AdminUser adminUser : adminUsers) {
-				sendMail(adminUser.getUsername(), stopTransaction);
+				mailids.add(adminUser.getUsername());
 			}
+			sendMail(String.join(",", mailids), stopTransaction);
 		}
 		return status;
 	}
