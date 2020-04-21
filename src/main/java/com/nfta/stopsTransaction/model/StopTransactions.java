@@ -81,6 +81,19 @@ public class StopTransactions implements Serializable {
 	@JoinTable(name = "dropdown_transaction", joinColumns = @JoinColumn(name = "transaction_no"), inverseJoinColumns = @JoinColumn(name = "dropdown_id"))
 	private List<Dropdowns> dropdowns = new ArrayList<>();
 	//private List<Route> routes = new ArrayList<>();
+	
+	private String deviceName;
+	
+
+	public String getDeviceName() {
+		return deviceName;
+	}
+
+	public void setDeviceName(String deviceName) {
+		this.deviceName = deviceName;
+	}
+	
+	
 
 //	@Lob
 //	@Column(name = "image", length = 1000)
