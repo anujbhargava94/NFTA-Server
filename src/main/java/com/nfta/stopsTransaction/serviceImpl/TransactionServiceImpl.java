@@ -60,7 +60,7 @@ public class TransactionServiceImpl implements TransactionService {
 			for (StopTransactions transaction : list) {
 				setRespectiveDropDowns(transaction);
 			}
-			//Collections.sort(list, comparator);
+			// Collections.sort(list, comparator);
 		}
 		return list;
 	}
@@ -82,7 +82,9 @@ public class TransactionServiceImpl implements TransactionService {
 			List<String> mailids = new ArrayList<>();
 			List<AdminUser> adminUsers = adminDao.getAllUsers();
 			for (AdminUser adminUser : adminUsers) {
-				mailids.add(adminUser.getUsername());
+				if (adminUser.getUsername() != null && adminUser.getUsername().contains("@")) {
+					mailids.add(adminUser.getUsername());
+				}
 			}
 			sendMail(String.join(",", mailids), stopTransaction);
 		}
