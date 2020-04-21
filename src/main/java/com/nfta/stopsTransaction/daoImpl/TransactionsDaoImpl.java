@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -76,15 +77,26 @@ public class TransactionsDaoImpl implements TransactionsDao{
 	}
 
 	@Override
-	public List<StopTransactions> getAll() {
+	public List<StopTransactions> getAll(String device) {
 
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<StopTransactions> cq = cb.createQuery(StopTransactions.class);
 		Root<StopTransactions> stop = cq.from(StopTransactions.class);
+		if(device!=null && !device.isEmpty()) {
+			List<Predicate> predicates = new ArrayList<>();
+			predicates.add(cb.like(stop.get("deviceName"), "%" +device + "%"));
+			cq.where(predicates.toArray(new Predicate[0]));
+		}
+		cq.orderBy(cb.desc(stop.get("transaction_no")));
 		CriteriaQuery<StopTransactions> all = cq.select(stop);
-		TypedQuery<StopTransactions> allQuery = em.createQuery(all);
+		TypedQuery<StopTransactions> allQuery;
+		if(device!=null)
+		{
+			 allQuery = em.createQuery(all).setMaxResults(20);
+		}else {
+			allQuery = em.createQuery(all);
+		}
 		return allQuery.getResultList();
-		// return em.createQuery("SELECT r FROM StopTransactions r").getResultList();
 	}
 
 	@Override

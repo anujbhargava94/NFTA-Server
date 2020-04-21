@@ -17,7 +17,7 @@ public interface TransactionService {
 	
 	public List<StopTransactions> getTransactions(SearchFilters searchFilters);
 
-	public List<StopTransactions> getAllTransactions();
+	public List<StopTransactions> getAllTransactions(String device);
 
 	public void sendMail(String email_id, StopTransactions stopTransaction); 
 

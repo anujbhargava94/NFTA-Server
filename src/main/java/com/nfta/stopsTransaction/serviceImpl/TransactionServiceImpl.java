@@ -54,13 +54,13 @@ public class TransactionServiceImpl implements TransactionService {
 	}
 
 	@Override
-	public List<StopTransactions> getAllTransactions() {
-		List<StopTransactions> list = transactionsDao.getAll();
+	public List<StopTransactions> getAllTransactions(String device) {
+		List<StopTransactions> list = transactionsDao.getAll(device);
 		if (list != null && !list.isEmpty()) {
 			for (StopTransactions transaction : list) {
 				setRespectiveDropDowns(transaction);
 			}
-			Collections.sort(list, comparator);
+			//Collections.sort(list, comparator);
 		}
 		return list;
 	}
