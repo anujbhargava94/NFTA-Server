@@ -70,7 +70,9 @@ public class TransactionsDaoImpl implements TransactionsDao{
 		if (Objects.nonNull(filters.getTransaction_no())) {
 			predicates.add(cb.equal(stop.get("transaction_no"), filters.getTransaction_no()));
 		}
+		
 		cq.where(predicates.toArray(new Predicate[0]));
+		cq.orderBy(cb.desc(stop.get("transaction_no")));
 
 		return em.createQuery(cq).getResultList();
 
