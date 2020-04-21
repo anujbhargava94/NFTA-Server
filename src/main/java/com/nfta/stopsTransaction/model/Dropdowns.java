@@ -16,9 +16,10 @@ import lombok.Data;
 
 
 @Entity
-@Table(name = "dropdowns", uniqueConstraints={
-		   @UniqueConstraint(columnNames={"dropdown_type", "dropdown_value","active"}),
-		   @UniqueConstraint(columnNames={"dropdown_type", "display_name","active"})
+@Table(name = "dropdowns"
+, uniqueConstraints={
+		   @UniqueConstraint(columnNames={"dropdown_type", "dropdown_value","uniqueVariable"}),
+		   @UniqueConstraint(columnNames={"dropdown_type", "display_name","uniqueVariable"})
 		})
 @Data
 public class Dropdowns implements Serializable {	
@@ -29,6 +30,7 @@ public class Dropdowns implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.TABLE)
 	private Integer dropdown_id;
+	private Integer uniqueVariable=1;
 	private String dropdown_type;
 	private Integer dropdown_value;
 	private String display_name;
@@ -69,6 +71,19 @@ public class Dropdowns implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	/**
+	 * @return the uniqueVariable
+	 */
+	public Integer getUniqueVariable() {
+		return uniqueVariable;
+	}
+	/**
+	 * @param uniqueVariable the uniqueVariable to set
+	 */
+	public void setUniqueVariable(Integer uniqueVariable) {
+		this.uniqueVariable = uniqueVariable;
+	}
+
 
 			
 }

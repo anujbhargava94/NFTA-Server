@@ -63,6 +63,7 @@ public class DropdownDaoImpl implements DropdownDao {
 		Root<Dropdowns> e = update.from(Dropdowns.class);
 		/** set update and where clause **/
 		update.set("active", false);
+		update.set("uniqueVariable", dropdown.getDropdown_id());
 		update.where(cb.equal(e.get("dropdown_id"), dropdown.getDropdown_id()));
 		/** perform update **/
 		this.em.createQuery(update).executeUpdate();
