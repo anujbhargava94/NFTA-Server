@@ -47,6 +47,7 @@ public class ServiceRequestDaoImpl implements ServiceRequestDao {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<ServiceRequest> cq = cb.createQuery(ServiceRequest.class);
 		Root<ServiceRequest> stop = cq.from(ServiceRequest.class);
+		cq.orderBy(cb.desc(stop.get("request_id")));
 		CriteriaQuery<ServiceRequest> all = cq.select(stop);
 		TypedQuery<ServiceRequest> allQuery = em.createQuery(all);
 		return allQuery.getResultList();
@@ -86,7 +87,7 @@ public class ServiceRequestDaoImpl implements ServiceRequestDao {
 				predicates.add(cb.like(servReq.get("request_type"), "%" + filters.getRequestType() + "%"));
 			}
 			cq.where(predicates.toArray(new Predicate[0]));
-	
+			cq.orderBy(cb.desc(servReq.get("request_id")));
 			return em.createQuery(cq).getResultList();
 		}
 		catch(Exception e) {
