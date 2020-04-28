@@ -22,6 +22,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;
@@ -95,8 +96,9 @@ public class ServiceRequest implements Serializable{
 	public void setImage2(String image2) {
 		this.image2 = image2;
 	}
-// 	@CreationTimestamp
-//     private LocalDateTime createDateTime;
+ 	@CreationTimestamp
+ 	@JsonIgnoreProperties("create_date_time")
+    private LocalDateTime create_date_time;
  
 //     @UpdateTimestamp
 //     private LocalDateTime updateDateTime;
@@ -167,13 +169,13 @@ public class ServiceRequest implements Serializable{
 	
 	
 	
-// 	public LocalDateTime getCreateDateTime() {
-// 		return createDateTime;
-// 	}
+ 	public String getCreateDateTime() {
+ 		return create_date_time.toString();
+ 	}
 
-// 	public void setCreateDateTime(LocalDateTime createDateTime) {
-// 		this.createDateTime = createDateTime;
-// 	}
+ 	public void setCreateDateTime(LocalDateTime create_date_time) {
+ 		this.create_date_time = create_date_time;
+ 	}
 
 // 	public LocalDateTime getUpdateDateTime() {
 // 		return updateDateTime;

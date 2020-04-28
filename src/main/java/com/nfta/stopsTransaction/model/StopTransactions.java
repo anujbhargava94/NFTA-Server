@@ -143,9 +143,9 @@ public class StopTransactions implements Serializable {
 //	@Temporal(value=TemporalType.DATE)
 //	Date date;
 
-// 	@CreationTimestamp
-// 	@JsonIgnoreProperties("createDateTime")
-// 	private LocalDateTime createDateTime;
+ 	@CreationTimestamp
+ 	@JsonIgnoreProperties("create_date_time")
+ 	private LocalDateTime create_date_time;
 
 // 	@UpdateTimestamp
 // 	@JsonIgnoreProperties("createDateTime")
@@ -159,13 +159,13 @@ public class StopTransactions implements Serializable {
 		this.transaction_type = transaction_type;
 	}
 
-// 	public String getCreateDateTime() {
-// 		return createDateTime.toString();
-// 	}
+	public String getCreateDateTime() {
+ 		return create_date_time.toString();
+ 	}
 
-// 	public void setCreateDateTime(LocalDateTime createDateTime) {
-// 		this.createDateTime = createDateTime;
-// 	}
+ 	public void setCreateDateTime(LocalDateTime create_date_time) {
+ 		this.create_date_time = create_date_time;
+ 	}
 
 // 	public LocalDateTime getUpdateDateTime() {
 // 		return updateDateTime;

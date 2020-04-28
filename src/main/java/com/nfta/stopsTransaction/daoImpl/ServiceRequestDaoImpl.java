@@ -1,5 +1,9 @@
 package com.nfta.stopsTransaction.daoImpl;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -76,7 +80,12 @@ public class ServiceRequestDaoImpl implements ServiceRequestDao {
 				predicates.add(cb.like(servReq.get("stop_id"), "%" + filters.getStopID() + "%"));
 			}
 			if (Objects.nonNull(filters.getDateFrom())) {
-				predicates.add(cb.between(servReq.get("date_time"), filters.getDateFrom(), filters.getDateTo()));
+				String dateFrom = filters.getDateFrom(); 
+				String dateTo = filters.getDateTo();
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
+				LocalDateTime dateTimeFrom = LocalDate.parse(dateFrom, formatter).atStartOfDay();
+				LocalDateTime dateTimeTo = LocalDate.parse(dateTo, formatter).atTime(LocalTime.MAX);
+				predicates.add(cb.between(servReq.get("create_date_time"), dateTimeFrom, dateTimeTo));
 			}
 			if (Objects.nonNull(filters.getStatus())) {
 				predicates.add(cb.like(servReq.get("status"), "%" + filters.getStatus() + "%"));
