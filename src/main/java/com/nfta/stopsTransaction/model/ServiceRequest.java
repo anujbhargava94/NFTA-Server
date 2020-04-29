@@ -97,8 +97,8 @@ public class ServiceRequest implements Serializable{
 		this.image2 = image2;
 	}
  	@CreationTimestamp
- 	@JsonIgnoreProperties("create_date_time")
-    private LocalDateTime create_date_time;
+ 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
+    private java.sql.Timestamp create_date_time;
  
 //     @UpdateTimestamp
 //     private LocalDateTime updateDateTime;
@@ -168,14 +168,7 @@ public class ServiceRequest implements Serializable{
 	}
 	
 	
-	
- 	public String getCreateDateTime() {
- 		return create_date_time.toString();
- 	}
 
- 	public void setCreateDateTime(LocalDateTime create_date_time) {
- 		this.create_date_time = create_date_time;
- 	}
 
 // 	public LocalDateTime getUpdateDateTime() {
 // 		return updateDateTime;
