@@ -1,5 +1,8 @@
 package com.nfta.stopsTransaction.daoImpl;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -61,9 +64,8 @@ public class TransactionsDaoImpl implements TransactionsDao{
 		if (Objects.nonNull(filters.getDateFrom())) {
 			String dateFrom = filters.getDateFrom(); 
 			String dateTo = filters.getDateTo();
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
-			LocalDateTime dateTimeFrom = LocalDate.parse(dateFrom, formatter).atStartOfDay();
-			LocalDateTime dateTimeTo = LocalDate.parse(dateTo, formatter).atTime(LocalTime.MAX);
+			Timestamp dateTimeFrom=Timestamp.valueOf(dateFrom + " 00:00:00");  
+			Timestamp dateTimeTo=Timestamp.valueOf(dateTo + " 23:59:59");
 			predicates.add(cb.between(stop.get("create_date_time"), dateTimeFrom, dateTimeTo));
 		}
 		if (Objects.nonNull(filters.getStatus())) {

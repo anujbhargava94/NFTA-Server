@@ -22,6 +22,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -103,6 +104,14 @@ public class ServiceRequest implements Serializable{
 //     @UpdateTimestamp
 //     private LocalDateTime updateDateTime;
 	
+	public java.sql.Timestamp getCreate_date_time() {
+		return create_date_time;
+	}
+
+	public void setCreate_date_time(java.sql.Timestamp create_date_time) {
+		this.create_date_time = create_date_time;
+	}
+
 	public Integer getRequest_id() {
 		return request_id;
 	}
