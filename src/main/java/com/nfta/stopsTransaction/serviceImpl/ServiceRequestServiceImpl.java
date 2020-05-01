@@ -78,4 +78,10 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
 		}
 
 	}
+	
+	@Override
+	public String updateServiceRequest(ServiceRequest serviceRequest) {
+		// TODO Auto-generated method stub
+		return serviceRequestDao.update(serviceRequest);
+	}
 }

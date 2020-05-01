@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import com.nfta.stopsTransaction.dao.ServiceRequestDao;
 import com.nfta.stopsTransaction.model.SearchFilters;
 import com.nfta.stopsTransaction.model.ServiceRequest;
+import com.nfta.stopsTransaction.model.StopTransactions;
 
 @Service
 @Transactional
@@ -51,6 +52,7 @@ public class ServiceRequestDaoImpl implements ServiceRequestDao {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<ServiceRequest> cq = cb.createQuery(ServiceRequest.class);
 		Root<ServiceRequest> stop = cq.from(ServiceRequest.class);
+		cq.orderBy(cb.desc(stop.get("request_id")));
 		CriteriaQuery<ServiceRequest> all = cq.select(stop);
 		TypedQuery<ServiceRequest> allQuery = em.createQuery(all);
 		return allQuery.getResultList();
@@ -94,19 +96,28 @@ public class ServiceRequestDaoImpl implements ServiceRequestDao {
 				predicates.add(cb.like(servReq.get("request_type"), "%" + filters.getRequestType() + "%"));
 			}
 			cq.where(predicates.toArray(new Predicate[0]));
-	
+			cq.orderBy(cb.desc(servReq.get("request_id")));
 			return em.createQuery(cq).getResultList();
 		}
 		catch(Exception e) {
 			return null;
 		}
 	}
-/*	@Override
-	public void update(ServiceRequest s) {
+	@Transactional
+	@Override
+	public String update(ServiceRequest serviceRequest) {
 		// TODO Auto-generated method stub
-		
+		ServiceRequest t =em.find(ServiceRequest.class, serviceRequest.getRequest_id());
+		if(t==null)
+		{
+			return "No such request exists";
+		}
+	
+		t.setStatus(serviceRequest.getStatus());
+		return "";
 	}
 
+	/*
 	@Override
 	public void delete(ServiceRequest s) {
 		// TODO Auto-generated method stub

@@ -11,7 +11,7 @@ import com.nfta.stopsTransaction.model.StopTransactions;
 public interface TransactionsDao {
 	
 	public List<StopTransactions> get(SearchFilters filters);
-    public List<StopTransactions> getAll();
+    public List<StopTransactions> getAll(String device);
     public String addOrUpdate(StopTransactions stopTransaction);
     public String update(StopTransactions stopTransaction);
     public void delete(StopTransactions t);

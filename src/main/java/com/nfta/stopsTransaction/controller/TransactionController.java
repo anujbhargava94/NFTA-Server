@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,10 +56,10 @@ public class TransactionController {
     
 	//@CrossOrigin(origins="http://localhost:3000")
 	@RequestMapping(value = "/transactions", method = RequestMethod.GET)
-	public @ResponseBody String getTransactions() {
+	public @ResponseBody String getTransactions(@RequestHeader("device") String device) {
 		List<StopTransactions> list = new ArrayList<>();
 		try {
-			list = service.getAllTransactions();
+			list = service.getAllTransactions(device);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
