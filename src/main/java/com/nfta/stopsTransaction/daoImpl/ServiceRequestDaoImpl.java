@@ -1,5 +1,10 @@
 package com.nfta.stopsTransaction.daoImpl;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -78,7 +83,11 @@ public class ServiceRequestDaoImpl implements ServiceRequestDao {
 				predicates.add(cb.like(servReq.get("stop_id"), "%" + filters.getStopID() + "%"));
 			}
 			if (Objects.nonNull(filters.getDateFrom())) {
-				predicates.add(cb.between(servReq.get("date_time"), filters.getDateFrom(), filters.getDateTo()));
+				String dateFrom = filters.getDateFrom(); 
+				String dateTo = filters.getDateTo();
+				Timestamp dateTimeFrom=Timestamp.valueOf(dateFrom + " 00:00:00");  
+				Timestamp dateTimeTo=Timestamp.valueOf(dateTo + " 23:59:59");
+				predicates.add(cb.between(servReq.get("create_date_time"), dateTimeFrom, dateTimeTo));
 			}
 			if (Objects.nonNull(filters.getStatus())) {
 				predicates.add(cb.like(servReq.get("status"), "%" + filters.getStatus() + "%"));

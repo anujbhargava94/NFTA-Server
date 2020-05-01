@@ -21,6 +21,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -156,9 +157,9 @@ public class StopTransactions implements Serializable {
 //	@Temporal(value=TemporalType.DATE)
 //	Date date;
 
-// 	@CreationTimestamp
-// 	@JsonIgnoreProperties("createDateTime")
-// 	private LocalDateTime createDateTime;
+ 	@CreationTimestamp
+ 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
+ 	private java.sql.Timestamp create_date_time;
 
 // 	@UpdateTimestamp
 // 	@JsonIgnoreProperties("createDateTime")
@@ -172,13 +173,13 @@ public class StopTransactions implements Serializable {
 		this.transaction_type = transaction_type;
 	}
 
-// 	public String getCreateDateTime() {
-// 		return createDateTime.toString();
-// 	}
+	public String getCreateDateTime() {
+ 		return create_date_time.toString();
+ 	}
 
-// 	public void setCreateDateTime(LocalDateTime createDateTime) {
-// 		this.createDateTime = createDateTime;
-// 	}
+ 	public void setCreateDateTime(java.sql.Timestamp create_date_time) {
+ 		this.create_date_time = create_date_time;
+ 	}
 
 // 	public LocalDateTime getUpdateDateTime() {
 // 		return updateDateTime;

@@ -12,4 +12,6 @@ target/classes/**
 .factorypath
 node_modules/
 application.log
+application/cache
+*.gz
 application.log.*
