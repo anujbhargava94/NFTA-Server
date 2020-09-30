@@ -14,6 +14,8 @@ For MySQL server
 1) setup the installation and setup the username/passowrd.
 2) Update the credentials in the application.properties under src/main/resources folder of the codebase.
 
+## [Technical Specifications](https://github.com/anujbhargava94/NFTA-Server/blob/master/TechnicalSpecifications.md)
+
 ## Requirements and Description
 
 ### NFTA Requirements Document
